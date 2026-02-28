@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { serif, sans } from "@/lib/fonts";
+import { heading, sans, display } from "@/lib/fonts";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { SmoothScroll } from "@/lib/smooth-scroll";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,8 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
-      <body className="font-sans antialiased">
+    <html
+      lang="en"
+      className={`${heading.variable} ${sans.variable} ${display.variable}`}
+    >
+      <body className="font-sans antialiased bg-bg text-foreground">
+        <SmoothScroll />
         <Navbar />
         <main>{children}</main>
         <Footer />
