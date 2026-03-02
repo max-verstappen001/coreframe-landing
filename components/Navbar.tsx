@@ -8,8 +8,9 @@ import { Magnetic } from "@/lib/animations";
 
 const NAV_LINKS = [
   { label: "Services", href: "/#services" },
-  { label: "Work", href: "/case-studies" },
-  { label: "Process", href: "/#engagement" },
+  { label: "Projects", href: "/projects" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 

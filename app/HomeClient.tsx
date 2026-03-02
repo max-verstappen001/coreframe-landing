@@ -1,11 +1,14 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/Section";
 import { Button, ArrowRight } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { Container } from "@/components/Container";
+import { SectionQuery } from "@/components/SectionQuery";
+import { TechLogosBackground } from "@/components/TechLogosBackground";
+import { LogoMarquee } from "@/components/LogoMarquee";
 import {
   Reveal,
   Stagger,
@@ -13,6 +16,7 @@ import {
   TextReveal,
   Magnetic,
 } from "@/lib/animations";
+import { useState } from "react";
 
 /* ────────────────────────── Hero ────────────────────────── */
 function Hero() {
@@ -33,6 +37,9 @@ function Hero() {
       {/* Background effects */}
       <div className="absolute inset-0 bg-grid mask-fade-b" />
       <div className="absolute inset-0 bg-radial-fade" />
+
+      {/* Floating tech logos */}
+      <TechLogosBackground />
 
       {/* Animated orbs */}
       <motion.div
@@ -241,6 +248,12 @@ function Services() {
           </StaggerItem>
         ))}
       </Stagger>
+
+      <SectionQuery
+        section="Services"
+        prompt="Have a question about our capabilities?"
+        placeholder="e.g. What does a strategic retainer include?"
+      />
     </Section>
   );
 }
@@ -332,6 +345,12 @@ function SelectedWork() {
           </Reveal>
         ))}
       </div>
+
+      <SectionQuery
+        section="Selected Work"
+        prompt="Curious about one of these projects?"
+        placeholder="e.g. How did you approach the MarginX transformation?"
+      />
     </Section>
   );
 }
@@ -435,6 +454,12 @@ function Audience() {
           </div>
         </Reveal>
       </div>
+
+      <SectionQuery
+        section="Fit Assessment"
+        prompt="Not sure if you're a good fit? Ask us."
+        placeholder="e.g. We're a 20-person ops team — are we the right profile?"
+      />
     </Section>
   );
 }
@@ -502,6 +527,139 @@ function Engagement() {
           </StaggerItem>
         ))}
       </Stagger>
+
+      <SectionQuery
+        section="Engagement Models"
+        prompt="Questions about how we work together?"
+        placeholder="e.g. What does a discovery sprint involve?"
+      />
+    </Section>
+  );
+}
+
+/* ────────────────────────── FAQ ────────────────────────── */
+const FAQS = [
+  {
+    q: "What exactly does CoreFrame do?",
+    a: "CoreFrame is a boutique digital transformation partner. We embed with founder-led and operator-run businesses to improve margins, modernize operations, and build the digital systems that underpin scalable growth. Our work spans strategic advisory, systems integration, product engineering, and applied AI — always tied to measurable business outcomes.",
+  },
+  {
+    q: "Who is a typical CoreFrame client?",
+    a: "Our clients are typically revenue-generating businesses — restaurants, operators, SaaS founders, and service companies — that have outgrown their current systems or are facing operational complexity they can't resolve internally. They want a senior technical partner who will own the problem, not just execute tasks.",
+  },
+  {
+    q: "How does an engagement typically start?",
+    a: "Most engagements begin with a discovery sprint — a focused 2–4 week diagnostic where we map your operations, identify leverage points, and produce a clear transformation roadmap. This gives you a concrete plan before committing to a longer retainer. Some clients move directly into a retainer if the scope is well-defined.",
+  },
+  {
+    q: "How long does a typical engagement last?",
+    a: "Our default model is a long-term strategic retainer, usually spanning 6–18 months. Transformation work rarely produces lasting results from short engagements — we embed deeply, which requires time. That said, we also take on scoped project work where the deliverable and timeline are clearly defined upfront.",
+  },
+  {
+    q: "How do you approach AI — and when do you say no to it?",
+    a: "We use applied AI where there is a clear, quantifiable ROI: task automation that reduces headcount cost, decision-support tools that improve margin or reduce error, and agent workflows that eliminate repetitive manual processes. We actively push back on AI for its own sake. If there is no business case, we will tell you — and recommend a simpler, cheaper solution instead.",
+  },
+  {
+    q: "What makes CoreFrame different from a regular software agency?",
+    a: "Agencies execute what you spec. We help you figure out what to build and why — then own the delivery. Every engagement is senior-led, meaning the people doing the strategic thinking are the same people building the systems. We keep our client roster small deliberately so each engagement gets the attention it deserves.",
+  },
+  {
+    q: "Can you work with non-technical founders?",
+    a: "Yes — and this is often where we add the most value. We translate business problems into technical solutions, handle vendor selection, architecture decisions, and delivery, and communicate progress in plain language. You do not need to understand the stack to work with us effectively.",
+  },
+  {
+    q: "What does your delivery process look like?",
+    a: "We work in structured cycles with clear deliverables, defined check-in cadences, and measurable outcomes at each stage. You will always know what is being built, why, and what it should produce. We avoid status meetings that lack substance and scope creep that doesn't serve the roadmap.",
+  },
+  {
+    q: "How many clients do you work with at one time?",
+    a: "We deliberately limit our active client base. Taking too many engagements simultaneously is the fastest way to deliver mediocre work — and that is not how we operate. We maintain selective capacity so every client receives senior-level attention and meaningful forward progress.",
+  },
+  {
+    q: "How do I start a conversation with CoreFrame?",
+    a: "Use the contact form on our Contact page or the query boxes throughout this site. Tell us briefly about your business, the problem you're trying to solve, and where you are today. We'll respond within 1–2 business days to assess fit and, if there's alignment, schedule an introductory call.",
+  },
+];
+
+function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  return (
+    <Section id="faq" padding="large">
+      <Reveal>
+        <div className="text-center mb-16">
+          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
+            FAQ
+          </span>
+          <h2 className="mt-4 font-heading text-display-md text-foreground">
+            Common Questions
+          </h2>
+          <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
+            Answers to the questions we hear most often.
+          </p>
+        </div>
+      </Reveal>
+
+      <div className="max-w-3xl mx-auto divide-y divide-border">
+        {FAQS.map((item, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <Reveal key={i} delay={i * 0.04}>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="w-full flex items-start justify-between gap-6 py-7 text-left group"
+                  aria-expanded={isOpen}
+                >
+                  <span className="font-heading text-lg text-foreground group-hover:text-accent transition-colors duration-300 leading-snug">
+                    {item.q}
+                  </span>
+                  <span
+                    className={`shrink-0 flex items-center justify-center w-7 h-7 rounded-full border transition-all duration-300 ${
+                      isOpen
+                        ? "border-accent bg-accent/10 rotate-45"
+                        : "border-border-hover group-hover:border-accent"
+                    }`}
+                  >
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      className={`transition-colors duration-300 ${
+                        isOpen ? "text-accent" : "text-muted group-hover:text-accent"
+                      }`}
+                    >
+                      <path d="M6 1v10M1 6h10" />
+                    </svg>
+                  </span>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="answer"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p className="pb-7 font-sans text-body-sm text-muted leading-relaxed">
+                        {item.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </Reveal>
+          );
+        })}
+      </div>
     </Section>
   );
 }
@@ -542,16 +700,263 @@ function FinalCTA() {
   );
 }
 
+/* ────────────────────────── AI Experience ────────────────────────── */
+function AIExperience() {
+  const highlights = [
+    {
+      number: "10+",
+      label: "AI Projects Delivered",
+      description: "From LLM-powered agents to predictive analytics systems across multiple industries.",
+    },
+    {
+      number: "5+",
+      label: "Industries Served",
+      description: "Restaurant, SaaS, E-commerce, Healthcare, and Professional Services.",
+    },
+    {
+      number: "150K+",
+      label: "Lines of Production Code",
+      description: "Battle-tested systems running in production, handling real business operations.",
+    },
+  ];
+
+  return (
+    <Section background="elevated" padding="large">
+      <Reveal>
+        <div className="text-center mb-16">
+          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
+            Experience
+          </span>
+          <h2 className="mt-4 font-heading text-display-md text-foreground">
+            Built on Real AI Expertise
+          </h2>
+          <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
+            We don&rsquo;t just talk about AI — we build, ship, and maintain AI systems in production every day.
+          </p>
+        </div>
+      </Reveal>
+
+      <Stagger className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
+        {highlights.map((item) => (
+          <StaggerItem key={item.label}>
+            <div className="text-center rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover">
+              <span className="font-heading text-display-md text-accent">{item.number}</span>
+              <h3 className="mt-3 font-display text-body-sm font-medium text-foreground">{item.label}</h3>
+              <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">{item.description}</p>
+            </div>
+          </StaggerItem>
+        ))}
+      </Stagger>
+
+      <div className="mt-12 text-center">
+        <Button href="/about" variant="ghost" icon={<ArrowRight />}>
+          Learn more about our team
+        </Button>
+      </div>
+    </Section>
+  );
+}
+
+/* ────────────────────────── Project Showcase ────────────────────────── */
+function ProjectShowcase() {
+  const categories = [
+    {
+      tag: "AI Apps",
+      title: "Intelligent Applications",
+      description: "Full-stack AI applications that solve real problems — from smart inventory systems to content generation platforms.",
+      count: "3 projects",
+    },
+    {
+      tag: "AI Agents",
+      title: "Autonomous Agent Systems",
+      description: "Custom agents for customer support, document processing, and business automation that work 24/7.",
+      count: "3 projects",
+    },
+    {
+      tag: "AI Projects",
+      title: "Applied AI Solutions",
+      description: "LLM integrations, predictive analytics, and machine learning models deployed in production environments.",
+      count: "2 projects",
+    },
+    {
+      tag: "Digital Transformation",
+      title: "Systems Modernization",
+      description: "End-to-end operational overhauls connecting disparate systems into unified, intelligent platforms.",
+      count: "2 projects",
+    },
+  ];
+
+  return (
+    <Section padding="large">
+      <Reveal>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div>
+            <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
+              Our Work
+            </span>
+            <h2 className="mt-4 font-heading text-display-md text-foreground">
+              Projects by Category
+            </h2>
+          </div>
+          <Button href="/projects" variant="ghost" icon={<ArrowRight />}>
+            View all projects
+          </Button>
+        </div>
+      </Reveal>
+
+      <Stagger className="grid md:grid-cols-2 gap-6" staggerDelay={0.12}>
+        {categories.map((cat, i) => (
+          <StaggerItem key={i}>
+            <Card href="/projects">
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-display text-caption uppercase tracking-[0.15em] text-accent">
+                  {cat.tag}
+                </span>
+                <span className="font-display text-[11px] text-subtle">{cat.count}</span>
+              </div>
+              <h3 className="font-heading text-xl text-foreground group-hover:text-accent transition-colors duration-300">
+                {cat.title}
+              </h3>
+              <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
+                {cat.description}
+              </p>
+              <div className="mt-6 flex items-center gap-2 font-display text-sm text-accent group-hover:gap-3 transition-all duration-300">
+                Explore
+                <ArrowRight />
+              </div>
+            </Card>
+          </StaggerItem>
+        ))}
+      </Stagger>
+    </Section>
+  );
+}
+
+/* ────────────────────────── Investors & Partners ────────────────────────── */
+function InvestorsPartners() {
+  const partners = [
+    {
+      name: "OpenAI",
+      type: "Technology Partner",
+      description: "Powering our AI agent workflows and LLM integrations with GPT-4 and advanced API access.",
+    },
+    {
+      name: "Google Cloud",
+      type: "Infrastructure Partner",
+      description: "Cloud computing, Firebase, and BigQuery for scalable, production-grade deployments.",
+    },
+    {
+      name: "Vercel",
+      type: "Deployment Partner",
+      description: "Next.js hosting and edge deployments for lightning-fast, globally distributed applications.",
+    },
+    {
+      name: "Anthropic",
+      type: "AI Research Partner",
+      description: "Claude AI integration for safety-focused, nuanced AI agent capabilities.",
+    },
+  ];
+
+  const investors = [
+    {
+      name: "Self-Funded",
+      type: "Bootstrap",
+      description: "CoreFrame is proudly bootstrapped — every dollar of revenue is reinvested into building better AI solutions for our clients.",
+    },
+    {
+      name: "Strategic Advisors",
+      type: "Advisory Board",
+      description: "Guided by experienced operators and technologists who help shape our strategy and connect us with the right opportunities.",
+    },
+  ];
+
+  return (
+    <Section background="elevated" padding="large">
+      <Reveal>
+        <div className="text-center mb-16">
+          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
+            Ecosystem
+          </span>
+          <h2 className="mt-4 font-heading text-display-md text-foreground">
+            Partners & Investors
+          </h2>
+          <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
+            We work with the best technology partners and are backed by strategic
+            advisors who share our vision.
+          </p>
+        </div>
+      </Reveal>
+
+      {/* Technology Partners */}
+      <Reveal>
+        <h3 className="font-display text-caption uppercase tracking-[0.15em] text-subtle mb-8">
+          Technology Partners
+        </h3>
+      </Reveal>
+      <Stagger className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12" staggerDelay={0.1}>
+        {partners.map((partner) => (
+          <StaggerItem key={partner.name}>
+            <div className="rounded-2xl border border-border bg-bg-card p-6 transition-all duration-500 hover:border-border-hover h-full">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span className="font-display text-sm font-bold text-accent">
+                    {partner.name.charAt(0)}
+                  </span>
+                </div>
+                <div>
+                  <p className="font-display text-sm font-medium text-foreground">{partner.name}</p>
+                  <p className="font-display text-[10px] uppercase tracking-wider text-accent">{partner.type}</p>
+                </div>
+              </div>
+              <p className="font-sans text-[13px] text-muted leading-relaxed">{partner.description}</p>
+            </div>
+          </StaggerItem>
+        ))}
+      </Stagger>
+
+      {/* Investors */}
+      <Reveal delay={0.2}>
+        <h3 className="font-display text-caption uppercase tracking-[0.15em] text-subtle mb-8">
+          Investors & Backing
+        </h3>
+      </Reveal>
+      <Stagger className="grid md:grid-cols-2 gap-6" staggerDelay={0.15}>
+        {investors.map((inv) => (
+          <StaggerItem key={inv.name}>
+            <div className="rounded-2xl border border-border bg-bg-card p-8 transition-all duration-500 hover:border-border-hover">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="flex items-center justify-center w-8 h-8 rounded-full border border-accent/30 font-display text-xs text-accent">
+                  ✦
+                </span>
+                <div>
+                  <p className="font-display text-sm font-medium text-foreground">{inv.name}</p>
+                  <p className="font-display text-[10px] uppercase tracking-wider text-accent">{inv.type}</p>
+                </div>
+              </div>
+              <p className="font-sans text-body-sm text-muted leading-relaxed">{inv.description}</p>
+            </div>
+          </StaggerItem>
+        ))}
+      </Stagger>
+    </Section>
+  );
+}
+
 /* ────────────────────────── Page Composition ────────────────────────── */
 export default function HomeClient() {
   return (
     <>
       <Hero />
       <TrustStrip />
+      <LogoMarquee />
       <Services />
+      <AIExperience />
       <SelectedWork />
+      <ProjectShowcase />
+      <InvestorsPartners />
       <Audience />
       <Engagement />
+      <FAQ />
       <FinalCTA />
     </>
   );

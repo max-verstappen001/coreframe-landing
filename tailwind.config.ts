@@ -78,6 +78,7 @@ const config: Config = {
         "slide-up": "slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "scale-in": "scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "pulse-glow": "pulseGlow 3s ease-in-out infinite",
+        "marquee": "marquee 32s linear infinite",
       },
       keyframes: {
         fadeIn: {
@@ -95,6 +96,10 @@ const config: Config = {
         pulseGlow: {
           "0%, 100%": { opacity: "0.4" },
           "50%": { opacity: "1" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
     },

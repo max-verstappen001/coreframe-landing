@@ -7,8 +7,9 @@ import { Reveal } from "@/lib/animations";
 
 const FOOTER_LINKS = [
   { label: "Services", href: "/#services" },
+  { label: "Projects", href: "/projects" },
   { label: "Case Studies", href: "/case-studies" },
-  { label: "Process", href: "/#engagement" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 

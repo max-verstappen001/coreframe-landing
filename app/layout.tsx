@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { heading, sans, display } from "@/lib/fonts";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { AIChatWidget } from "@/components/AIChatWidget";
 import { SmoothScroll } from "@/lib/smooth-scroll";
 import "./globals.css";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <AIChatWidget />
       </body>
     </html>
   );

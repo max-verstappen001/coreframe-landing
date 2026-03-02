@@ -105,6 +105,40 @@ export default function ContactPage() {
               </div>
             </div>
           </Reveal>
+
+          {/* Team contacts */}
+          <Reveal delay={0.5}>
+            <div className="mt-8 rounded-2xl border border-border bg-bg-card p-8">
+              <h2 className="font-heading text-lg text-foreground mb-6">
+                Reach the Team Directly
+              </h2>
+              <div className="space-y-5">
+                {[
+                  { name: "Sanjay", role: "Founder & CEO", email: "sanjay@coreframetech.in" },
+                  { name: "Technical Partner", role: "CTO", email: "tech@coreframetech.in" },
+                  { name: "AI Team", role: "Applied AI", email: "ai@coreframetech.in" },
+                ].map((person) => (
+                  <div key={person.email} className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                      <span className="font-display text-sm font-bold text-accent">
+                        {person.name.charAt(0)}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-display text-sm text-foreground">{person.name}</p>
+                      <p className="font-sans text-[12px] text-subtle">{person.role}</p>
+                    </div>
+                    <a
+                      href={`mailto:${person.email}`}
+                      className="font-display text-[12px] text-accent hover:text-foreground transition-colors duration-300 shrink-0"
+                    >
+                      Email
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
 
         {/* Right: Form */}
