@@ -19,5 +19,22 @@ export async function POST(request: Request) {
   console.log("Message:", message);
   console.log("-------------------------------");
 
+  // Forward to notification system
+  const webhookUrl = process.env.WEBHOOK_URL;
+  if (webhookUrl) {
+    fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "contact_form",
+        data: { name, email, company, message },
+        timestamp: new Date().toISOString(),
+        source: "coreframe-landing",
+      }),
+    }).catch(() => {
+      // Non-blocking
+    });
+  }
+
   return NextResponse.json({ success: true });
 }

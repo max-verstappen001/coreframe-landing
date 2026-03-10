@@ -1,87 +1,212 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "./Container";
+import { Magnetic } from "@/lib/animations";
 
 const NAV_LINKS = [
   { label: "Services", href: "/#services" },
   { label: "Case Studies", href: "/case-studies" },
-  { label: "Engagement", href: "/#engagement" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const current = root.getAttribute("data-theme");
+    if (current === "light" || current === "dark") {
+      setTheme(current);
+    } else {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(prefersDark ? "dark" : "light");
+    }
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("coreframe-theme", next);
+  };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
-      <Container className="flex items-center justify-between h-16">
-        <Link
-          href="/"
-          className="font-serif text-lg font-bold tracking-tight text-foreground"
-        >
-          CoreFrame
-        </Link>
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "glass border-b border-border"
+            : "bg-transparent"
+        }`}
+      >
+        <Container className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link href="/" className="relative group">
+            <span className="font-display text-xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-accent">
+              CoreFrame
+            </span>
+            <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-500 ease-out-expo group-hover:w-full" />
+          </Link>
 
-        {/* Desktop */}
-        <ul className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="font-sans text-sm text-muted hover:text-foreground transition-colors duration-200"
+          {/* Desktop nav */}
+          <ul className="hidden md:flex items-center gap-1">
+            <li className="mr-2">
+              <button
+                onClick={toggleTheme}
+                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-border text-muted hover:text-foreground hover:border-border-hover transition-colors duration-300"
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               >
-                {link.label}
-              </Link>
+                {mounted && theme === "dark" ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                  </svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3a7.5 7.5 0 0 0 9 9A9 9 0 1 1 12 3z" />
+                  </svg>
+                )}
+              </button>
             </li>
-          ))}
-        </ul>
-
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden p-2 text-foreground"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          >
-            {open ? (
-              <path d="M4 4l12 12M16 4L4 16" />
-            ) : (
-              <path d="M3 6h14M3 10h14M3 14h14" />
-            )}
-          </svg>
-        </button>
-      </Container>
-
-      {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden border-t border-border bg-background">
-          <Container className="py-4">
-            <ul className="flex flex-col gap-4">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Magnetic strength={0.15}>
                   <Link
                     href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="font-sans text-sm text-muted hover:text-foreground transition-colors duration-200"
+                    className="relative px-5 py-2.5 font-display text-sm text-muted hover:text-foreground transition-colors duration-300 group"
                   >
                     {link.label}
+                    <span className="absolute bottom-1 left-5 right-5 h-[1px] bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out-expo origin-left" />
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </Container>
-        </div>
-      )}
-    </nav>
+                </Magnetic>
+              </li>
+            ))}
+            <li className="ml-4">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-border-hover font-display text-sm text-foreground hover:border-accent hover:text-accent transition-all duration-500 ease-out-expo"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+                </span>
+                Let&apos;s Talk
+              </Link>
+            </li>
+          </ul>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden relative z-50 w-10 h-10 flex items-center justify-center"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+          >
+            <div className="w-6 flex flex-col gap-1.5">
+              <motion.span
+                animate={open ? { rotate: 45, y: 4.5 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="block w-full h-[1.5px] bg-foreground origin-center"
+              />
+              <motion.span
+                animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+                transition={{ duration: 0.2 }}
+                className="block w-full h-[1.5px] bg-foreground"
+              />
+              <motion.span
+                animate={open ? { rotate: -45, y: -4.5 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="block w-full h-[1.5px] bg-foreground origin-center"
+              />
+            </div>
+          </button>
+        </Container>
+      </motion.nav>
+
+      {/* Full-screen mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-40 bg-bg flex flex-col justify-center"
+          >
+            <Container>
+              <nav className="flex flex-col gap-2">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -40 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: i * 0.08,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="block py-4 font-heading text-4xl text-foreground hover:text-accent transition-colors duration-300 border-b border-border"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="mt-12"
+              >
+                <button
+                  onClick={toggleTheme}
+                  className="mb-6 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 font-display text-xs uppercase tracking-[0.12em] text-muted hover:border-accent hover:text-accent transition-colors duration-300"
+                  aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                >
+                  <span className="text-accent">{theme === "dark" ? "Light" : "Dark"}</span>
+                  mode
+                </button>
+                <p className="font-sans text-sm text-muted">Get in touch</p>
+                <a
+                  href="mailto:info@coreframetech.in"
+                  className="font-display text-lg text-accent mt-1 block"
+                >
+                  info@coreframetech.in
+                </a>
+              </motion.div>
+            </Container>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

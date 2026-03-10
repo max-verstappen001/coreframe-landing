@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { serif, sans } from "@/lib/fonts";
+import { heading, sans, display } from "@/lib/fonts";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { AIChatWidget } from "@/components/AIChatWidget";
+import { SmoothScroll } from "@/lib/smooth-scroll";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,12 +20,32 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const themeInitScript = `(() => {
+    try {
+      const stored = localStorage.getItem("coreframe-theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const theme = stored === "light" || stored === "dark" ? stored : (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  })();`;
+
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
-      <body className="font-sans antialiased">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${heading.variable} ${sans.variable} ${display.variable}`}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="font-sans antialiased bg-bg text-foreground">
+        <SmoothScroll />
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <AIChatWidget />
       </body>
     </html>
   );
