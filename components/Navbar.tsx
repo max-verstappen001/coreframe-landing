@@ -8,7 +8,6 @@ import { Magnetic } from "@/lib/animations";
 
 const NAV_LINKS = [
   { label: "Services", href: "/#services" },
-  { label: "Projects", href: "/projects" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -17,6 +16,8 @@ const NAV_LINKS = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -24,11 +25,30 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const current = root.getAttribute("data-theme");
+    if (current === "light" || current === "dark") {
+      setTheme(current);
+    } else {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(prefersDark ? "dark" : "light");
+    }
+    setMounted(true);
+  }, []);
+
   // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("coreframe-theme", next);
+  };
 
   return (
     <>
@@ -53,6 +73,24 @@ export function Navbar() {
 
           {/* Desktop nav */}
           <ul className="hidden md:flex items-center gap-1">
+            <li className="mr-2">
+              <button
+                onClick={toggleTheme}
+                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-border text-muted hover:text-foreground hover:border-border-hover transition-colors duration-300"
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              >
+                {mounted && theme === "dark" ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                  </svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3a7.5 7.5 0 0 0 9 9A9 9 0 1 1 12 3z" />
+                  </svg>
+                )}
+              </button>
+            </li>
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Magnetic strength={0.15}>
@@ -149,6 +187,14 @@ export function Navbar() {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="mt-12"
               >
+                <button
+                  onClick={toggleTheme}
+                  className="mb-6 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 font-display text-xs uppercase tracking-[0.12em] text-muted hover:border-accent hover:text-accent transition-colors duration-300"
+                  aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                >
+                  <span className="text-accent">{theme === "dark" ? "Light" : "Dark"}</span>
+                  mode
+                </button>
                 <p className="font-sans text-sm text-muted">Get in touch</p>
                 <a
                   href="mailto:info@coreframetech.in"

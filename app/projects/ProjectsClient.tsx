@@ -205,7 +205,7 @@ function ProjectGrid() {
               onClick={() => setActiveCategory(cat.key)}
               className={`px-5 py-2.5 rounded-full font-display text-sm transition-all duration-300 ${
                 activeCategory === cat.key
-                  ? "bg-accent text-black"
+                  ? "bg-accent text-on-accent"
                   : "border border-border text-muted hover:border-accent hover:text-accent"
               }`}
             >

@@ -86,7 +86,7 @@ export function AIChatWidget() {
       {/* Floating trigger button */}
       <motion.button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-accent text-black flex items-center justify-center shadow-lg hover:shadow-[0_0_30px_rgba(200,255,0,0.4)] transition-shadow duration-300"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-accent text-on-accent flex items-center justify-center shadow-lg hover:shadow-[0_0_30px_rgba(200,255,0,0.4)] transition-shadow duration-300"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label={open ? "Close AI assistant" : "Open AI assistant"}
@@ -194,7 +194,7 @@ export function AIChatWidget() {
                   <div
                     className={`max-w-[85%] rounded-2xl px-4 py-3 font-sans text-[13px] leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-accent text-black rounded-br-sm"
+                        ? "bg-accent text-on-accent rounded-br-sm"
                         : "bg-bg-card border border-border text-foreground rounded-bl-sm"
                     }`}
                   >
@@ -264,7 +264,7 @@ export function AIChatWidget() {
               <button
                 type="submit"
                 disabled={!input.trim() || loading}
-                className="w-8 h-8 rounded-full bg-accent text-black flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-accent-dark transition-colors duration-200"
+                className="w-8 h-8 rounded-full bg-accent text-on-accent flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-accent-dark transition-colors duration-200"
                 aria-label="Send message"
               >
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

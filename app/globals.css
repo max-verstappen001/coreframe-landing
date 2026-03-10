@@ -9,6 +9,7 @@
 
 :root {
   /* Dark premium palette */
+  color-scheme: dark;
   --color-bg: #0a0a0b;
   --color-bg-elevated: #111113;
   --color-bg-card: #161618;
@@ -20,11 +21,16 @@
   --color-accent: #c8ff00;
   --color-accent-muted: rgba(200, 255, 0, 0.15);
   --color-accent-dark: #a3d900;
+  --color-on-accent: #0a0a0b;
   --color-border: rgba(255, 255, 255, 0.06);
   --color-border-hover: rgba(255, 255, 255, 0.12);
   --color-gradient-1: #c8ff00;
   --color-gradient-2: #00d4ff;
   --color-gradient-3: #ff6b35;
+  --color-grid-line: rgba(255, 255, 255, 0.02);
+  --color-glass: rgba(17, 17, 19, 0.8);
+  --color-glow-strong: rgba(200, 255, 0, 0.1);
+  --color-glow-soft: rgba(200, 255, 0, 0.05);
 
   /* Spacing system (8px base) */
   --space-1: 0.25rem;
@@ -49,6 +55,32 @@
 
   /* Noise overlay */
   --noise-opacity: 0.03;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-bg: #f4f6ef;
+  --color-bg-elevated: #edf0e6;
+  --color-bg-card: #e3e8dc;
+  --color-surface: #d7decf;
+  --color-surface-hover: #c9d3be;
+  --color-foreground: #12160d;
+  --color-muted: #58604c;
+  --color-subtle: #7a836b;
+  --color-accent: #90b800;
+  --color-accent-muted: rgba(144, 184, 0, 0.18);
+  --color-accent-dark: #789a00;
+  --color-on-accent: #0f130a;
+  --color-border: rgba(18, 22, 13, 0.12);
+  --color-border-hover: rgba(18, 22, 13, 0.2);
+  --color-gradient-1: #90b800;
+  --color-gradient-2: #0f9ab8;
+  --color-gradient-3: #e06a2b;
+  --color-grid-line: rgba(18, 22, 13, 0.04);
+  --color-glass: rgba(237, 240, 230, 0.82);
+  --color-glow-strong: rgba(144, 184, 0, 0.24);
+  --color-glow-soft: rgba(144, 184, 0, 0.12);
+  --noise-opacity: 0.015;
 }
 
 * {
@@ -101,7 +133,7 @@ body::before {
 
 ::selection {
   background-color: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-on-accent);
 }
 
 /* Scrollbar */
@@ -152,8 +184,8 @@ textarea:focus {
 
   .bg-grid {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
     background-size: 64px 64px;
   }
 
@@ -172,8 +204,8 @@ textarea:focus {
 
   .glow {
     box-shadow:
-      0 0 20px rgba(200, 255, 0, 0.1),
-      0 0 60px rgba(200, 255, 0, 0.05);
+      0 0 20px var(--color-glow-strong),
+      0 0 60px var(--color-glow-soft);
   }
 
   .glow-text {
@@ -202,7 +234,7 @@ textarea:focus {
 
 /* Glass morphism */
 .glass {
-  background: rgba(17, 17, 19, 0.8);
+  background: var(--color-glass);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }

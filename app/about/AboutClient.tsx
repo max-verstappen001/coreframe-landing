@@ -9,27 +9,17 @@ import { Reveal, Stagger, StaggerItem, TextReveal, Counter, Magnetic } from "@/l
 /* ────────────────────────── Team Data ────────────────────────── */
 const TEAM = [
   {
-    name: "Sanjay",
+    name: "Sanjay Nanda",
     role: "Founder & CEO",
     description:
-      "AI engineer and systems architect leading CoreFrame's vision. Drives strategy, client relationships, and technical direction across all engagements.",
-    email: "sanjay@coreframetech.in",
+      "A builder at core — Sanjay brings deep expertise in engineering, AI systems, and software architecture. He has designed and shipped production-grade systems across industries, with hands-on experience in LLMs, agent workflows, and full-stack development.",
     linkedin: "#",
   },
   {
-    name: "Technical Partner",
-    role: "CTO & Co-Builder",
+    name: "Nandakumar",
+    role: "Director",
     description:
-      "Full-stack engineer specializing in cloud infrastructure, AI integrations, and production-grade system delivery.",
-    email: "tech@coreframetech.in",
-    linkedin: "#",
-  },
-  {
-    name: "AI Research Lead",
-    role: "Applied AI Specialist",
-    description:
-      "Focused on building practical AI solutions — from LLM-powered agents to predictive analytics — that deliver measurable business outcomes.",
-    email: "ai@coreframetech.in",
+      "With 25+ years of experience across sales, marketing, and business strategy, Nandakumar brings a rare depth of commercial judgment. He has built and scaled businesses across sectors — and brings that same clarity to every client engagement.",
     linkedin: "#",
   },
 ];
@@ -154,13 +144,12 @@ function Team() {
             The People Behind CoreFrame
           </h2>
           <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
-            Senior engineers and AI specialists — every team member contributes
-            directly to strategy and delivery.
+            Two founders, two disciplines — technology and business, working as one to deliver outcomes that matter.
           </p>
         </div>
       </Reveal>
 
-      <Stagger className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
+      <Stagger className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto" staggerDelay={0.15}>
         {TEAM.map((member) => (
           <StaggerItem key={member.name}>
             <Card tilt={false}>
@@ -181,7 +170,7 @@ function Team() {
                 </p>
                 <div className="mt-6 flex items-center justify-center gap-4">
                   <a
-                    href={`mailto:${member.email}`}
+                    href="mailto:info@coreframetech.in"
                     className="font-display text-[12px] text-muted hover:text-accent transition-colors duration-300"
                   >
                     Email
@@ -328,7 +317,6 @@ export default function AboutClient() {
       <Stats />
       <Team />
       <AIExpertise />
-      <Timeline />
       <AboutCTA />
     </>
   );

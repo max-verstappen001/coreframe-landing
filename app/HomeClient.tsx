@@ -220,8 +220,8 @@ function Services() {
 
       <Stagger className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
         {services.map((service) => (
-          <StaggerItem key={service.number}>
-            <div className="group relative rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover hover:bg-surface">
+          <StaggerItem key={service.number} className="h-full">
+            <div className="group relative rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover hover:bg-surface h-full flex flex-col">
               {/* Number */}
               <span className="font-display text-caption text-accent tracking-widest">
                 {service.number}
@@ -231,7 +231,7 @@ function Services() {
                 {service.title}
               </h3>
 
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-6 space-y-3 flex-1">
                 {service.items.map((item, j) => (
                   <li key={j} className="flex items-start gap-3">
                     <span className="mt-2 block h-[5px] w-[5px] rounded-full bg-accent/60 shrink-0" />
@@ -307,7 +307,7 @@ function SelectedWork() {
 
       <div className="grid md:grid-cols-2 gap-6">
         {cases.map((c, i) => (
-          <Reveal key={c.title} delay={i * 0.15}>
+          <Reveal key={c.title} delay={i * 0.15} className="h-full">
             <Card href={c.href} className="flex flex-col h-full">
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-2 h-[1px] bg-accent" />
@@ -507,8 +507,8 @@ function Engagement() {
         staggerDelay={0.12}
       >
         {models.map((model, i) => (
-          <StaggerItem key={i}>
-            <div className="group relative rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover">
+          <StaggerItem key={i} className="h-full">
+            <div className="group relative rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover h-full">
               {/* Step number */}
               <div className="flex items-center gap-4 mb-6">
                 <span className="flex items-center justify-center w-8 h-8 rounded-full border border-accent/30 font-display text-xs text-accent">
@@ -738,8 +738,8 @@ function AIExperience() {
 
       <Stagger className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
         {highlights.map((item) => (
-          <StaggerItem key={item.label}>
-            <div className="text-center rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover">
+          <StaggerItem key={item.label} className="h-full">
+            <div className="text-center rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover h-full">
               <span className="font-heading text-display-md text-accent">{item.number}</span>
               <h3 className="mt-3 font-display text-body-sm font-medium text-foreground">{item.label}</h3>
               <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">{item.description}</p>
@@ -806,8 +806,8 @@ function ProjectShowcase() {
 
       <Stagger className="grid md:grid-cols-2 gap-6" staggerDelay={0.12}>
         {categories.map((cat, i) => (
-          <StaggerItem key={i}>
-            <Card href="/projects">
+          <StaggerItem key={i} className="h-full">
+            <Card href="/projects" className="h-full flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <span className="font-display text-caption uppercase tracking-[0.15em] text-accent">
                   {cat.tag}
@@ -922,8 +922,8 @@ function InvestorsPartners() {
       </Reveal>
       <Stagger className="grid md:grid-cols-2 gap-6" staggerDelay={0.15}>
         {investors.map((inv) => (
-          <StaggerItem key={inv.name}>
-            <div className="rounded-2xl border border-border bg-bg-card p-8 transition-all duration-500 hover:border-border-hover">
+          <StaggerItem key={inv.name} className="h-full">
+            <div className="rounded-2xl border border-border bg-bg-card p-8 transition-all duration-500 hover:border-border-hover h-full">
               <div className="flex items-center gap-3 mb-4">
                 <span className="flex items-center justify-center w-8 h-8 rounded-full border border-accent/30 font-display text-xs text-accent">
                   ✦
@@ -952,8 +952,6 @@ export default function HomeClient() {
       <Services />
       <AIExperience />
       <SelectedWork />
-      <ProjectShowcase />
-      <InvestorsPartners />
       <Audience />
       <Engagement />
       <FAQ />

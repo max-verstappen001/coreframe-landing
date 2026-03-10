@@ -56,13 +56,13 @@ export function Card({ children, href, className = "", tilt = true }: CardProps)
       <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-accent/10 rounded-full blur-3xl" />
       </div>
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-10 h-full">{children}</div>
     </motion.div>
   );
 
   if (href) {
     return (
-      <Link href={href} className="block">
+      <Link href={href} className="block h-full">
         {cardContent}
       </Link>
     );

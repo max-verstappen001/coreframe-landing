@@ -19,6 +19,7 @@ const config: Config = {
           hover: "var(--color-surface-hover)",
         },
         foreground: "var(--color-foreground)",
+        "on-accent": "var(--color-on-accent)",
         muted: "var(--color-muted)",
         subtle: "var(--color-subtle)",
         accent: {

@@ -99,7 +99,7 @@ export function SectionQuery({ section, prompt, placeholder }: SectionQueryProps
             <button
               type="submit"
               disabled={status === "sending"}
-              className="px-6 py-3 rounded-xl bg-accent text-black font-display text-sm font-medium hover:bg-accent-dark transition-colors duration-300 disabled:opacity-50 shrink-0"
+              className="px-6 py-3 rounded-xl bg-accent text-on-accent font-display text-sm font-medium hover:bg-accent-dark transition-colors duration-300 disabled:opacity-50 shrink-0"
             >
               {status === "sending" ? "Sending…" : "Send"}
             </button>
