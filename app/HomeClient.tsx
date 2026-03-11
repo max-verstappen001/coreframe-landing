@@ -808,12 +808,12 @@ function FinalCTA() {
 function AIExperience() {
   const highlights = [
     {
-      number: "10+",
-      label: "AI Projects Delivered",
+      number: "5+",
+      label: "Projects Delivered",
       description: "From LLM-powered agents to predictive analytics systems across multiple industries.",
     },
     {
-      number: "5+",
+      number: "3+",
       label: "Industries Served",
       description: "Restaurant, SaaS, E-commerce, Healthcare, and Professional Services.",
     },

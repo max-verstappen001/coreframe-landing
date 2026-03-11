@@ -25,8 +25,8 @@ const TEAM = [
 ];
 
 const EXPERIENCE_STATS = [
-  { label: "AI Projects Delivered", value: 10, suffix: "+" },
-  { label: "Industries Served", value: 5, suffix: "+" },
+  { label: "AI Projects Delivered", value: 5, suffix: "+" },
+  { label: "Industries Served", value: 3, suffix: "+" },
   { label: "Lines of Production Code", value: 150, suffix: "K+" },
   { label: "Client Satisfaction", value: 100, suffix: "%" },
 ];
