@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+import { useEffect, useRef, useState, ReactNode } from "react";
 import {
   motion,
   useInView,
   useAnimation,
+  useScroll,
+  useTransform,
   type Variant,
   type Variants,
 } from "framer-motion";
@@ -186,30 +188,34 @@ export function Counter({
   className = "",
   duration = 2,
 }: CounterProps) {
+  const [count, setCount] = useState(from);
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (!inView || hasAnimated.current) return;
+    hasAnimated.current = true;
+
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = (currentTime - startTime) / 1000;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(from + (to - from) * eased);
+      setCount(current);
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
+  }, [inView, from, to, duration]);
+
   return (
-    <motion.span
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.5 }}
-    >
-      <motion.span
-        variants={{
-          hidden: { opacity: 0 },
-          visible: { opacity: 1 },
-        }}
-      >
-        {prefix}
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          {to}
-        </motion.span>
-        {suffix}
-      </motion.span>
-    </motion.span>
+    <span ref={ref} className={className}>
+      {prefix}{count}{suffix}
+    </span>
   );
 }
 
@@ -225,15 +231,15 @@ export function Parallax({
   className = "",
   speed = 0.5,
 }: ParallaxProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [speed * -60, speed * 60]);
+
   return (
-    <motion.div
-      className={className}
-      initial={{ y: 0 }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: false, amount: 0 }}
-      style={{ willChange: "transform" }}
-      transition={{ type: "tween" }}
-    >
+    <motion.div ref={ref} className={className} style={{ y }}>
       {children}
     </motion.div>
   );
@@ -275,16 +281,5 @@ export function Magnetic({
     >
       {children}
     </div>
-  );
-}
-
-/* ───────── Horizontal scroll line ───────── */
-export function ScrollProgress({ className = "" }: { className?: string }) {
-  return (
-    <motion.div
-      className={`fixed top-0 left-0 right-0 h-[2px] bg-accent z-[100] origin-left ${className}`}
-      style={{ scaleX: 0 }}
-      initial={{ scaleX: 0 }}
-    />
   );
 }

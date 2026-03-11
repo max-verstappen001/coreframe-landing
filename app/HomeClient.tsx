@@ -118,22 +118,7 @@ function Hero() {
             </motion.div>
           </div>
 
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.8, duration: 1 }}
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-          >
-            <span className="font-display text-[10px] uppercase tracking-[0.2em] text-subtle">
-              Scroll
-            </span>
-            <motion.div
-              className="w-[1px] h-8 bg-gradient-to-b from-accent to-transparent"
-              animate={{ scaleY: [1, 0.5, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
+
         </Container>
       </motion.div>
     </section>
@@ -466,73 +451,192 @@ function Audience() {
 
 /* ────────────────────────── How We Engage ────────────────────────── */
 function Engagement() {
+  const [activeStep, setActiveStep] = useState(0);
+
   const models = [
     {
       title: "Long-term strategic retainer",
       description:
         "Our default model. We embed with your team as an ongoing strategic and technical partner, owning systems architecture, delivery, and iteration.",
+      iconPath: "M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83",
     },
     {
       title: "Discovery sprint",
       description:
-        "A focused diagnostic engagement — typically 2–4 weeks — to map your operations, identify leverage points, and define a transformation roadmap before committing to a longer engagement.",
+        "A focused diagnostic engagement \u2014 typically 2\u20134 weeks \u2014 to map your operations, identify leverage points, and define a transformation roadmap.",
+      iconPath: "M21 21l-4.35-4.35",
+      iconCircle: true,
     },
     {
       title: "Delivery cadence",
       description:
-        "We work in structured cycles with clear deliverables, regular check-ins, and measurable outcomes. No scope ambiguity. No status meetings without substance.",
+        "Structured cycles with clear deliverables, regular check-ins, and measurable outcomes. No scope ambiguity. No status meetings without substance.",
+      iconPath: "M22 11.08V12a10 10 0 11-5.93-9.14",
+      iconPolyline: "22 4 12 14.01 9 11.01",
     },
     {
       title: "Selective capacity",
       description:
-        "We take on a limited number of engagements at any given time to ensure each client receives senior-level attention and meaningful progress.",
+        "We take on a limited number of engagements to ensure each client receives senior-level attention and meaningful progress.",
+      iconPath: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
     },
   ];
+
+  const renderIcon = (m: (typeof models)[number]) => (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="text-accent"
+    >
+      {m.iconCircle && <circle cx="11" cy="11" r="8" />}
+      <path d={m.iconPath} />
+      {m.iconPolyline && <polyline points={m.iconPolyline} />}
+    </svg>
+  );
 
   return (
     <Section id="engagement" padding="large">
       <Reveal>
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
             Process
           </span>
-          <h2 className="mt-4 font-heading text-display-md text-foreground">
-            How We Engage
-          </h2>
+          <h2 className="mt-4 font-heading text-display-md text-foreground">How We Engage</h2>
         </div>
       </Reveal>
 
-      <Stagger
-        className="grid md:grid-cols-2 gap-6"
-        staggerDelay={0.12}
-      >
-        {models.map((model, i) => (
-          <StaggerItem key={i} className="h-full">
-            <div className="group relative rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover h-full">
-              {/* Step number */}
-              <div className="flex items-center gap-4 mb-6">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full border border-accent/30 font-display text-xs text-accent">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="flex-1 h-[1px] bg-border group-hover:bg-accent/20 transition-colors duration-500" />
+      <div className="max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-[280px_1fr] gap-12 md:gap-16">
+          {/* Left -- step tabs with vertical line */}
+          <Reveal>
+            <div className="relative">
+              <div className="absolute left-[15px] top-0 bottom-0 w-[1px] bg-border" />
+              <div className="space-y-2">
+                {models.map((model, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setActiveStep(i)}
+                    className={`relative w-full flex items-center gap-4 text-left px-4 py-4 rounded-xl transition-all duration-300 ${
+                      activeStep === i
+                        ? "bg-bg-card border border-border-hover"
+                        : "hover:bg-bg-card/50"
+                    }`}
+                  >
+                    <div
+                      className={`relative z-10 w-[30px] h-[30px] rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-500 ${
+                        activeStep === i
+                          ? "border-accent bg-accent/10"
+                          : activeStep > i
+                            ? "border-accent/40 bg-accent/5"
+                            : "border-border bg-bg"
+                      }`}
+                    >
+                      <span
+                        className={`font-display text-[10px] transition-colors duration-300 ${
+                          activeStep >= i ? "text-accent" : "text-subtle"
+                        }`}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <span
+                      className={`font-display text-sm transition-colors duration-300 ${
+                        activeStep === i ? "text-foreground" : "text-muted"
+                      }`}
+                    >
+                      {model.title}
+                    </span>
+                  </button>
+                ))}
               </div>
-
-              <h3 className="font-heading text-xl text-foreground">
-                {model.title}
-              </h3>
-              <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed">
-                {model.description}
-              </p>
             </div>
-          </StaggerItem>
-        ))}
-      </Stagger>
+          </Reveal>
 
-      <SectionQuery
-        section="Engagement Models"
-        prompt="Questions about how we work together?"
-        placeholder="e.g. What does a discovery sprint involve?"
-      />
+          {/* Right -- active step detail */}
+          <div className="relative min-h-[200px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="rounded-2xl border border-border bg-bg-card p-8 md:p-12"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                    {renderIcon(models[activeStep])}
+                  </div>
+                  <div>
+                    <span className="font-display text-caption uppercase tracking-[0.15em] text-accent">
+                      Step {String(activeStep + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="font-heading text-xl text-foreground">
+                      {models[activeStep].title}
+                    </h3>
+                  </div>
+                </div>
+
+                <p className="font-sans text-body text-muted leading-relaxed">
+                  {models[activeStep].description}
+                </p>
+
+                {/* Step navigation */}
+                <div className="mt-8 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
+                    disabled={activeStep === 0}
+                    className="flex items-center gap-2 font-display text-sm text-muted hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors duration-300"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M10 12L6 8l4-4" />
+                    </svg>
+                    Previous
+                  </button>
+
+                  <div className="flex items-center gap-2">
+                    {models.map((_, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => setActiveStep(i)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          i === activeStep ? "bg-accent w-6" : "bg-border hover:bg-border-hover"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {activeStep < models.length - 1 ? (
+                    <button
+                      type="button"
+                      onClick={() => setActiveStep(activeStep + 1)}
+                      className="flex items-center gap-2 font-display text-sm text-accent hover:text-accent-dark transition-colors duration-300"
+                    >
+                      Next
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M6 4l4 4-4 4" />
+                      </svg>
+                    </button>
+                  ) : (
+                    <Button href="/contact" variant="ghost" icon={<ArrowRight />}>
+                      Get started
+                    </Button>
+                  )}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
     </Section>
   );
 }

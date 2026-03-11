@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Message {
@@ -9,17 +10,23 @@ interface Message {
 }
 
 export function AIChatWidget() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
       content:
-        "Hi! I'm the CoreFrame AI Assistant. I can help you explore our AI services, scope your project, or answer questions about how we work. What can I help you with?",
+        "Welcome to CoreFrame! We help founders and operators build scalable digital systems with AI. How can we help you today?",
     },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string>("");
+  const [suggestions, setSuggestions] = useState<string[]>([
+    "What services do you offer?",
+    "I have a project idea",
+    "Tell me about CoreFrame",
+  ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -47,6 +54,7 @@ export function AIChatWidget() {
     setMessages(newMessages);
     setInput("");
     setLoading(true);
+    setSuggestions([]); // Clear suggestions while loading
 
     try {
       const res = await fetch("/api/chat", {
@@ -64,11 +72,18 @@ export function AIChatWidget() {
         setSessionId(data.sessionId);
       }
 
+      if (data.suggestions && Array.isArray(data.suggestions)) {
+        setSuggestions(data.suggestions);
+      } else {
+        setSuggestions([]);
+      }
+
       setMessages([
         ...newMessages,
         { role: "assistant", content: data.reply || data.error || "Something went wrong." },
       ]);
     } catch {
+      setSuggestions(["Try again", "Contact the team"]);
       setMessages([
         ...newMessages,
         {
@@ -79,6 +94,21 @@ export function AIChatWidget() {
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleSuggestionClick(text: string) {
+    // CTA buttons navigate directly instead of sending a message
+    const lower = text.toLowerCase();
+    if (lower.includes("schedule a consultation") || lower.includes("visit contact")) {
+      router.push("/contact");
+      setOpen(false);
+      return;
+    }
+    setInput(text);
+    setTimeout(() => {
+      const form = document.getElementById("chat-form") as HTMLFormElement;
+      form?.requestSubmit();
+    }, 50);
   }
 
   return (
@@ -220,23 +250,13 @@ export function AIChatWidget() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick actions */}
-            {messages.length <= 1 && (
+            {/* Quick reply suggestions — shown after every assistant message */}
+            {!loading && suggestions.length > 0 && (
               <div className="px-5 pb-2 flex flex-wrap gap-1.5">
-                {[
-                  "What services do you offer?",
-                  "I need an AI app built",
-                  "Tell me about your process",
-                ].map((q) => (
+                {suggestions.map((q) => (
                   <button
                     key={q}
-                    onClick={() => {
-                      setInput(q);
-                      setTimeout(() => {
-                        const form = document.getElementById("chat-form") as HTMLFormElement;
-                        form?.requestSubmit();
-                      }, 50);
-                    }}
+                    onClick={() => handleSuggestionClick(q)}
                     className="px-3 py-1.5 rounded-full border border-border text-[11px] font-display text-muted hover:border-accent hover:text-accent transition-colors duration-300"
                   >
                     {q}

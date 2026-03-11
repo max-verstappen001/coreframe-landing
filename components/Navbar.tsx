@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "./Container";
@@ -14,10 +15,16 @@ const NAV_LINKS = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [mounted, setMounted] = useState(false);
+
+  const isActive = (href: string) => {
+    if (href.startsWith("/#")) return pathname === "/";
+    return pathname === href || pathname.startsWith(href + "/");
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -96,10 +103,14 @@ export function Navbar() {
                 <Magnetic strength={0.15}>
                   <Link
                     href={link.href}
-                    className="relative px-5 py-2.5 font-display text-sm text-muted hover:text-foreground transition-colors duration-300 group"
+                    className={`relative px-5 py-2.5 font-display text-sm transition-colors duration-300 group ${
+                      isActive(link.href) ? "text-accent" : "text-muted hover:text-foreground"
+                    }`}
                   >
                     {link.label}
-                    <span className="absolute bottom-1 left-5 right-5 h-[1px] bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out-expo origin-left" />
+                    <span className={`absolute bottom-1 left-5 right-5 h-[1px] bg-accent transition-transform duration-500 ease-out-expo origin-left ${
+                      isActive(link.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`} />
                   </Link>
                 </Magnetic>
               </li>
@@ -173,7 +184,9 @@ export function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="block py-4 font-heading text-4xl text-foreground hover:text-accent transition-colors duration-300 border-b border-border"
+                      className={`block py-4 font-heading text-4xl transition-colors duration-300 border-b border-border ${
+                        isActive(link.href) ? "text-accent" : "text-foreground hover:text-accent"
+                      }`}
                     >
                       {link.label}
                     </Link>
