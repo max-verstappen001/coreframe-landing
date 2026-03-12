@@ -24,10 +24,12 @@ export async function POST(request: Request) {
   const resendApiKey = process.env.RESEND_API_KEY;
   const notificationEmail = process.env.NOTIFICATION_EMAIL;
 
+  let emailError: string | null = null;
+
   if (resendApiKey && notificationEmail) {
     try {
       const resend = new Resend(resendApiKey);
-      await resend.emails.send({
+      const { data: emailData, error } = await resend.emails.send({
         from: "CoreFrame Website <onboarding@resend.dev>",
         to: notificationEmail,
         subject: `New Contact Form: ${name}`,
@@ -44,10 +46,20 @@ export async function POST(request: Request) {
         `,
         replyTo: email,
       });
-      console.log("[Contact] Email sent to", notificationEmail);
+
+      if (error) {
+        console.error("[Contact] Resend error:", JSON.stringify(error));
+        emailError = error.message;
+      } else {
+        console.log("[Contact] Email sent to", notificationEmail, "| ID:", emailData?.id);
+      }
     } catch (err) {
-      console.error("[Contact] Email failed:", err);
+      console.error("[Contact] Email exception:", err);
+      emailError = String(err);
     }
+  } else {
+    console.warn("[Contact] Missing env vars — RESEND_API_KEY:", !!resendApiKey, "NOTIFICATION_EMAIL:", !!notificationEmail);
+    emailError = "Email not configured";
   }
 
   // Forward to webhook if configured
@@ -67,5 +79,9 @@ export async function POST(request: Request) {
     });
   }
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({
+    success: true,
+    emailSent: !emailError,
+    ...(emailError && { emailError }),
+  });
 }
