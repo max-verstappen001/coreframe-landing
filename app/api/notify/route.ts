@@ -50,7 +50,7 @@ export async function POST(request: Request) {
         const resend = new Resend(resendApiKey);
         const summary = typeof data === "object" ? JSON.stringify(data, null, 2) : String(data);
         await resend.emails.send({
-          from: "CoreFrame Website <onboarding@resend.dev>",
+          from: "CoreFrame Website <noreply@coreframetech.in>",
           to: notificationEmail,
           subject: `[CoreFrame] Notification: ${type}`,
           html: `

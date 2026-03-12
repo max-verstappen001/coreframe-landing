@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     try {
       const resend = new Resend(resendApiKey);
       const { data: emailData, error } = await resend.emails.send({
-        from: "CoreFrame Website <onboarding@resend.dev>",
+        from: "CoreFrame Website <noreply@coreframetech.in>",
         to: notificationEmail,
         subject: `New Contact Form: ${name}`,
         html: `
