@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -19,7 +20,37 @@ export async function POST(request: Request) {
   console.log("Message:", message);
   console.log("-------------------------------");
 
-  // Forward to notification system
+  // Send email via Resend
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const notificationEmail = process.env.NOTIFICATION_EMAIL;
+
+  if (resendApiKey && notificationEmail) {
+    try {
+      const resend = new Resend(resendApiKey);
+      await resend.emails.send({
+        from: "CoreFrame Website <onboarding@resend.dev>",
+        to: notificationEmail,
+        subject: `New Contact Form: ${name}`,
+        html: `
+          <h2>New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Company:</strong> ${company || "(not provided)"}</p>
+          <hr />
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+          <hr />
+          <p style="color: #888; font-size: 12px;">Sent from coreframetech.in contact form at ${new Date().toISOString()}</p>
+        `,
+        replyTo: email,
+      });
+      console.log("[Contact] Email sent to", notificationEmail);
+    } catch (err) {
+      console.error("[Contact] Email failed:", err);
+    }
+  }
+
+  // Forward to webhook if configured
   const webhookUrl = process.env.WEBHOOK_URL;
   if (webhookUrl) {
     fetch(webhookUrl, {
