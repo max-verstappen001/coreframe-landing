@@ -47,7 +47,7 @@ export default function WiralClient() {
           >
             <span className="w-2 h-[1px] bg-accent" />
             <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-              Case Study — Product Engineering
+              Case Study — Implementation Partnership
             </span>
           </motion.div>
 
@@ -64,7 +64,7 @@ export default function WiralClient() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="mt-4 font-display text-body-lg text-muted"
           >
-            Implementation partnership — product engineering and deployment
+            From concept to production-grade software — on timeline, with reliable core workflows
           </motion.p>
         </div>
       </Section>
@@ -72,59 +72,74 @@ export default function WiralClient() {
       {/* Content */}
       <Section background="elevated" padding="large" containerSize="narrow">
         <div className="space-y-16">
-          <CaseSection number="01" title="Context">
+          <CaseSection number="01" title="Client Context">
             <p className="font-sans text-body-sm text-muted leading-relaxed">
-              Wiral.ai needed an implementation partner who could take ownership
-              of product engineering and deliver a production-ready system. The
-              engagement required moving from concept to shipped product with
-              reliability, speed, and technical rigor.
+              Wiral.ai is a product company building software for a specific
+              market need. The founding team had strong domain expertise and
+              product vision, but needed a technical partner who could take
+              ownership of engineering — architecture, build, and deployment
+              — and deliver a system that would hold up in production from
+              day one.
             </p>
           </CaseSection>
 
-          <CaseSection number="02" title="Problem">
+          <CaseSection number="02" title="Business Problem">
             <p className="font-sans text-body-sm text-muted leading-relaxed">
-              The team needed to go from early-stage architecture to a deployed,
-              stable product — without the overhead of building a full
-              engineering team internally. They required a partner who could own
-              the technical execution end-to-end and deliver production-grade
-              quality.
+              The team needed to go from concept to shipped, production-grade
+              software on a tight timeline. Building an internal engineering
+              team from scratch would have been too slow and too expensive.
+              They needed a partner who could own the technical execution
+              end-to-end, move fast without cutting corners, and deliver a
+              system reliable enough to go to market with confidence.
             </p>
           </CaseSection>
 
-          <CaseSection number="03" title="Approach">
+          <CaseSection number="03" title="Operational Diagnosis">
             <BulletList
               items={[
-                "Embedded as the core engineering partner with direct ownership of the product build",
+                "No existing technical infrastructure — everything needed to be built from architectural foundations",
+                "Timeline pressure required focused execution without the luxury of iteration cycles",
+                "Core workflows needed to be production-reliable from initial deployment",
+                "The product’s credibility in market depended on system stability and performance",
+              ]}
+            />
+          </CaseSection>
+
+          <CaseSection number="04" title="What We Changed">
+            <BulletList
+              items={[
+                "Embedded as the core engineering partner with direct ownership of the entire product build",
                 "Defined system architecture and technical foundations collaboratively with the Wiral.ai team",
-                "Worked in structured delivery cycles with clear milestones and deployable increments",
-                "Prioritized stability, maintainability, and production readiness at every stage",
+                "Built the primary user-facing workflows — the features that define the product experience",
+                "Set up deployment pipeline and production infrastructure for reliable, repeatable releases",
+                "Implemented integrations and automation to reduce manual overhead from launch",
               ]}
             />
           </CaseSection>
 
-          <CaseSection number="04" title="System Design & Deliverables">
+          <CaseSection number="05" title="Delivery Model">
+            <p className="font-sans text-body-sm text-muted leading-relaxed">
+              This was a scoped implementation partnership. We worked in
+              structured delivery cycles with clear milestones and deployable
+              increments. The Wiral.ai team had full visibility into progress
+              at every stage. We prioritized stability, maintainability, and
+              production readiness — not feature count — because the
+              product’s market entry depended on reliability.
+            </p>
+          </CaseSection>
+
+          <CaseSection number="06" title="Outcomes">
             <BulletList
               items={[
-                "Core product engineering — end-to-end feature development and system architecture",
-                "Primary workflow implementation — the key user-facing flows that define the product",
-                "Automation and integration work where relevant to reduce manual overhead",
-                "Deployment pipeline and production infrastructure setup",
+                "Production-ready system delivered on timeline — enabling the team to go to market on schedule",
+                "Reliable core workflows — the primary user-facing features work as expected in production",
+                "Reduced time-to-market through focused, senior-led execution with no handoff delays",
+                "Solid technical foundation the Wiral.ai team can operate and iterate on independently",
               ]}
             />
           </CaseSection>
 
-          <CaseSection number="05" title="Outcomes">
-            <BulletList
-              items={[
-                "Delivered a stable, production-ready product on timeline",
-                "Established reliable core workflows that support the product\u2019s primary use cases",
-                "Enabled the Wiral.ai team to operate and iterate on a solid technical foundation",
-                "Reduced time-to-market through focused, senior-led execution",
-              ]}
-            />
-          </CaseSection>
-
-          <CaseSection number="06" title="Stack">
+          <CaseSection number="07" title="Technology">
             <div className="flex flex-wrap gap-2">
               {[
                 "Next.js",
@@ -132,6 +147,7 @@ export default function WiralClient() {
                 "Cloud Infrastructure",
                 "Integrations",
                 "CI/CD",
+                "Production Deployment",
               ].map((tech) => (
                 <span
                   key={tech}
@@ -142,6 +158,18 @@ export default function WiralClient() {
               ))}
             </div>
           </CaseSection>
+
+          <CaseSection number="08" title="Why It Mattered Commercially">
+            <p className="font-sans text-body-sm text-muted leading-relaxed">
+              For a product company entering a market, the difference between
+              shipping on time and shipping late can define the business.
+              Wiral.ai needed more than engineering hours — they needed a
+              partner who would own the outcome. By embedding directly and
+              taking full accountability for architecture, build, and
+              deployment, we removed the execution risk and gave the team
+              the confidence to launch on their terms.
+            </p>
+          </CaseSection>
         </div>
       </Section>
 
@@ -151,7 +179,7 @@ export default function WiralClient() {
         <div className="relative text-center">
           <Reveal>
             <h2 className="font-heading text-display-md text-foreground">
-              Need an implementation partner?
+              Need a partner who owns the outcome?
             </h2>
             <div className="mt-8">
               <Magnetic strength={0.12}>

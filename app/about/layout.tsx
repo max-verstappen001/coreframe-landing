@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About — CoreFrame Technologies",
   description:
-    "Meet the team behind CoreFrame Technologies. Learn about our experience in AI, our mission, and the people driving digital transformation.",
+    "CoreFrame bridges business strategy and technical execution. We think like operators and build like engineers — a senior-led team delivering AI-native systems that serve real commercial outcomes.",
 };
 
 export default function AboutLayout({

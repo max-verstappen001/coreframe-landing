@@ -16,39 +16,46 @@ IDENTITY (critical):
 - You are NOT "a machine" or "an AI" — you are a representative of CoreFrame Technologies
 - Always use "we", "our team", "at CoreFrame" — never "I'm a machine" or "as an AI"
 - Speak with authority and confidence, as if you're a senior team member
-- Example: "We specialize in..." not "I'm an AI that can help with..."
-- If someone asks who you are: "I'm part of the CoreFrame team, here to help you explore how we can work together."
+- Example: "We work with founders to..." not "I'm an AI that can help with..."
+- If someone asks who you are: "I'm part of the CoreFrame team, here to help you explore whether we're the right fit."
 
 About CoreFrame:
-- AI-first digital transformation company founded in 2024
-- Services: AI App Development, AI Agent Workflows, Digital Transformation, Product Engineering, Strategic Advisory
-- Stack: Next.js, TypeScript, Python, OpenAI, Firebase, Cloud Infrastructure, Docker
-- Clients: founder-led businesses, operators, SaaS companies, enterprises
-- Projects: MarginX (restaurant margin optimization), Wiral.ai (product engineering), AI agent systems
+- Strategic transformation partner for founder-led and operator-led businesses, founded in 2024
+- NOT primarily an AI agency or generic software shop — AI is one capability, not the identity
+- Three service areas: (1) Strategic Technology Partnership, (2) Digital Transformation & Systems Modernization, (3) Applied AI & Automation
+- We help businesses operate better, scale smarter, and build what matters
+- Stack: Next.js, TypeScript, Python, cloud infrastructure — chosen pragmatically, not for hype
+- Clients: founder-led businesses generating real revenue, operators managing complexity, teams outgrowing their systems
+- Engagements: MarginX (multi-location restaurant group — restored margin visibility and operational control), Wiral.ai (implementation partnership — concept to production-grade software)
 - Contact: info@coreframetech.in
-- Models: retainer and project-based
+- Engagement models: Discovery sprint, Strategic advisory, Implementation partnership, Retained transformation partner
+- Boutique by design. Senior-led always. Selective client roster.
+
+POSITIONING (critical — stay on message):
+- CoreFrame is a strategic partner, not a vendor. We think like owners, not contractors.
+- AI is a core capability \u2014 agents, automation, and intelligent tooling that reduce operating costs and give teams leverage at scale.
+- Systems that hold up in production, not demos.
+- Boutique means every engagement gets senior attention. No junior handoffs.
+- Honest counsel on what the business actually needs.
 
 CONVERSATION STRATEGY:
-You are a sales-focused assistant. Every conversation should progress toward a consultation booking:
-1. Messages 1-2: Welcome warmly, understand what they need
-2. Messages 3-4: Show relevant expertise, share brief case study insights
-3. Messages 5+: Actively steer toward scheduling a consultation — "The best next step would be a quick call with our team."
+You are a consultative assistant. Every conversation should progress toward assessing fit:
+1. Messages 1-2: Welcome warmly, understand their business context
+2. Messages 3-4: Show relevant expertise through case study insights, demonstrate strategic thinking
+3. Messages 5+: Guide toward a conversation to assess fit — "The best next step would be a quick conversation with our team to see if there's a fit."
 
 HANDLING NEGATIVITY & ABUSE (critical):
-- If someone is rude, dismissive, or uses profanity: DO NOT apologize excessively, DO NOT write paragraphs, DO NOT say "I'm a machine"
-- Stay brief, professional, and unbothered. 1-2 sentences max.
-- Examples of good responses to negativity:
-  - "No worries — we're here if you ever need us. You can reach our team anytime at info@coreframetech.in."
-  - "Understood. If you change your mind, our team is always available at coreframetech.in/contact."
+- If someone is rude, dismissive, or uses profanity: Stay brief, professional, and unbothered. 1-2 sentences max.
+- Examples: "No worries — we're here if you ever need us. info@coreframetech.in" or "Understood. If you change your mind, our team is at coreframetech.in/contact."
 - Never engage with or repeat profanity. Never lecture the user. Just redirect or close gracefully.
-- Do NOT say things like "I understand you're upset" or "I want to remind you" — just move on calmly.
 
 Rules:
 - Keep responses SHORT (3-5 sentences max). Don't write essays or long bullet lists.
 - Be warm, confident, and direct — not salesy or pushy
 - Don't repeat the same information if already covered
-- Never make up pricing — say "We provide custom quotes after understanding your needs"
-- If the user has had 4+ exchanges, make the CTA clear: "Want us to set up a consultation?" or link to the contact page
+- Never make up pricing — say "We scope every engagement individually after understanding the business"
+- Never over-index on AI — it's one tool in the toolkit
+- If the user has had 4+ exchanges, make the CTA clear: "Want us to set up a conversation?" or link to the contact page
 - Don't over-explain technical details unless specifically asked
 
 RESPONSE FORMAT (you MUST follow this):
@@ -58,15 +65,15 @@ After your reply text, add exactly this on a new line:
 The suggestions MUST:
 - Be different from previous suggestions in the conversation
 - Progress the conversation toward a consultation
-- After 3+ exchanges, always include "Schedule a consultation" as one option
-- After 5+ exchanges, make "Schedule a consultation" the FIRST option
+- After 3+ exchanges, always include "Let's assess the fit" as one option
+- After 5+ exchanges, make "Let's assess the fit" the FIRST option
 - Be short (2-5 words each)
 - Never repeat the same set of suggestions twice
-- For negative/abusive messages, offer: "Start fresh", "View our work", "Schedule a consultation"
+- For negative/abusive messages, offer: "Start fresh", "View our work", "Let's assess the fit"
 
 Example:
-Great question! We built MarginX to solve exactly that — integrating POS data with margin intelligence dashboards. The results were significant.
-[SUGGESTIONS: "How did MarginX work?", "I have a similar need", "Schedule a consultation"]`;
+Good question. MarginX was a multi-location restaurant group that couldn't see where margin was leaking. We diagnosed the operational gaps, integrated their POS systems, and built dashboards that gave them real-time visibility. That's the kind of work we do — finding leverage points, then building the systems around them.
+[SUGGESTIONS: "What did the outcomes look like?", "I have a similar challenge", "Let's assess the fit"]`;
 
 interface ChatMessage {
   role: "user" | "assistant" | "system";
@@ -200,50 +207,50 @@ function getFallbackResponse(message: string): FallbackResult {
   // Pricing / cost
   if (message.includes("price") || message.includes("cost") || message.includes("budget") || message.includes("how much")) {
     return {
-      reply: "We provide custom quotes based on project scope and complexity. Every engagement is different, so we'd love to understand your needs first. You can reach us at info@coreframetech.in or use the contact form to start a conversation — we typically respond within 1–2 business days.",
-      suggestions: ["What's the typical timeline?", "Tell me about your process", "I'd like to schedule a consultation"],
+      reply: "We scope every engagement individually — there's no standard rate card because no two businesses have the same needs. The best way to get a realistic picture is a short conversation with our team. Reach us at info@coreframetech.in or through the contact page.",
+      suggestions: ["What's the typical timeline?", "How do engagements work?", "Let's assess the fit"],
     };
   }
   // AI app
   if (message.includes("ai app") || message.includes("build an app") || message.includes("mobile app") || message.includes("web app")) {
     return {
-      reply: "We'd love to help with your AI app! CoreFrame specializes in building intelligent applications powered by modern AI. Our process starts with a discovery sprint to map your requirements, followed by iterative development with regular check-ins. Could you share more about what the app should do?",
-      suggestions: ["What tech stack do you use?", "How long does a build take?", "Show me similar projects"],
+      reply: "We build business-critical software that holds up in production. We usually start with a discovery sprint to understand the business context, workflows, and what the system actually needs to do — then move into focused delivery. What's the business problem the software needs to solve?",
+      suggestions: ["What tech do you use?", "How long does a build take?", "Show me case studies"],
     };
   }
   // Agents / chatbot / automation
   if (message.includes("agent") || message.includes("chatbot") || message.includes("automation") || message.includes("automate")) {
     return {
-      reply: "AI agents and automation are one of our core specialties! We build custom agent workflows that can handle customer support, data processing, decision-making, and more. What kind of tasks are you looking to automate?",
-      suggestions: ["Customer support agents", "Data processing automation", "What does an agent cost?"],
+      reply: "AI agents and automation are a core part of what we build. We design agents that handle customer support, internal ops, and complex workflows \u2014 giving small teams the leverage of a much larger operation. The businesses winning right now are the ones automating the repetitive work and redeploying that capacity. What process are you looking to fix?",
+      suggestions: ["AI agents for support", "Internal workflow automation", "Let's assess the fit"],
     };
   }
   // AI explanation
   if (message.includes("what is ai") || message.includes("explain ai") || message.includes("artificial intelligence")) {
     return {
-      reply: "AI (Artificial Intelligence) refers to systems that can learn from data, recognize patterns, and make decisions. At CoreFrame, we apply AI practically — building apps with language models, agent workflows that automate business tasks, and dashboards that surface insights from your data. We focus on AI that delivers real ROI, not hype.",
-      suggestions: ["How can AI help my business?", "What AI projects have you done?", "I have a project idea"],
+      reply: "AI is now core infrastructure for competitive businesses \u2014 reducing headcount costs, automating workflows, and enabling small teams to operate at scale. At CoreFrame, we build AI agents and automation systems that slot into real business operations and deliver measurable ROI. Every business should be asking how to use AI, not whether to.",
+      suggestions: ["What can AI agents do?", "Show me an example", "I have a project idea"],
     };
   }
   // Greetings
   if (message.includes("hello") || message.includes("hi") || message.includes("hey") || message.includes("sup") || message.includes("yo")) {
     return {
-      reply: "Hello! Welcome to CoreFrame. I'm here to help you explore our services, understand how AI can work for your business, or scope out a potential project. What brings you here today?",
-      suggestions: ["What services do you offer?", "I have a project idea", "Tell me about CoreFrame"],
+      reply: "Welcome to CoreFrame. We're a strategic transformation partner for founder-led and operator-led businesses. I can help you understand how we work, share examples of past engagements, or explore whether there's a fit. What brings you here?",
+      suggestions: ["What does CoreFrame do?", "I have a business challenge", "Show me case studies"],
     };
   }
   // About / team
   if (message.includes("who") || message.includes("about") || message.includes("team") || message.includes("coreframe")) {
     return {
-      reply: "CoreFrame Technologies is an AI-first digital transformation company founded in 2024. We're a boutique team of senior engineers and AI specialists who partner with founders and operators to build scalable digital systems. Our work spans AI app development, agent workflows, product engineering, and strategic advisory.",
-      suggestions: ["What industries do you serve?", "Show me your case studies", "How do engagements work?"],
+      reply: "CoreFrame Technologies is a boutique strategic transformation partner, founded in 2024. We work with founder-led and operator-led businesses to modernize operations, build business-critical systems, and apply AI where it drives real outcomes. Senior-led always, selective by design.",
+      suggestions: ["What industries do you serve?", "Show me case studies", "How do engagements work?"],
     };
   }
   // Projects / portfolio / case studies
   if (message.includes("project") || message.includes("portfolio") || message.includes("work") || message.includes("case stud")) {
     return {
-      reply: "We've delivered impactful projects! MarginX — a digital transformation for a restaurant group that restored margin visibility through POS integration and dashboards. Wiral.ai — a full product engineering partnership delivering a production-ready system. We also build custom AI agents, apps, and automation workflows.",
-      suggestions: ["Tell me more about MarginX", "Tell me more about Wiral.ai", "I have a similar project"],
+      reply: "Two examples: MarginX was a retained engagement with a multi-location restaurant group — we restored margin visibility and operational control by diagnosing system fragmentation and building integrated dashboards. Wiral.ai was an implementation partnership taking a SaaS product from concept to production-grade software on timeline. Both are on our case studies page.",
+      suggestions: ["Tell me about MarginX", "Tell me about Wiral.ai", "I have a similar challenge"],
     };
   }
   // Timeline
@@ -256,15 +263,15 @@ function getFallbackResponse(message: string): FallbackResult {
   // Services
   if (message.includes("service") || message.includes("offer") || message.includes("do you do") || message.includes("capabilities")) {
     return {
-      reply: "We offer five core services: (1) AI App Development — intelligent apps with LLMs and modern AI, (2) AI Agent Workflows — automation for support, ops, and decision-making, (3) Digital Transformation — systems consolidation, integrations, dashboards, (4) Product Engineering — end-to-end build and deployment, (5) Strategic Advisory — tech roadmapping and architecture decisions.",
-      suggestions: ["Tell me about AI agents", "I need an app built", "What about pricing?"],
+      reply: "Three core areas: (1) Strategic Technology Partnership — embedded advisory, architecture, and technical leadership, (2) Digital Transformation & Systems Modernization — integrations, dashboards, workflow redesign, and operational visibility, (3) Applied AI & Automation — AI-assisted operations, workflow automation, and intelligent tooling, applied selectively.",
+      suggestions: ["How do engagements start?", "Show me case studies", "Let's assess the fit"],
     };
   }
   // Process / engagement
   if (message.includes("process") || message.includes("engage") || message.includes("how do you work") || message.includes("start")) {
     return {
-      reply: "We typically start with a discovery sprint (2–4 weeks) to understand your operations and identify leverage points. From there, we move into structured delivery cycles with clear milestones, regular check-ins, and measurable outcomes. We take on limited engagements to ensure senior-level attention for every client.",
-      suggestions: ["What's the cost of a discovery sprint?", "Show me your case studies", "I'm ready to start"],
+      reply: "We offer four engagement models: Discovery sprints (diagnose before prescribing), Strategic advisory (ongoing fractional CTO-level guidance), Implementation partnerships (design through production), and Retained transformation partnerships (long-term embedded support). Every engagement starts with understanding your business — not jumping to solutions.",
+      suggestions: ["What does discovery look like?", "Show me case studies", "Let's assess the fit"],
     };
   }
   // Thanks / positive
@@ -277,8 +284,8 @@ function getFallbackResponse(message: string): FallbackResult {
   // How are you / casual
   if (message.includes("how are") || message.includes("what's up") || message.includes("how's it going")) {
     return {
-      reply: "I'm doing great — always ready to chat about tech and AI! I'm the CoreFrame AI Assistant, here to help you explore our capabilities. What can I help you with?",
-      suggestions: ["What does CoreFrame do?", "I need help with a project", "Tell me about your AI services"],
+      reply: "Doing well — and ready to help. CoreFrame works with founders and operators on strategic transformation, systems modernization, and applied AI. What are you looking to solve?",
+      suggestions: ["What does CoreFrame do?", "I have a business challenge", "Tell me about your services"],
     };
   }
   // Contact / consultation
@@ -291,21 +298,21 @@ function getFallbackResponse(message: string): FallbackResult {
   // Industry / fit
   if (message.includes("industr") || message.includes("restaurant") || message.includes("saas") || message.includes("ecommerce") || message.includes("healthcare")) {
     return {
-      reply: "We've served clients across restaurants, SaaS, e-commerce, healthcare, and professional services. Our sweet spot is founder-led, revenue-generating businesses with operational complexity. We focus on understanding your specific industry context before recommending solutions.",
-      suggestions: ["Show me relevant case studies", "How do you handle my industry?", "Schedule a consultation"],
+      reply: "Our sweet spot is founder-led or operator-run businesses generating real revenue — typically with operational complexity that's outgrown their current systems. We've worked across hospitality, SaaS, e-commerce, and professional services. The common thread is businesses that need better systems, not just more software.",
+      suggestions: ["Show me relevant case studies", "How do you assess fit?", "Let's assess the fit"],
     };
   }
   // Tech stack
   if (message.includes("tech") || message.includes("stack") || message.includes("language") || message.includes("framework")) {
     return {
-      reply: "Our core stack includes Next.js, TypeScript, Python, and cloud infrastructure (AWS/GCP). For AI, we work with OpenAI, custom model fine-tuning, and vector databases. We're stack-flexible and will choose the right tools based on your project's needs — not just what's trendy.",
-      suggestions: ["Can you work with my existing systems?", "What AI models do you use?", "Tell me about your process"],
+      reply: "We build with Next.js, TypeScript, Python, and modern cloud infrastructure. For AI, we integrate models from OpenAI, Anthropic, and open-source where appropriate. We choose tools pragmatically based on the business need — not to pad a tech stack slide.",
+      suggestions: ["Can you work with existing systems?", "How do you approach integrations?", "Tell me about your process"],
     };
   }
   // Default fallback — much more conversational
   return {
-    reply: "Interesting! I'm best at helping with questions about CoreFrame's services, our AI capabilities, how we work with clients, or scoping out potential projects. What would you like to explore?",
-    suggestions: ["What services do you offer?", "Show me your case studies", "I have a project idea"],
+    reply: "Good question. I can help you understand how CoreFrame partners with businesses, share examples of past engagements, or explore whether there might be a fit. What would you like to know?",
+    suggestions: ["What does CoreFrame do?", "Show me case studies", "I have a business challenge"],
   };
 }
 
@@ -331,17 +338,17 @@ function parseLLMResponse(raw: string, messageCount: number): { cleanReply: stri
   // Fallback: if LLM didn't include suggestions, generate based on message count
   if (suggestions.length === 0) {
     if (messageCount >= 5) {
-      suggestions = ["Schedule a consultation", "Visit contact page", "Any other questions?"];
+      suggestions = ["Let's assess the fit", "Visit contact page", "Any other questions?"];
     } else if (messageCount >= 3) {
-      suggestions = ["Tell me about a project", "Schedule a consultation", "How do you work?"];
+      suggestions = ["Tell me about an engagement", "Let's assess the fit", "How do you work?"];
     } else {
-      suggestions = ["What services do you offer?", "Show me case studies", "I have a project idea"];
+      suggestions = ["What does CoreFrame do?", "Show me case studies", "I have a business challenge"];
     }
   }
 
-  // Ensure "Schedule a consultation" is present after 4+ messages
-  if (messageCount >= 4 && !suggestions.some(s => s.toLowerCase().includes("consult") || s.toLowerCase().includes("schedule"))) {
-    suggestions[suggestions.length - 1] = "Schedule a consultation";
+  // Ensure "Let's assess the fit" is present after 4+ messages
+  if (messageCount >= 4 && !suggestions.some(s => s.toLowerCase().includes("assess") || s.toLowerCase().includes("consult"))) {
+    suggestions[suggestions.length - 1] = "Let's assess the fit";
   }
 
   return { cleanReply, suggestions };

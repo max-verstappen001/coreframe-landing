@@ -65,7 +65,7 @@ export default function MarginXClient() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="mt-4 font-display text-body-lg text-muted"
           >
-            Restaurant margin improvement via holistic digital transformation
+            Restoring margin visibility and operational control for a multi-location restaurant group
           </motion.p>
         </div>
       </Section>
@@ -73,62 +73,77 @@ export default function MarginXClient() {
       {/* Content */}
       <Section background="elevated" padding="large" containerSize="narrow">
         <div className="space-y-16">
-          <CaseSection number="01" title="Context">
+          <CaseSection number="01" title="Client Context">
             <p className="font-sans text-body-sm text-muted leading-relaxed">
-              A multi-location restaurant group was experiencing persistent
-              margin erosion. Revenue appeared stable, but profitability was
-              declining — and the operator lacked the systems to understand why.
-              Data lived in disconnected tools, discounts and refunds were
-              tracked inconsistently, and there was no unified view of net sales
-              or true unit economics.
+              A multi-location restaurant group generating meaningful revenue
+              across several sites. The operator had built the business on
+              instinct and relationships — but as the operation scaled, the
+              systems hadn&rsquo;t kept up. Revenue appeared stable, but profitability
+              was quietly declining, and the team had no single view of what
+              was actually happening across locations.
             </p>
           </CaseSection>
 
-          <CaseSection number="02" title="Problem">
+          <CaseSection number="02" title="Business Problem">
             <p className="font-sans text-body-sm text-muted leading-relaxed">
-              Margin leakage was happening across multiple dimensions — from
-              unreconciled POS transactions to inconsistent discount application
-              — but the business had no system to surface these issues. Decision
-              making was based on gut feel rather than data, and scaling further
-              would only compound the problem.
+              Margins were eroding, but no one could pinpoint where or why.
+              POS data, payment records, and operational reporting lived in
+              disconnected systems. Discounts and refunds were tracked
+              inconsistently. There was no unified view of net sales, no
+              reliable unit economics, and no way to compare performance
+              across locations. Decisions were made on intuition — and
+              scaling further would only amplify the leakage.
             </p>
           </CaseSection>
 
-          <CaseSection number="03" title="Approach">
+          <CaseSection number="03" title="Operational Diagnosis">
             <BulletList
               items={[
-                "Conducted a diagnostic sprint to map existing systems, data flows, and operational gaps",
-                "Designed a unified data architecture to consolidate POS, payments, and operational data",
-                "Built incrementally — starting with the most impactful leakage areas, then expanding scope",
-                "Embedded with the operator\u2019s team to ensure adoption and practical usability",
+                "POS, payments, and accounting systems were fully disconnected — no single source of truth",
+                "Discount and refund logic was applied inconsistently, making true revenue invisible",
+                "Location-level performance comparison was impossible without manual spreadsheet work",
+                "Operational decisions were based on gut feel rather than margin data",
+                "The existing setup would compound problems at each new location opened",
               ]}
             />
           </CaseSection>
 
-          <CaseSection number="04" title="System Design & Deliverables">
+          <CaseSection number="04" title="What We Changed">
             <BulletList
               items={[
-                "POS integration foundations — connecting transaction-level data to a centralized system",
-                "Net sales logic — accurate post-discount, post-refund revenue calculations",
-                "Multi-tenant architecture foundations — designed to support scaling across locations",
-                "Billing and onboarding foundations for operational consistency",
-                "Margin intelligence dashboards — real-time visibility into unit economics and leakage patterns",
+                "Conducted a diagnostic sprint to map every system, data flow, and operational gap across the business",
+                "Designed a unified data architecture to consolidate POS, payments, and operational data into one layer",
+                "Built a net-sales engine — accurate post-discount, post-refund revenue calculations for the first time",
+                "Delivered margin intelligence dashboards with real-time visibility into unit economics and leakage patterns",
+                "Created multi-tenant architecture foundations to support location scaling without system fragmentation",
+                "Built billing and onboarding infrastructure for operational consistency across sites",
               ]}
             />
           </CaseSection>
 
-          <CaseSection number="05" title="Outcomes">
+          <CaseSection number="05" title="Delivery Model">
+            <p className="font-sans text-body-sm text-muted leading-relaxed">
+              This was a retained transformation partnership. We started with a
+              focused diagnostic sprint, then moved into a structured
+              implementation cadence — building incrementally, starting with the
+              highest-leverage leakage areas and expanding scope as the
+              foundation solidified. We embedded directly with the operator&rsquo;s
+              team to ensure adoption and practical usability at every stage.
+            </p>
+          </CaseSection>
+
+          <CaseSection number="06" title="Outcomes">
             <BulletList
               items={[
-                "Improved visibility into true unit economics across locations",
-                "Reduced operational friction in billing and onboarding",
-                "Enabled data-backed decisions on pricing, discounts, and operational spend",
-                "Established a scalable foundation for ongoing margin optimization",
+                "Margin visibility restored — the operator can now see true unit economics across every location",
+                "Operational leakage identified and quantified for the first time",
+                "Data-backed decisions on pricing, discounts, and operational spend replaced guesswork",
+                "Scalable systems foundation in place to support expansion without compounding fragmentation",
               ]}
             />
           </CaseSection>
 
-          <CaseSection number="06" title="Stack">
+          <CaseSection number="07" title="Technology">
             <div className="flex flex-wrap gap-2">
               {[
                 "Next.js",
@@ -136,7 +151,7 @@ export default function MarginXClient() {
                 "Firebase",
                 "Cloud Functions",
                 "POS Integrations",
-                "Dashboarding",
+                "Real-Time Dashboards",
               ].map((tech) => (
                 <span
                   key={tech}
@@ -146,6 +161,18 @@ export default function MarginXClient() {
                 </span>
               ))}
             </div>
+          </CaseSection>
+
+          <CaseSection number="08" title="Why It Mattered Commercially">
+            <p className="font-sans text-body-sm text-muted leading-relaxed">
+              This engagement was not about building software — it was about
+              solving a margin problem that was costing real money at every
+              location, every month. Without visibility into true net sales and
+              unit economics, the operator was making expansion decisions
+              blind. The systems we built turned fragmented data into
+              actionable intelligence — giving the operator the foundation to
+              grow profitably rather than just grow.
+            </p>
           </CaseSection>
         </div>
       </Section>

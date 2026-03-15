@@ -12,45 +12,44 @@ const TEAM = [
     name: "Sanjay Nanda",
     role: "Founder & CEO",
     description:
-      "A builder at core — Sanjay brings deep expertise in engineering, AI systems, and software architecture. He has designed and shipped production-grade systems across industries, with hands-on experience in LLMs, agent workflows, and full-stack development.",
+      "Sanjay leads CoreFrame's strategy and delivery. He has designed and shipped production-grade systems across restaurant operations, SaaS, and service businesses — with deep hands-on experience in systems architecture, product engineering, and applied AI. He works directly with every client.",
     linkedin: "#",
   },
   {
     name: "Nandakumar",
-    role: "Director",
+    role: "Director, Commercial Strategy",
     description:
-      "With 25+ years of experience across sales, marketing, and business strategy, Nandakumar brings a rare depth of commercial judgment. He has built and scaled businesses across sectors — and brings that same clarity to every client engagement.",
+      "With 25+ years building and scaling businesses across industries, Nandakumar brings rare commercial depth to every engagement. He shapes go-to-market direction, manages client relationships, and ensures every engagement delivers measurable business value — not just technical output.",
     linkedin: "#",
   },
 ];
 
 const EXPERIENCE_STATS = [
-  { label: "AI Projects Delivered", value: 5, suffix: "+" },
   { label: "Industries Served", value: 3, suffix: "+" },
-  { label: "Lines of Production Code", value: 150, suffix: "K+" },
-  { label: "Client Satisfaction", value: 100, suffix: "%" },
+  { label: "Production Deployments", value: 5, suffix: "+" },
+  { label: "Client Retention", value: 100, suffix: "%" },
 ];
 
-const AI_EXPERTISE = [
+const EXPERTISE = [
   {
-    area: "Large Language Models",
-    description: "Custom GPT integrations, fine-tuning, prompt engineering, and LLM-powered workflows for business automation.",
-    tools: ["OpenAI GPT-4", "Anthropic Claude", "LangChain", "Custom Agents"],
+    area: "Strategic Technology Partnership",
+    description: "We act as a senior technical partner — not a vendor. We help clients define what to build, why it matters, and how to execute. Then we own the delivery.",
+    tools: ["Transformation Roadmapping", "Architecture Decisions", "Vendor Selection", "Technical Oversight"],
   },
   {
-    area: "AI Agent Development",
-    description: "Autonomous agents that handle customer support, data analysis, content generation, and operational decision-making.",
-    tools: ["Agent Frameworks", "Tool Calling", "RAG Systems", "Multi-Agent Orchestration"],
+    area: "Systems Modernization & Integration",
+    description: "We unify fragmented tools and disconnected data into clean, connected operating systems — POS, payments, CRM, reporting, and internal workflows brought into one coherent layer.",
+    tools: ["Systems Integration", "Operational Dashboards", "Workflow Automation", "Data Unification"],
   },
   {
-    area: "Computer Vision & ML",
-    description: "Image recognition, document processing, and custom ML models for industry-specific applications.",
-    tools: ["TensorFlow", "PyTorch", "Hugging Face", "Custom Models"],
+    area: "Applied AI & Automation",
+    description: "AI is the biggest productivity multiplier available to businesses right now. We build AI agents, automation systems, and intelligent tooling that reduce operating costs and give your team the leverage to do more with less.",
+    tools: ["AI Agents", "Workflow Automation", "Process Intelligence", "Cost Reduction"],
   },
   {
-    area: "Data & Analytics",
-    description: "Real-time dashboards, predictive analytics, and data pipelines that transform raw data into actionable insights.",
-    tools: ["Firebase", "BigQuery", "Custom Pipelines", "Real-time Analytics"],
+    area: "Product Engineering & Delivery",
+    description: "From architecture to deployment, we build production-grade software systems. Everything we ship is designed to run reliably at scale, not impress in a demo.",
+    tools: ["Full-Stack Development", "Production Deployment", "System Architecture", "Performance & Reliability"],
   },
 ];
 
@@ -58,22 +57,49 @@ const TIMELINE = [
   {
     year: "2024",
     title: "CoreFrame Founded",
-    description: "Started with a clear mission: bring senior-level AI and engineering expertise to founder-led businesses.",
+    description: "Started with a clear premise: businesses need strategic transformation partners who can think and build — not agencies that execute tickets.",
   },
   {
     year: "2024",
     title: "First Client Engagements",
-    description: "Delivered MarginX digital transformation and Wiral.ai product engineering — establishing our delivery methodology.",
+    description: "Delivered MarginX digital transformation and Wiral.ai product engineering — defining our operating model around deep, senior-led partnerships.",
   },
   {
     year: "2025",
-    title: "AI Agent Specialization",
-    description: "Expanded into custom AI agent development, building intelligent automation systems for diverse industries.",
+    title: "Expanded Capabilities",
+    description: "Added applied AI and automation to our practice — always tied to measurable business outcomes, never as a standalone service.",
   },
   {
     year: "2025–26",
-    title: "Scaling & Partnerships",
-    description: "Growing our client base, forming strategic partnerships, and investing in proprietary AI tools and frameworks.",
+    title: "Scaling Selectively",
+    description: "Growing our client base deliberately, maintaining senior-led attention for every engagement, and deepening our expertise across industries.",
+  },
+];
+
+const PRINCIPLES = [
+  {
+    title: "Senior-led, always",
+    description: "The people doing the strategic thinking are the same people building the systems. We do not hand off to junior teams.",
+  },
+  {
+    title: "Outcomes over output",
+    description: "We measure success in business terms — margin improvement, operational efficiency, time-to-market — not lines of code or feature count.",
+  },
+  {
+    title: "Selective by design",
+    description: "We keep our client roster small. This is a deliberate choice — taking too many engagements is the fastest way to deliver mediocre work.",
+  },
+  {
+    title: "AI where it matters",
+    description: "We apply AI where there is clear ROI. If a simpler solution works, we will recommend that instead. No technology for its own sake.",
+  },
+  {
+    title: "Ownership, not outsourcing",
+    description: "We embed with your team and own the outcome. We are accountable for results, not just deliverables.",
+  },
+  {
+    title: "Honest counsel",
+    description: "We tell you what you need to hear, not what you want to hear. If something is not the right approach, we will say so directly.",
   },
 ];
 
@@ -88,7 +114,7 @@ function AboutHero() {
             About CoreFrame
           </span>
           <TextReveal
-            text="We Build the Future with AI."
+            text="We Think Like Operators. We Build Like Engineers."
             tag="h1"
             className="mt-4 font-heading text-display-lg text-foreground"
             delay={0.2}
@@ -99,9 +125,12 @@ function AboutHero() {
             transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="mt-8 max-w-2xl font-sans text-body-lg text-muted leading-relaxed"
           >
-            CoreFrame Technologies is an AI-first digital transformation company.
-            We partner with founders and operators to build intelligent systems
-            that drive real business results — not technology for its own sake.
+            CoreFrame was built around a gap we kept seeing: businesses either
+            had tech partners who couldn&rsquo;t understand the commercial
+            problem, or advisors who couldn&rsquo;t build the solution. We do
+            both. Deep business understanding drives every technical decision we
+            make &mdash; so the systems we ship don&rsquo;t just work, they
+            work for the business.
           </motion.p>
         </Reveal>
       </div>
@@ -113,7 +142,7 @@ function Stats() {
   return (
     <div className="border-y border-border bg-bg-elevated">
       <div className="max-w-content mx-auto px-6 md:px-8 py-12">
-        <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-8" staggerDelay={0.1}>
+        <Stagger className="grid grid-cols-3 gap-8" staggerDelay={0.1}>
           {EXPERIENCE_STATS.map((stat) => (
             <StaggerItem key={stat.label}>
               <div className="text-center">
@@ -144,7 +173,7 @@ function Team() {
             The People Behind CoreFrame
           </h2>
           <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
-            Two founders, two disciplines — technology and business, working as one to deliver outcomes that matter.
+            A small, senior team — by design. The people doing the strategic thinking are the same people building the systems.
           </p>
         </div>
       </Reveal>
@@ -194,28 +223,29 @@ function Team() {
   );
 }
 
-function AIExpertise() {
+function Expertise() {
   return (
     <Section background="elevated" padding="large">
       <Reveal>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
             <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-              Our Expertise
+              Capabilities
             </span>
             <h2 className="mt-4 font-heading text-display-md text-foreground">
-              Deep AI Experience
+              What We Bring to the Table
             </h2>
           </div>
           <p className="max-w-md font-sans text-body-sm text-muted">
-            We bring hands-on experience across the full AI stack —
-            from research to production deployment.
+            We work across strategy, systems, and implementation — helping
+            clients define the right direction, then building the infrastructure
+            to support it.
           </p>
         </div>
       </Reveal>
 
       <Stagger className="grid md:grid-cols-2 gap-6" staggerDelay={0.12}>
-        {AI_EXPERTISE.map((item, i) => (
+        {EXPERTISE.map((item, i) => (
           <StaggerItem key={i}>
             <div className="group rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover">
               <div className="flex items-center gap-4 mb-6">
@@ -281,6 +311,37 @@ function Timeline() {
   );
 }
 
+function OperatingPrinciples() {
+  return (
+    <Section padding="large">
+      <Reveal>
+        <div className="text-center mb-16">
+          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
+            How We Work
+          </span>
+          <h2 className="mt-4 font-heading text-display-md text-foreground">
+            How We Work
+          </h2>
+          <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
+            Six things that define every engagement we take on.
+          </p>
+        </div>
+      </Reveal>
+
+      <Stagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto" staggerDelay={0.1}>
+        {PRINCIPLES.map((item, i) => (
+          <StaggerItem key={i}>
+            <div className="rounded-2xl border border-border bg-bg-card p-8 transition-all duration-500 hover:border-border-hover h-full">
+              <h3 className="font-heading text-lg text-foreground">{item.title}</h3>
+              <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">{item.description}</p>
+            </div>
+          </StaggerItem>
+        ))}
+      </Stagger>
+    </Section>
+  );
+}
+
 function AboutCTA() {
   return (
     <Section background="elevated" padding="large" className="overflow-hidden">
@@ -288,19 +349,19 @@ function AboutCTA() {
       <div className="relative text-center">
         <Reveal>
           <h2 className="font-heading text-display-lg text-foreground max-w-3xl mx-auto">
-            Ready to build something extraordinary?
+            Ready to work with a team that thinks like owners?
           </h2>
           <p className="mt-6 font-sans text-body text-muted max-w-lg mx-auto">
-            Let&rsquo;s discuss how CoreFrame can transform your business with AI.
+            We take on a limited number of engagements. Start with a conversation.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Magnetic strength={0.12}>
               <Button href="/contact" variant="primary" icon={<ArrowRight />}>
-                Get in Touch
+                Request a Consultation
               </Button>
             </Magnetic>
-            <Button href="/projects" variant="secondary">
-              See Our Projects
+            <Button href="/case-studies" variant="secondary">
+              View Case Studies
             </Button>
           </div>
         </Reveal>
@@ -315,8 +376,9 @@ export default function AboutClient() {
     <>
       <AboutHero />
       <Stats />
+      <OperatingPrinciples />
       <Team />
-      <AIExpertise />
+      <Expertise />
       <AboutCTA />
     </>
   );

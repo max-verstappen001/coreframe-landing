@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s — CoreFrame Technologies",
   },
   description:
-    "CoreFrame partners with founders and operators to improve margins, modernize operations, and build scalable digital systems.",
+    "CoreFrame bridges business strategy and technical execution — delivering AI agents, automation, and full-stack systems for businesses that need innovative technology that actually serves the business.",
 };
 
 export default function RootLayout({

@@ -27,8 +27,8 @@ export function Footer() {
                 CoreFrame
               </Link>
               <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed max-w-sm">
-                Strategic digital transformation for founders and operators.
-                Boutique by design. Senior-led delivery.
+                Strategic transformation partner for founder-led and
+                operator-led businesses. Boutique by design. Senior-led always.
               </p>
               <a
                 href="mailto:info@coreframetech.in"

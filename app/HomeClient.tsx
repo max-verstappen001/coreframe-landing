@@ -7,7 +7,6 @@ import { Button, ArrowRight } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { Container } from "@/components/Container";
 import { SectionQuery } from "@/components/SectionQuery";
-import { TechLogosBackground } from "@/components/TechLogosBackground";
 import { LogoMarquee } from "@/components/LogoMarquee";
 import {
   Reveal,
@@ -34,14 +33,9 @@ function Hero() {
       ref={heroRef}
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* Background effects */}
       <div className="absolute inset-0 bg-grid mask-fade-b" />
       <div className="absolute inset-0 bg-radial-fade" />
 
-      {/* Floating tech logos */}
-      <TechLogosBackground />
-
-      {/* Animated orbs */}
       <motion.div
         className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-accent/5 blur-[120px]"
         animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
@@ -71,32 +65,30 @@ function Hero() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
                 </span>
-                Strategic Digital Partners
+                Business Intelligence. Technical Execution.
               </span>
             </motion.div>
 
-            {/* Headline */}
             <TextReveal
-              text="Strategic Digital Transformation, Delivered."
+              text="Technology That Understands Your Business."
               tag="h1"
-              className="font-heading text-display-xl text-foreground"
+              className="font-heading text-display-lg text-foreground"
               delay={0.4}
             />
 
-            {/* Subheading */}
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="mt-8 max-w-2xl font-sans text-body-lg text-muted leading-relaxed"
             >
-              CoreFrame partners with founders and operators to improve margins,
-              modernize operations, and build scalable digital
-              systems—leveraging technology and applied AI where it creates
-              measurable value.
+              Most agencies build what you spec without understanding why. Most
+              consultants advise without building. CoreFrame does both &mdash;
+              combining deep commercial thinking with hands-on technical
+              delivery to build AI-powered systems that actually move the
+              needle.
             </motion.p>
 
-            {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -109,11 +101,11 @@ function Hero() {
                   variant="primary"
                   icon={<ArrowRight />}
                 >
-                  Request a Consultation
+                  Start a Conversation
                 </Button>
               </Magnetic>
               <Button href="/case-studies" variant="secondary">
-                View Case Studies
+                See Our Work
               </Button>
             </motion.div>
           </div>
@@ -134,9 +126,9 @@ function TrustStrip() {
         <Reveal>
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
             {[
-              "Boutique by design",
-              "Senior-led delivery",
-              "Systems that stand up in production",
+              "Business-first engineering",
+              "AI-native delivery",
+              "Senior-led, always",
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent" />
@@ -157,29 +149,29 @@ function Services() {
   const services = [
     {
       number: "01",
-      title: "Strategic Partnership",
+      title: "Strategy + Delivery",
       items: [
-        "Operating model and roadmap design",
-        "Architecture and vendor decisions",
-        "Execution oversight and accountability",
+        "We diagnose the business problem before designing the solution",
+        "Architecture, vendor decisions, and technical roadmapping",
+        "The same senior minds that plan it are the ones who build it",
       ],
     },
     {
       number: "02",
-      title: "Digital Transformation",
+      title: "Systems & Digital Transformation",
       items: [
-        "Systems consolidation",
-        "Integrations — POS, payments, CRM, ops",
-        "Dashboards and operational visibility",
+        "Unify fragmented tools \u2014 POS, payments, CRM, ops \u2014 into one layer",
+        "Real-time dashboards and business intelligence that drive decisions",
+        "Workflow redesign and automation for teams ready to scale",
       ],
     },
     {
       number: "03",
-      title: "Applied AI Implementation",
+      title: "AI Agents & Automation",
       items: [
-        "Automation for cost and time reduction",
-        "Decision-support and forecasting",
-        "Agent workflows — only where ROI is clear",
+        "Custom AI agents for support, operations, and internal workflows",
+        "Automation that cuts headcount cost and eliminates repetitive work",
+        "Intelligent tooling that gives small teams the leverage of large ones",
       ],
     },
   ];
@@ -197,8 +189,7 @@ function Services() {
             </h2>
           </div>
           <p className="max-w-md font-sans text-body-sm text-muted">
-            We partner across three core disciplines — each tailored to your
-            business context and stage.
+            We speak business and we build technology. Most can&rsquo;t do both well.
           </p>
         </div>
       </Reveal>
@@ -207,7 +198,6 @@ function Services() {
         {services.map((service) => (
           <StaggerItem key={service.number} className="h-full">
             <div className="group relative rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover hover:bg-surface h-full flex flex-col">
-              {/* Number */}
               <span className="font-display text-caption text-accent tracking-widest">
                 {service.number}
               </span>
@@ -227,7 +217,6 @@ function Services() {
                 ))}
               </ul>
 
-              {/* Decorative line */}
               <div className="mt-8 h-[1px] w-12 bg-border group-hover:w-full group-hover:bg-accent/30 transition-all duration-700 ease-out-expo" />
             </div>
           </StaggerItem>
@@ -251,23 +240,23 @@ function SelectedWork() {
       tag: "Digital Transformation",
       title: "MarginX",
       description:
-        "A restaurant group facing margin erosion from operational blind spots. We implemented a holistic digital transformation — integrating POS data, building net-sales logic, and delivering margin intelligence dashboards — to restore visibility and reduce leakage.",
+        "A multi-location restaurant group with declining margins and fragmented operations. We consolidated POS, payments, and operational data, built a net-sales engine, and delivered margin intelligence dashboards \u2014 restoring visibility and enabling data-backed decisions across every location.",
       outcomes: [
-        "Improved visibility",
-        "Reduced operational friction",
-        "Enabled data-backed decisions",
+        "Margin visibility restored",
+        "Operational leakage identified",
+        "Scalable systems foundation",
       ],
     },
     {
       href: "/case-studies/wiral",
-      tag: "Product Engineering",
+      tag: "Implementation Partnership",
       title: "Wiral.ai",
       description:
-        "Engaged as the implementation partner for Wiral.ai. We handled product engineering, core workflow development, and deployment — delivering a stable, production-ready system on timeline.",
+        "A product company that needed to move from concept to shipped, production-grade software \u2014 fast. We embedded as the core engineering partner, owned architecture and delivery, and shipped a stable system with reliable workflows on timeline \u2014 enabling the team to go to market with confidence.",
       outcomes: [
-        "Production-ready delivery",
-        "Stable core workflows",
-        "On-timeline deployment",
+        "Production-ready on timeline",
+        "Reliable core workflows",
+        "Reduced time-to-market",
       ],
     },
   ];
@@ -278,7 +267,7 @@ function SelectedWork() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
             <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-              Portfolio
+              Engagements
             </span>
             <h2 className="mt-4 font-heading text-display-md text-foreground">
               Selected Work
@@ -350,13 +339,12 @@ function Audience() {
             Fit Assessment
           </span>
           <h2 className="mt-4 font-heading text-display-md text-foreground">
-            Who We Work With
+            Built for Ambitious Businesses
           </h2>
         </div>
       </Reveal>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Good fit */}
         <Reveal delay={0.1}>
           <div className="rounded-2xl border border-border bg-bg-card p-8 md:p-10 h-full">
             <div className="flex items-center gap-3 mb-8">
@@ -383,9 +371,10 @@ function Audience() {
             </div>
             <ul className="space-y-5">
               {[
-                "Founder-led, revenue-generating businesses",
-                "Operators with complexity and urgency",
-                "Teams that want a long-term partner, not a vendor",
+                "Businesses that want technology to give them a real competitive edge",
+                "Founders and operators who need a partner that understands both sides \u2014 the business and the build",
+                "Teams ready to adopt AI and automation to reduce costs and move faster",
+                "Companies that have outgrown their systems and need someone to own the transformation",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-4">
                   <span className="mt-2 h-[5px] w-[5px] rounded-full bg-accent shrink-0" />
@@ -398,7 +387,6 @@ function Audience() {
           </div>
         </Reveal>
 
-        {/* Not a fit */}
         <Reveal delay={0.25}>
           <div className="rounded-2xl border border-border bg-bg-card p-8 md:p-10 h-full">
             <div className="flex items-center gap-3 mb-8">
@@ -424,9 +412,9 @@ function Audience() {
             </div>
             <ul className="space-y-5">
               {[
-                "One-off website builds",
-                "Short-term feature-only contracts",
-                "\u201CJust add AI\u201D projects without a business case",
+                "One-off brochure websites or landing pages",
+                "Short-term feature-only contracts with no strategic context",
+                "Engagements where the cheapest bid wins \u2014 we compete on depth, not price",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-4">
                   <span className="mt-2 h-[5px] w-[5px] rounded-full bg-subtle shrink-0" />
@@ -455,29 +443,29 @@ function Engagement() {
 
   const models = [
     {
-      title: "Long-term strategic retainer",
-      description:
-        "Our default model. We embed with your team as an ongoing strategic and technical partner, owning systems architecture, delivery, and iteration.",
-      iconPath: "M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83",
-    },
-    {
       title: "Discovery sprint",
       description:
-        "A focused diagnostic engagement \u2014 typically 2\u20134 weeks \u2014 to map your operations, identify leverage points, and define a transformation roadmap.",
+        "A focused 2\u20134 week diagnostic. We map your operations, systems, and data flows, identify the highest-leverage opportunities, and deliver a clear transformation roadmap with prioritized recommendations. Most engagements start here.",
       iconPath: "M21 21l-4.35-4.35",
       iconCircle: true,
     },
     {
-      title: "Delivery cadence",
+      title: "Strategic advisory",
       description:
-        "Structured cycles with clear deliverables, regular check-ins, and measurable outcomes. No scope ambiguity. No status meetings without substance.",
+        "Ongoing strategic counsel on architecture decisions, vendor selection, technology roadmap, and operational priorities. Ideal for founders who need a senior technical perspective without a full implementation engagement.",
+      iconPath: "M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83",
+    },
+    {
+      title: "Implementation partnership",
+      description:
+        "We own the build. From architecture to deployment, we take full responsibility for delivering production-grade systems \u2014 working in structured cycles with defined milestones and measurable outcomes at every stage.",
       iconPath: "M22 11.08V12a10 10 0 11-5.93-9.14",
       iconPolyline: "22 4 12 14.01 9 11.01",
     },
     {
-      title: "Selective capacity",
+      title: "Retained transformation partner",
       description:
-        "We take on a limited number of engagements to ensure each client receives senior-level attention and meaningful progress.",
+        "Our deepest model. We embed with your team as a long-term strategic and technical partner \u2014 owning systems modernization, operational improvement, and ongoing iteration. Typically spans 6\u201318 months.",
       iconPath: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
     },
   ];
@@ -505,7 +493,7 @@ function Engagement() {
       <Reveal>
         <div className="text-center mb-20">
           <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-            Process
+            Engagement Models
           </span>
           <h2 className="mt-4 font-heading text-display-md text-foreground">How We Engage</h2>
         </div>
@@ -513,7 +501,6 @@ function Engagement() {
 
       <div className="max-w-5xl mx-auto">
         <div className="grid md:grid-cols-[280px_1fr] gap-12 md:gap-16">
-          {/* Left -- step tabs with vertical line */}
           <Reveal>
             <div className="relative">
               <div className="absolute left-[15px] top-0 bottom-0 w-[1px] bg-border" />
@@ -559,7 +546,6 @@ function Engagement() {
             </div>
           </Reveal>
 
-          {/* Right -- active step detail */}
           <div className="relative min-h-[200px]">
             <AnimatePresence mode="wait">
               <motion.div
@@ -576,7 +562,7 @@ function Engagement() {
                   </div>
                   <div>
                     <span className="font-display text-caption uppercase tracking-[0.15em] text-accent">
-                      Step {String(activeStep + 1).padStart(2, "0")}
+                      Model {String(activeStep + 1).padStart(2, "0")}
                     </span>
                     <h3 className="font-heading text-xl text-foreground">
                       {models[activeStep].title}
@@ -588,7 +574,6 @@ function Engagement() {
                   {models[activeStep].description}
                 </p>
 
-                {/* Step navigation */}
                 <div className="mt-8 flex items-center justify-between">
                   <button
                     type="button"
@@ -644,44 +629,36 @@ function Engagement() {
 /* ────────────────────────── FAQ ────────────────────────── */
 const FAQS = [
   {
-    q: "What exactly does CoreFrame do?",
-    a: "CoreFrame is a boutique digital transformation partner. We embed with founder-led and operator-run businesses to improve margins, modernize operations, and build the digital systems that underpin scalable growth. Our work spans strategic advisory, systems integration, product engineering, and applied AI — always tied to measurable business outcomes.",
+    q: "What makes CoreFrame different from other tech agencies?",
+    a: "Most agencies are great at building what you tell them to build. The problem is, most clients don't know exactly what to build — they know the business problem. CoreFrame starts from the commercial context: what does the business actually need to grow, operate efficiently, or outcompete? Then we design and build the technical solution. That combination of business understanding and engineering execution is rare, and it's what makes the difference between software that gets shelved and systems that drive real outcomes.",
   },
   {
-    q: "Who is a typical CoreFrame client?",
-    a: "Our clients are typically revenue-generating businesses — restaurants, operators, SaaS founders, and service companies — that have outgrown their current systems or are facing operational complexity they can't resolve internally. They want a senior technical partner who will own the problem, not just execute tasks.",
+    q: "What kinds of businesses do you work with?",
+    a: "Founder-led and operator-run businesses that are serious about using technology to grow. Restaurants, SaaS companies, service businesses, and operators managing operational complexity. The common thread: they need a partner who understands what they're trying to achieve commercially, not just a team that executes tickets.",
   },
   {
-    q: "How does an engagement typically start?",
-    a: "Most engagements begin with a discovery sprint — a focused 2–4 week diagnostic where we map your operations, identify leverage points, and produce a clear transformation roadmap. This gives you a concrete plan before committing to a longer retainer. Some clients move directly into a retainer if the scope is well-defined.",
+    q: "How quickly can you move?",
+    a: "Fast when it matters. AI agents and automations: 1–3 weeks. Full product builds: 4–10 weeks depending on scope. We begin with a short discovery sprint to map the problem, align on direction, and hit the ground running. No multi-month warm-ups or bloated procurement phases.",
   },
   {
-    q: "How long does a typical engagement last?",
-    a: "Our default model is a long-term strategic retainer, usually spanning 6–18 months. Transformation work rarely produces lasting results from short engagements — we embed deeply, which requires time. That said, we also take on scoped project work where the deliverable and timeline are clearly defined upfront.",
+    q: "How do you help businesses with AI?",
+    a: "AI is now table stakes for competitive businesses. We build AI agents that handle customer support, internal ops, and complex workflows — giving small teams the leverage of a much larger operation. We also integrate AI into existing systems: CRMs, ERPs, dashboards, and custom workflows. We move from brief to working system fast, and we measure success in operational impact, not model metrics.",
   },
   {
-    q: "How do you approach AI — and when do you say no to it?",
-    a: "We use applied AI where there is a clear, quantifiable ROI: task automation that reduces headcount cost, decision-support tools that improve margin or reduce error, and agent workflows that eliminate repetitive manual processes. We actively push back on AI for its own sake. If there is no business case, we will tell you — and recommend a simpler, cheaper solution instead.",
+    q: "Do I need to know what to build before I reach out?",
+    a: "No — and you shouldn't have to. That's partly why CoreFrame exists. If you have a business problem, a growth blocker, or a process you know is costing you money, that's enough to start. We'll help you figure out the right technical approach. Most clients come to us with a problem statement, not a spec sheet.",
   },
   {
-    q: "What makes CoreFrame different from a regular software agency?",
-    a: "Agencies execute what you spec. We help you figure out what to build and why — then own the delivery. Every engagement is senior-led, meaning the people doing the strategic thinking are the same people building the systems. We keep our client roster small deliberately so each engagement gets the attention it deserves.",
+    q: "What does an engagement look like in practice?",
+    a: "We start with a discovery sprint — 2–4 weeks to map your operations, identify where technology can create the most leverage, and produce a clear roadmap. From there we move into delivery: building, shipping, and iterating with measurable milestones. Senior engineers own the work end-to-end. No junior handoffs.",
   },
   {
-    q: "Can you work with non-technical founders?",
-    a: "Yes — and this is often where we add the most value. We translate business problems into technical solutions, handle vendor selection, architecture decisions, and delivery, and communicate progress in plain language. You do not need to understand the stack to work with us effectively.",
+    q: "Can you work alongside our internal team?",
+    a: "Yes. We embed with your team, not around it. Whether you have existing developers, a product manager, or just a vision and no technical staff — we adapt. We've led engagements from scratch and we've augmented internal teams as a senior strategic layer.",
   },
   {
-    q: "What does your delivery process look like?",
-    a: "We work in structured cycles with clear deliverables, defined check-in cadences, and measurable outcomes at each stage. You will always know what is being built, why, and what it should produce. We avoid status meetings that lack substance and scope creep that doesn't serve the roadmap.",
-  },
-  {
-    q: "How many clients do you work with at one time?",
-    a: "We deliberately limit our active client base. Taking too many engagements simultaneously is the fastest way to deliver mediocre work — and that is not how we operate. We maintain selective capacity so every client receives senior-level attention and meaningful forward progress.",
-  },
-  {
-    q: "How do I start a conversation with CoreFrame?",
-    a: "Use the contact form on our Contact page or the query boxes throughout this site. Tell us briefly about your business, the problem you're trying to solve, and where you are today. We'll respond within 1–2 business days to assess fit and, if there's alignment, schedule an introductory call.",
+    q: "How do I get started?",
+    a: "Use the contact form. Tell us about your business, what you're trying to solve, and where things stand today. We'll respond within 1–2 business days and set up a call to see if there's a fit.",
   },
 ];
 
@@ -772,7 +749,6 @@ function FAQ() {
 function FinalCTA() {
   return (
     <Section background="elevated" padding="large" className="overflow-hidden">
-      {/* Background effect */}
       <div className="absolute inset-0 bg-radial-fade opacity-50" />
 
       <div className="relative text-center">
@@ -781,11 +757,11 @@ function FinalCTA() {
             Ready?
           </span>
           <h2 className="mt-6 font-heading text-display-lg text-foreground max-w-3xl mx-auto">
-            Let&rsquo;s assess leverage points in your business.
+            Ready to build technology that actually serves your business?
           </h2>
           <p className="mt-6 font-sans text-body text-muted max-w-lg mx-auto">
-            We take on a limited number of engagements. Start with a
-            conversation.
+            Get a partner who speaks both languages &mdash; business strategy and
+            technical execution. Limited engagements open.
           </p>
           <div className="mt-10">
             <Magnetic strength={0.12}>
@@ -794,7 +770,7 @@ function FinalCTA() {
                 variant="primary"
                 icon={<ArrowRight />}
               >
-                Request a Consultation
+                Start a Conversation
               </Button>
             </Magnetic>
           </div>
@@ -804,245 +780,63 @@ function FinalCTA() {
   );
 }
 
-/* ────────────────────────── AI Experience ────────────────────────── */
-function AIExperience() {
-  const highlights = [
-    {
-      number: "5+",
-      label: "Projects Delivered",
-      description: "From LLM-powered agents to predictive analytics systems across multiple industries.",
-    },
-    {
-      number: "3+",
-      label: "Industries Served",
-      description: "Restaurant, SaaS, E-commerce, Healthcare, and Professional Services.",
-    },
-    {
-      number: "150K+",
-      label: "Lines of Production Code",
-      description: "Battle-tested systems running in production, handling real business operations.",
-    },
-  ];
-
-  return (
-    <Section background="elevated" padding="large">
-      <Reveal>
-        <div className="text-center mb-16">
-          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-            Experience
-          </span>
-          <h2 className="mt-4 font-heading text-display-md text-foreground">
-            Built on Real AI Expertise
-          </h2>
-          <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
-            We don&rsquo;t just talk about AI — we build, ship, and maintain AI systems in production every day.
-          </p>
-        </div>
-      </Reveal>
-
-      <Stagger className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
-        {highlights.map((item) => (
-          <StaggerItem key={item.label} className="h-full">
-            <div className="text-center rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover h-full">
-              <span className="font-heading text-display-md text-accent">{item.number}</span>
-              <h3 className="mt-3 font-display text-body-sm font-medium text-foreground">{item.label}</h3>
-              <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">{item.description}</p>
-            </div>
-          </StaggerItem>
-        ))}
-      </Stagger>
-
-      <div className="mt-12 text-center">
-        <Button href="/about" variant="ghost" icon={<ArrowRight />}>
-          Learn more about our team
-        </Button>
-      </div>
-    </Section>
-  );
-}
-
-/* ────────────────────────── Project Showcase ────────────────────────── */
-function ProjectShowcase() {
-  const categories = [
-    {
-      tag: "AI Apps",
-      title: "Intelligent Applications",
-      description: "Full-stack AI applications that solve real problems — from smart inventory systems to content generation platforms.",
-      count: "3 projects",
-    },
-    {
-      tag: "AI Agents",
-      title: "Autonomous Agent Systems",
-      description: "Custom agents for customer support, document processing, and business automation that work 24/7.",
-      count: "3 projects",
-    },
-    {
-      tag: "AI Projects",
-      title: "Applied AI Solutions",
-      description: "LLM integrations, predictive analytics, and machine learning models deployed in production environments.",
-      count: "2 projects",
-    },
-    {
-      tag: "Digital Transformation",
-      title: "Systems Modernization",
-      description: "End-to-end operational overhauls connecting disparate systems into unified, intelligent platforms.",
-      count: "2 projects",
-    },
+/* ────────────────────────── In Practice ────────────────────────── */
+function InPractice() {
+  const examples = [
+    "AI agents for customer support, ops, and internal workflows \u2014 live in weeks, not months",
+    "POS + payments + CRM unified into a single operating layer",
+    "Margin visibility dashboards with real-time data from every location",
+    "End-to-end automation that replaces repetitive manual work",
+    "Full-stack product builds \u2014 from zero to production-grade software",
+    "Systems modernization for businesses that have outgrown their current stack",
   ];
 
   return (
     <Section padding="large">
       <Reveal>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-          <div>
-            <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-              Our Work
-            </span>
-            <h2 className="mt-4 font-heading text-display-md text-foreground">
-              Projects by Category
-            </h2>
-          </div>
-          <Button href="/projects" variant="ghost" icon={<ArrowRight />}>
-            View all projects
-          </Button>
+        <div className="max-w-3xl mx-auto">
+          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
+            What We Ship
+          </span>
+          <h2 className="mt-4 font-heading text-display-md text-foreground">
+            Real Work. Real Outcomes.
+          </h2>
+          <p className="mt-4 font-sans text-body-sm text-muted max-w-xl">
+            We build things that run in production and show up in your numbers.
+            Here&rsquo;s the kind of work we deliver:
+          </p>
+          <ul className="mt-10 space-y-5">
+            {examples.map((item, i) => (
+              <li key={i} className="flex items-start gap-4">
+                <span className="mt-2 h-[5px] w-[5px] rounded-full bg-accent shrink-0" />
+                <span className="font-sans text-body-sm text-muted leading-relaxed">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </Reveal>
-
-      <Stagger className="grid md:grid-cols-2 gap-6" staggerDelay={0.12}>
-        {categories.map((cat, i) => (
-          <StaggerItem key={i} className="h-full">
-            <Card href="/projects" className="h-full flex flex-col">
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-display text-caption uppercase tracking-[0.15em] text-accent">
-                  {cat.tag}
-                </span>
-                <span className="font-display text-[11px] text-subtle">{cat.count}</span>
-              </div>
-              <h3 className="font-heading text-xl text-foreground group-hover:text-accent transition-colors duration-300">
-                {cat.title}
-              </h3>
-              <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
-                {cat.description}
-              </p>
-              <div className="mt-6 flex items-center gap-2 font-display text-sm text-accent group-hover:gap-3 transition-all duration-300">
-                Explore
-                <ArrowRight />
-              </div>
-            </Card>
-          </StaggerItem>
-        ))}
-      </Stagger>
     </Section>
   );
 }
 
-/* ────────────────────────── Investors & Partners ────────────────────────── */
-function InvestorsPartners() {
-  const partners = [
-    {
-      name: "OpenAI",
-      type: "Technology Partner",
-      description: "Powering our AI agent workflows and LLM integrations with GPT-4 and advanced API access.",
-    },
-    {
-      name: "Google Cloud",
-      type: "Infrastructure Partner",
-      description: "Cloud computing, Firebase, and BigQuery for scalable, production-grade deployments.",
-    },
-    {
-      name: "Vercel",
-      type: "Deployment Partner",
-      description: "Next.js hosting and edge deployments for lightning-fast, globally distributed applications.",
-    },
-    {
-      name: "Anthropic",
-      type: "AI Research Partner",
-      description: "Claude AI integration for safety-focused, nuanced AI agent capabilities.",
-    },
-  ];
 
-  const investors = [
-    {
-      name: "Self-Funded",
-      type: "Bootstrap",
-      description: "CoreFrame is proudly bootstrapped — every dollar of revenue is reinvested into building better AI solutions for our clients.",
-    },
-    {
-      name: "Strategic Advisors",
-      type: "Advisory Board",
-      description: "Guided by experienced operators and technologists who help shape our strategy and connect us with the right opportunities.",
-    },
-  ];
 
+/* ────────────────────────── Built With ────────────────────────── */
+function BuiltWith() {
   return (
-    <Section background="elevated" padding="large">
-      <Reveal>
-        <div className="text-center mb-16">
-          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-            Ecosystem
-          </span>
-          <h2 className="mt-4 font-heading text-display-md text-foreground">
-            Partners & Investors
-          </h2>
-          <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
-            We work with the best technology partners and are backed by strategic
-            advisors who share our vision.
+    <div className="relative border-y border-border overflow-hidden">
+      <div className="absolute inset-0 bg-bg-elevated" />
+      <Container className="relative py-6">
+        <Reveal>
+          <p className="text-center font-display text-caption uppercase tracking-[0.2em] text-subtle mb-4">
+            Built with modern infrastructure
           </p>
-        </div>
-      </Reveal>
-
-      {/* Technology Partners */}
-      <Reveal>
-        <h3 className="font-display text-caption uppercase tracking-[0.15em] text-subtle mb-8">
-          Technology Partners
-        </h3>
-      </Reveal>
-      <Stagger className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12" staggerDelay={0.1}>
-        {partners.map((partner) => (
-          <StaggerItem key={partner.name}>
-            <div className="rounded-2xl border border-border bg-bg-card p-6 transition-all duration-500 hover:border-border-hover h-full">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                  <span className="font-display text-sm font-bold text-accent">
-                    {partner.name.charAt(0)}
-                  </span>
-                </div>
-                <div>
-                  <p className="font-display text-sm font-medium text-foreground">{partner.name}</p>
-                  <p className="font-display text-[10px] uppercase tracking-wider text-accent">{partner.type}</p>
-                </div>
-              </div>
-              <p className="font-sans text-[13px] text-muted leading-relaxed">{partner.description}</p>
-            </div>
-          </StaggerItem>
-        ))}
-      </Stagger>
-
-      {/* Investors */}
-      <Reveal delay={0.2}>
-        <h3 className="font-display text-caption uppercase tracking-[0.15em] text-subtle mb-8">
-          Investors & Backing
-        </h3>
-      </Reveal>
-      <Stagger className="grid md:grid-cols-2 gap-6" staggerDelay={0.15}>
-        {investors.map((inv) => (
-          <StaggerItem key={inv.name} className="h-full">
-            <div className="rounded-2xl border border-border bg-bg-card p-8 transition-all duration-500 hover:border-border-hover h-full">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full border border-accent/30 font-display text-xs text-accent">
-                  ✦
-                </span>
-                <div>
-                  <p className="font-display text-sm font-medium text-foreground">{inv.name}</p>
-                  <p className="font-display text-[10px] uppercase tracking-wider text-accent">{inv.type}</p>
-                </div>
-              </div>
-              <p className="font-sans text-body-sm text-muted leading-relaxed">{inv.description}</p>
-            </div>
-          </StaggerItem>
-        ))}
-      </Stagger>
-    </Section>
+        </Reveal>
+      </Container>
+      <LogoMarquee />
+    </div>
   );
 }
 
@@ -1052,9 +846,9 @@ export default function HomeClient() {
     <>
       <Hero />
       <TrustStrip />
-      <LogoMarquee />
+      <BuiltWith />
       <Services />
-      <AIExperience />
+      <InPractice />
       <SelectedWork />
       <Audience />
       <Engagement />
