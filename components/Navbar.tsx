@@ -121,8 +121,7 @@ export function Navbar() {
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-border-hover font-display text-sm text-foreground hover:border-accent hover:text-accent transition-all duration-500 ease-out-expo"
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+                  <span className="inline-flex h-2 w-2 rounded-full bg-accent" />
                 </span>
                 Let&apos;s Talk
               </Link>

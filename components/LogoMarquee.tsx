@@ -134,7 +134,7 @@ export function LogoMarquee() {
       {/* Single track — CSS animation via inline style (guaranteed, no JIT issues) */}
       <div
         className="flex w-max"
-        style={{ animation: "marquee 30s linear infinite" }}
+        style={{ animation: "marquee 30s linear infinite", contain: "layout style paint", willChange: "transform" }}
       >
         {[0, 1].map((set) => (
           <div

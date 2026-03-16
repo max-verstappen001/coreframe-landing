@@ -62,7 +62,7 @@ const TIMELINE = [
   {
     year: "2024",
     title: "First Client Engagements",
-    description: "Delivered MarginX digital transformation and Wiral.ai product engineering — defining our operating model around deep, senior-led partnerships.",
+    description: "Delivered Wiral.ai product engineering — defining our operating model around deep, senior-led partnerships.",
   },
   {
     year: "2025",

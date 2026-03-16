@@ -26,7 +26,7 @@ About CoreFrame:
 - We help businesses operate better, scale smarter, and build what matters
 - Stack: Next.js, TypeScript, Python, cloud infrastructure — chosen pragmatically, not for hype
 - Clients: founder-led businesses generating real revenue, operators managing complexity, teams outgrowing their systems
-- Engagements: MarginX (multi-location restaurant group — restored margin visibility and operational control), Wiral.ai (implementation partnership — concept to production-grade software)
+- Engagements: Wiral.ai (implementation partnership — concept to production-grade software)
 - Contact: info@coreframetech.in
 - Engagement models: Discovery sprint, Strategic advisory, Implementation partnership, Retained transformation partner
 - Boutique by design. Senior-led always. Selective client roster.
@@ -72,7 +72,7 @@ The suggestions MUST:
 - For negative/abusive messages, offer: "Start fresh", "View our work", "Let's assess the fit"
 
 Example:
-Good question. MarginX was a multi-location restaurant group that couldn't see where margin was leaking. We diagnosed the operational gaps, integrated their POS systems, and built dashboards that gave them real-time visibility. That's the kind of work we do — finding leverage points, then building the systems around them.
+Good question. Wiral.ai was an implementation partnership where we took a SaaS product from concept to production-grade software on timeline. We handled core workflow development, AI integration, and deployment pipeline. That's the kind of work we do — finding leverage points, then building the systems around them.
 [SUGGESTIONS: "What did the outcomes look like?", "I have a similar challenge", "Let's assess the fit"]`;
 
 interface ChatMessage {
@@ -249,8 +249,8 @@ function getFallbackResponse(message: string): FallbackResult {
   // Projects / portfolio / case studies
   if (message.includes("project") || message.includes("portfolio") || message.includes("work") || message.includes("case stud")) {
     return {
-      reply: "Two examples: MarginX was a retained engagement with a multi-location restaurant group — we restored margin visibility and operational control by diagnosing system fragmentation and building integrated dashboards. Wiral.ai was an implementation partnership taking a SaaS product from concept to production-grade software on timeline. Both are on our case studies page.",
-      suggestions: ["Tell me about MarginX", "Tell me about Wiral.ai", "I have a similar challenge"],
+      reply: "One example: Wiral.ai was an implementation partnership taking a SaaS product from concept to production-grade software on timeline. Check out our case studies page for more details.",
+      suggestions: ["Tell me about Wiral.ai", "I have a similar challenge", "Let's assess the fit"],
     };
   }
   // Timeline

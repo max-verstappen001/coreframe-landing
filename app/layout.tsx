@@ -3,7 +3,6 @@ import { heading, sans, display } from "@/lib/fonts";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AIChatWidget } from "@/components/AIChatWidget";
-import { SmoothScroll } from "@/lib/smooth-scroll";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -41,7 +40,6 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="font-sans antialiased bg-bg text-foreground">
-        <SmoothScroll />
         <Navbar />
         <main>{children}</main>
         <Footer />

@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 /* ─── SVG logos as inline components ─── */
 const logos = [
   {
@@ -132,31 +130,21 @@ export function TechLogosBackground() {
       {SLOTS.map((slot, i) => {
         const logo = logos[i % logos.length];
         return (
-          <motion.div
+          <div
             key={i}
-            className="absolute text-foreground"
+            className="absolute text-foreground animate-float-slow"
             style={{
               left: slot.x,
               top: slot.y,
               width: slot.size,
               height: slot.size,
               opacity: slot.opacity,
-            }}
-            animate={{
-              y: [0, -18, 6, -10, 0],
-              x: [0, 6, -4, 8, 0],
-              rotate: [0, 4, -3, 2, 0],
-            }}
-            transition={{
-              duration: slot.dur,
-              delay: slot.delayY,
-              repeat: Infinity,
-              ease: "easeInOut",
-              times: [0, 0.25, 0.5, 0.75, 1],
+              animationDuration: `${slot.dur}s`,
+              animationDelay: `${slot.delayY}s`,
             }}
           >
             {logo.svg}
-          </motion.div>
+          </div>
         );
       })}
     </div>

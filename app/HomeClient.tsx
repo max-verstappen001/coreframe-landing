@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/Section";
 import { Button, ArrowRight } from "@/components/Button";
 import { Card } from "@/components/Card";
@@ -19,36 +18,17 @@ import { useState } from "react";
 
 /* ────────────────────────── Hero ────────────────────────── */
 function Hero() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const heroY = useTransform(scrollYProgress, [0, 0.8], [0, -100]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.95]);
-
   return (
     <section
-      ref={heroRef}
       className="relative min-h-screen flex items-center overflow-hidden"
     >
       <div className="absolute inset-0 bg-grid mask-fade-b" />
       <div className="absolute inset-0 bg-radial-fade" />
 
-      <motion.div
-        className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-accent/5 blur-[120px]"
-        animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-blue-500/5 blur-[120px]"
-        animate={{ x: [0, -40, 0], y: [0, 30, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
+      <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-accent/5 blur-[120px]" />
+      <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-blue-500/5 blur-[120px]" />
 
-      <motion.div
-        style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}
+      <div
         className="relative z-10 w-full"
       >
         <Container>
@@ -62,8 +42,7 @@ function Hero() {
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border-hover bg-bg-card/50 font-display text-caption uppercase text-muted">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
                 </span>
                 Business Intelligence. Technical Execution.
               </span>
@@ -112,7 +91,7 @@ function Hero() {
 
 
         </Container>
-      </motion.div>
+      </div>
     </section>
   );
 }
@@ -197,7 +176,7 @@ function Services() {
       <Stagger className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
         {services.map((service) => (
           <StaggerItem key={service.number} className="h-full">
-            <div className="group relative rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-all duration-500 hover:border-border-hover hover:bg-surface h-full flex flex-col">
+            <div className="group relative rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-colors duration-500 hover:border-border-hover hover:bg-surface h-full flex flex-col">
               <span className="font-display text-caption text-accent tracking-widest">
                 {service.number}
               </span>
@@ -217,7 +196,7 @@ function Services() {
                 ))}
               </ul>
 
-              <div className="mt-8 h-[1px] w-12 bg-border group-hover:w-full group-hover:bg-accent/30 transition-all duration-700 ease-out-expo" />
+              <div className="mt-8 h-[1px] bg-border group-hover:bg-accent/30 transition-colors duration-500" />
             </div>
           </StaggerItem>
         ))}
@@ -236,18 +215,7 @@ function Services() {
 function SelectedWork() {
   const cases = [
     {
-      href: "/case-studies/marginx",
-      tag: "Digital Transformation",
-      title: "MarginX",
-      description:
-        "A multi-location restaurant group with declining margins and fragmented operations. We consolidated POS, payments, and operational data, built a net-sales engine, and delivered margin intelligence dashboards \u2014 restoring visibility and enabling data-backed decisions across every location.",
-      outcomes: [
-        "Margin visibility restored",
-        "Operational leakage identified",
-        "Scalable systems foundation",
-      ],
-    },
-    {
+
       href: "/case-studies/wiral",
       tag: "Implementation Partnership",
       title: "Wiral.ai",
@@ -311,7 +279,7 @@ function SelectedWork() {
                 </div>
               </div>
 
-              <div className="mt-6 flex items-center gap-2 font-display text-sm text-accent group-hover:gap-3 transition-all duration-300">
+              <div className="mt-6 flex items-center gap-2 font-display text-sm text-accent group-hover:gap-3 transition-colors duration-300">
                 Read case study
                 <ArrowRight />
               </div>
@@ -323,7 +291,7 @@ function SelectedWork() {
       <SectionQuery
         section="Selected Work"
         prompt="Curious about one of these projects?"
-        placeholder="e.g. How did you approach the MarginX transformation?"
+        placeholder="e.g. How did you approach the Wiral.ai engagement?"
       />
     </Section>
   );

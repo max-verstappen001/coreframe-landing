@@ -100,8 +100,7 @@ export function Footer() {
               </h3>
               <div className="flex items-center gap-3 mb-4">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+                  <span className="inline-flex h-2 w-2 rounded-full bg-accent" />
                 </span>
                 <span className="font-sans text-body-sm text-muted">
                   Selective engagements. Limited capacity.

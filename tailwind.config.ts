@@ -80,6 +80,7 @@ const config: Config = {
         "scale-in": "scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "pulse-glow": "pulseGlow 3s ease-in-out infinite",
         "marquee": "marquee 32s linear infinite",
+        "float-slow": "float-slow 16s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
@@ -101,6 +102,12 @@ const config: Config = {
         marquee: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
+        },
+        "float-slow": {
+          "0%, 100%": { transform: "translate3d(0, 0, 0)" },
+          "25%": { transform: "translate3d(6px, -18px, 0)" },
+          "50%": { transform: "translate3d(-4px, 6px, 0)" },
+          "75%": { transform: "translate3d(8px, -10px, 0)" },
         },
       },
     },

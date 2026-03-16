@@ -32,22 +32,6 @@ const CATEGORIES: { key: Category; label: string }[] = [
 
 const PROJECTS: Project[] = [
   {
-    title: "MarginX",
-    category: "digital-transformation",
-    categoryLabel: "Digital Transformation",
-    description:
-      "Complete digital transformation for a multi-location restaurant group. Built POS integration, net-sales logic engine, and margin intelligence dashboards to restore operational visibility and reduce margin leakage.",
-    features: [
-      "POS data integration & normalization",
-      "Net sales calculation engine",
-      "Real-time margin dashboards",
-      "Automated variance detection",
-    ],
-    stack: ["Next.js", "TypeScript", "Firebase", "Cloud Functions", "POS APIs"],
-    status: "Completed",
-    href: "/case-studies/marginx",
-  },
-  {
     title: "Wiral.ai",
     category: "ai-projects",
     categoryLabel: "AI Project",

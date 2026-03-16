@@ -7,21 +7,7 @@ import { Reveal, TextReveal } from "@/lib/animations";
 
 const cases = [
   {
-    href: "/case-studies/marginx",
-    tag: "Digital Transformation",
-    title: "MarginX",
-    subtitle: "Multi-location restaurant operations",
-    industry: "Hospitality & Food Service",
-    engagement: "Retained transformation partner",
-    problem: "Fragmented POS, payments, and operational data causing margin erosion and reporting blind spots across multiple locations.",
-    systems: "POS Integration \u2022 Payments \u2022 Operational Dashboards \u2022 Net-Sales Engine",
-    outcomes: [
-      "Margin visibility restored",
-      "Operational leakage identified",
-      "Scalable systems foundation",
-    ],
-  },
-  {
+
     href: "/case-studies/wiral",
     tag: "Implementation Partnership",
     title: "Wiral.ai",

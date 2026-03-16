@@ -98,8 +98,7 @@ A premium dark-themed AI-first landing website for **CoreFrame Technologies**, b
 | `/` | Homepage — Hero, services, experience, projects showcase, investors, FAQ, CTA |
 | `/about` | About page — Team profiles, AI expertise, experience stats, company timeline |
 | `/projects` | Projects portfolio — Filterable grid of AI apps, agents, projects |
-| `/case-studies` | Case studies listing — MarginX and Wiral.ai overviews |
-| `/case-studies/marginx` | MarginX deep dive — Digital transformation case study |
+| `/case-studies` | Case studies listing — Wiral.ai overview |
 | `/case-studies/wiral` | Wiral.ai deep dive — Product engineering case study |
 | `/contact` | Contact form — Enhanced with team directory and direct contacts |
 
@@ -249,7 +248,6 @@ coreframe-landing/
 │   ├── case-studies/
 │   │   ├── page.tsx            # Case studies listing
 │   │   ├── CaseStudiesClient.tsx
-│   │   ├── marginx/            # MarginX case study
 │   │   └── wiral/              # Wiral.ai case study
 │   ├── contact/
 │   │   ├── layout.tsx          # Contact metadata
