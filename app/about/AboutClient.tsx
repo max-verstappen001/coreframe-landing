@@ -9,18 +9,18 @@ import { Reveal, Stagger, StaggerItem, TextReveal, Magnetic } from "@/lib/animat
 /* ────────────────────────── Team Data ────────────────────────── */
 const TEAM = [
   {
-    name: "Sanjay Nanda",
+    name: "Sanjay Nanda N J",
     role: "Founder & CEO",
     description:
       "Sanjay leads CoreFrame's strategy and delivery. He has designed and shipped production-grade systems across restaurant operations, SaaS, and service businesses — with deep hands-on experience in systems architecture, product engineering, and applied AI. He works directly with every client.",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/sanjaynandanj/",
   },
   {
-    name: "Nandakumar",
+    name: "Nandakumar K",
     role: "Director, Commercial Strategy",
     description:
       "With 25+ years building and scaling businesses across industries, Nandakumar brings rare commercial depth to every engagement. He shapes go-to-market direction, manages client relationships, and ensures every engagement delivers measurable business value — not just technical output.",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/nandakumar-kathirvel-55613056/",
   },
 ];
 
