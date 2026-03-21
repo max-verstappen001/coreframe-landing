@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/Section";
 import { Button, ArrowRight } from "@/components/Button";
 import { Card } from "@/components/Card";
-import { Reveal, Stagger, StaggerItem, TextReveal, Counter, Magnetic } from "@/lib/animations";
+import { Reveal, Stagger, StaggerItem, TextReveal, Magnetic } from "@/lib/animations";
 
 /* ────────────────────────── Team Data ────────────────────────── */
 const TEAM = [
@@ -22,12 +22,6 @@ const TEAM = [
       "With 25+ years building and scaling businesses across industries, Nandakumar brings rare commercial depth to every engagement. He shapes go-to-market direction, manages client relationships, and ensures every engagement delivers measurable business value — not just technical output.",
     linkedin: "#",
   },
-];
-
-const EXPERIENCE_STATS = [
-  { label: "Industries Served", value: 3, suffix: "+" },
-  { label: "Production Deployments", value: 5, suffix: "+" },
-  { label: "Client Retention", value: 100, suffix: "%" },
 ];
 
 const EXPERTISE = [
@@ -55,22 +49,22 @@ const EXPERTISE = [
 
 const TIMELINE = [
   {
-    year: "2024",
+    year: "2026",
     title: "CoreFrame Founded",
     description: "Started with a clear premise: businesses need strategic transformation partners who can think and build — not agencies that execute tickets.",
   },
   {
-    year: "2024",
+    year: "2026",
     title: "First Client Engagements",
-    description: "Delivered Wiral.ai product engineering — defining our operating model around deep, senior-led partnerships.",
+    description: "Delivered flagship product engineering engagements — defining our operating model around deep, senior-led partnerships.",
   },
   {
-    year: "2025",
+    year: "2026",
     title: "Expanded Capabilities",
     description: "Added applied AI and automation to our practice — always tied to measurable business outcomes, never as a standalone service.",
   },
   {
-    year: "2025–26",
+    year: "2026+",
     title: "Scaling Selectively",
     description: "Growing our client base deliberately, maintaining senior-led attention for every engagement, and deepening our expertise across industries.",
   },
@@ -135,29 +129,6 @@ function AboutHero() {
         </Reveal>
       </div>
     </Section>
-  );
-}
-
-function Stats() {
-  return (
-    <div className="border-y border-border bg-bg-elevated">
-      <div className="max-w-content mx-auto px-6 md:px-8 py-12">
-        <Stagger className="grid grid-cols-3 gap-8" staggerDelay={0.1}>
-          {EXPERIENCE_STATS.map((stat) => (
-            <StaggerItem key={stat.label}>
-              <div className="text-center">
-                <div className="font-heading text-display-md text-accent">
-                  <Counter from={0} to={stat.value} suffix={stat.suffix} />
-                </div>
-                <p className="mt-2 font-display text-caption text-muted uppercase tracking-wide">
-                  {stat.label}
-                </p>
-              </div>
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </div>
-    </div>
   );
 }
 
@@ -360,8 +331,8 @@ function AboutCTA() {
                 Request a Consultation
               </Button>
             </Magnetic>
-            <Button href="/case-studies" variant="secondary">
-              View Case Studies
+            <Button href="/contact" variant="secondary">
+              Get Started
             </Button>
           </div>
         </Reveal>
@@ -375,7 +346,6 @@ export default function AboutClient() {
   return (
     <>
       <AboutHero />
-      <Stats />
       <OperatingPrinciples />
       <Team />
       <Expertise />

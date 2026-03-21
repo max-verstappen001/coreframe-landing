@@ -10,7 +10,7 @@ const cases = [
 
     href: "/case-studies/wiral",
     tag: "Implementation Partnership",
-    title: "Wiral.ai",
+    title: "Implementation Partnership",
     subtitle: "Product engineering & delivery",
     industry: "SaaS / Technology",
     engagement: "Implementation partnership",

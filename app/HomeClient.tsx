@@ -83,8 +83,8 @@ function Hero() {
                   Start a Conversation
                 </Button>
               </Magnetic>
-              <Button href="/case-studies" variant="secondary">
-                See Our Work
+              <Button href="/about" variant="secondary">
+                Learn About Us
               </Button>
             </motion.div>
           </div>
@@ -216,9 +216,9 @@ function SelectedWork() {
   const cases = [
     {
 
-      href: "/case-studies/wiral",
+      href: "/projects",
       tag: "Implementation Partnership",
-      title: "Wiral.ai",
+      title: "Implementation Partnership",
       description:
         "A product company that needed to move from concept to shipped, production-grade software \u2014 fast. We embedded as the core engineering partner, owned architecture and delivery, and shipped a stable system with reliable workflows on timeline \u2014 enabling the team to go to market with confidence.",
       outcomes: [
@@ -241,8 +241,8 @@ function SelectedWork() {
               Selected Work
             </h2>
           </div>
-          <Button href="/case-studies" variant="ghost" icon={<ArrowRight />}>
-            All case studies
+          <Button href="/projects" variant="ghost" icon={<ArrowRight />}>
+            All projects
           </Button>
         </div>
       </Reveal>
@@ -280,7 +280,7 @@ function SelectedWork() {
               </div>
 
               <div className="mt-6 flex items-center gap-2 font-display text-sm text-accent group-hover:gap-3 transition-colors duration-300">
-                Read case study
+                View project
                 <ArrowRight />
               </div>
             </Card>
@@ -291,7 +291,7 @@ function SelectedWork() {
       <SectionQuery
         section="Selected Work"
         prompt="Curious about one of these projects?"
-        placeholder="e.g. How did you approach the Wiral.ai engagement?"
+        placeholder="e.g. How did you approach this implementation engagement?"
       />
     </Section>
   );
@@ -817,7 +817,6 @@ export default function HomeClient() {
       <BuiltWith />
       <Services />
       <InPractice />
-      <SelectedWork />
       <Audience />
       <Engagement />
       <FAQ />

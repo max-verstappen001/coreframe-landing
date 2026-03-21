@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import CaseStudiesClient from "./CaseStudiesClient";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Case Studies",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function CaseStudiesPage() {
-  return <CaseStudiesClient />;
+  notFound();
 }

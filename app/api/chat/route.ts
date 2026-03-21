@@ -20,13 +20,13 @@ IDENTITY (critical):
 - If someone asks who you are: "I'm part of the CoreFrame team, here to help you explore whether we're the right fit."
 
 About CoreFrame:
-- Strategic transformation partner for founder-led and operator-led businesses, founded in 2024
+ - Strategic transformation partner for founder-led and operator-led businesses, founded in 2026
 - NOT primarily an AI agency or generic software shop — AI is one capability, not the identity
 - Three service areas: (1) Strategic Technology Partnership, (2) Digital Transformation & Systems Modernization, (3) Applied AI & Automation
 - We help businesses operate better, scale smarter, and build what matters
 - Stack: Next.js, TypeScript, Python, cloud infrastructure — chosen pragmatically, not for hype
 - Clients: founder-led businesses generating real revenue, operators managing complexity, teams outgrowing their systems
-- Engagements: Wiral.ai (implementation partnership — concept to production-grade software)
+- Engagements: flagship implementation partnership (concept to production-grade software)
 - Contact: info@coreframetech.in
 - Engagement models: Discovery sprint, Strategic advisory, Implementation partnership, Retained transformation partner
 - Boutique by design. Senior-led always. Selective client roster.
@@ -72,7 +72,7 @@ The suggestions MUST:
 - For negative/abusive messages, offer: "Start fresh", "View our work", "Let's assess the fit"
 
 Example:
-Good question. Wiral.ai was an implementation partnership where we took a SaaS product from concept to production-grade software on timeline. We handled core workflow development, AI integration, and deployment pipeline. That's the kind of work we do — finding leverage points, then building the systems around them.
+Good question. One flagship engagement was an implementation partnership where we took a SaaS product from concept to production-grade software on timeline. We handled core workflow development, AI integration, and deployment pipeline. That's the kind of work we do — finding leverage points, then building the systems around them.
 [SUGGESTIONS: "What did the outcomes look like?", "I have a similar challenge", "Let's assess the fit"]`;
 
 interface ChatMessage {
@@ -215,7 +215,7 @@ function getFallbackResponse(message: string): FallbackResult {
   if (message.includes("ai app") || message.includes("build an app") || message.includes("mobile app") || message.includes("web app")) {
     return {
       reply: "We build business-critical software that holds up in production. We usually start with a discovery sprint to understand the business context, workflows, and what the system actually needs to do — then move into focused delivery. What's the business problem the software needs to solve?",
-      suggestions: ["What tech do you use?", "How long does a build take?", "Show me case studies"],
+      suggestions: ["What tech do you use?", "How long does a build take?", "Show me project examples"],
     };
   }
   // Agents / chatbot / automation
@@ -236,21 +236,21 @@ function getFallbackResponse(message: string): FallbackResult {
   if (message.includes("hello") || message.includes("hi") || message.includes("hey") || message.includes("sup") || message.includes("yo")) {
     return {
       reply: "Welcome to CoreFrame. We're a strategic transformation partner for founder-led and operator-led businesses. I can help you understand how we work, share examples of past engagements, or explore whether there's a fit. What brings you here?",
-      suggestions: ["What does CoreFrame do?", "I have a business challenge", "Show me case studies"],
+      suggestions: ["What does CoreFrame do?", "I have a business challenge", "Show me project examples"],
     };
   }
   // About / team
   if (message.includes("who") || message.includes("about") || message.includes("team") || message.includes("coreframe")) {
     return {
-      reply: "CoreFrame Technologies is a boutique strategic transformation partner, founded in 2024. We work with founder-led and operator-led businesses to modernize operations, build business-critical systems, and apply AI where it drives real outcomes. Senior-led always, selective by design.",
-      suggestions: ["What industries do you serve?", "Show me case studies", "How do engagements work?"],
+      reply: "CoreFrame Technologies is a boutique strategic transformation partner, founded in 2026. We work with founder-led and operator-led businesses to modernize operations, build business-critical systems, and apply AI where it drives real outcomes. Senior-led always, selective by design.",
+      suggestions: ["What industries do you serve?", "Show me project examples", "How do engagements work?"],
     };
   }
   // Projects / portfolio / case studies
   if (message.includes("project") || message.includes("portfolio") || message.includes("work") || message.includes("case stud")) {
     return {
-      reply: "One example: Wiral.ai was an implementation partnership taking a SaaS product from concept to production-grade software on timeline. Check out our case studies page for more details.",
-      suggestions: ["Tell me about Wiral.ai", "I have a similar challenge", "Let's assess the fit"],
+      reply: "One example: a flagship implementation partnership took a SaaS product from concept to production-grade software on timeline. I can walk you through the outcomes and delivery approach.",
+      suggestions: ["Tell me about that engagement", "I have a similar challenge", "Let's assess the fit"],
     };
   }
   // Timeline
@@ -264,21 +264,21 @@ function getFallbackResponse(message: string): FallbackResult {
   if (message.includes("service") || message.includes("offer") || message.includes("do you do") || message.includes("capabilities")) {
     return {
       reply: "Three core areas: (1) Strategic Technology Partnership — embedded advisory, architecture, and technical leadership, (2) Digital Transformation & Systems Modernization — integrations, dashboards, workflow redesign, and operational visibility, (3) Applied AI & Automation — AI-assisted operations, workflow automation, and intelligent tooling, applied selectively.",
-      suggestions: ["How do engagements start?", "Show me case studies", "Let's assess the fit"],
+      suggestions: ["How do engagements start?", "Show me project examples", "Let's assess the fit"],
     };
   }
   // Process / engagement
   if (message.includes("process") || message.includes("engage") || message.includes("how do you work") || message.includes("start")) {
     return {
       reply: "We offer four engagement models: Discovery sprints (diagnose before prescribing), Strategic advisory (ongoing fractional CTO-level guidance), Implementation partnerships (design through production), and Retained transformation partnerships (long-term embedded support). Every engagement starts with understanding your business — not jumping to solutions.",
-      suggestions: ["What does discovery look like?", "Show me case studies", "Let's assess the fit"],
+      suggestions: ["What does discovery look like?", "Show me project examples", "Let's assess the fit"],
     };
   }
   // Thanks / positive
   if (message.includes("thank") || message.includes("cool") || message.includes("great") || message.includes("nice") || message.includes("awesome") || message.includes("ok") || message.includes("okay") || message.includes("good")) {
     return {
       reply: "Glad to help! Is there anything specific you'd like to explore? I can tell you more about our services, share project examples, or help you figure out the right approach for your needs.",
-      suggestions: ["What services do you offer?", "Show me case studies", "I have a project idea"],
+      suggestions: ["What services do you offer?", "Show me project examples", "I have a project idea"],
     };
   }
   // How are you / casual
@@ -299,7 +299,7 @@ function getFallbackResponse(message: string): FallbackResult {
   if (message.includes("industr") || message.includes("restaurant") || message.includes("saas") || message.includes("ecommerce") || message.includes("healthcare")) {
     return {
       reply: "Our sweet spot is founder-led or operator-run businesses generating real revenue — typically with operational complexity that's outgrown their current systems. We've worked across hospitality, SaaS, e-commerce, and professional services. The common thread is businesses that need better systems, not just more software.",
-      suggestions: ["Show me relevant case studies", "How do you assess fit?", "Let's assess the fit"],
+      suggestions: ["Show me relevant project examples", "How do you assess fit?", "Let's assess the fit"],
     };
   }
   // Tech stack
@@ -312,7 +312,7 @@ function getFallbackResponse(message: string): FallbackResult {
   // Default fallback — much more conversational
   return {
     reply: "Good question. I can help you understand how CoreFrame partners with businesses, share examples of past engagements, or explore whether there might be a fit. What would you like to know?",
-    suggestions: ["What does CoreFrame do?", "Show me case studies", "I have a business challenge"],
+    suggestions: ["What does CoreFrame do?", "Show me project examples", "I have a business challenge"],
   };
 }
 
@@ -342,7 +342,7 @@ function parseLLMResponse(raw: string, messageCount: number): { cleanReply: stri
     } else if (messageCount >= 3) {
       suggestions = ["Tell me about an engagement", "Let's assess the fit", "How do you work?"];
     } else {
-      suggestions = ["What does CoreFrame do?", "Show me case studies", "I have a business challenge"];
+      suggestions = ["What does CoreFrame do?", "Show me project examples", "I have a business challenge"];
     }
   }
 

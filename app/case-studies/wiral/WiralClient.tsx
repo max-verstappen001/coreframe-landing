@@ -52,7 +52,7 @@ export default function WiralClient() {
           </motion.div>
 
           <TextReveal
-            text="Wiral.ai"
+            text="Implementation Partnership"
             tag="h1"
             className="font-heading text-display-xl text-foreground"
             delay={0.2}
@@ -74,7 +74,7 @@ export default function WiralClient() {
         <div className="space-y-16">
           <CaseSection number="01" title="Client Context">
             <p className="font-sans text-body-sm text-muted leading-relaxed">
-              Wiral.ai is a product company building software for a specific
+              The client is a product company building software for a specific
               market need. The founding team had strong domain expertise and
               product vision, but needed a technical partner who could take
               ownership of engineering — architecture, build, and deployment
@@ -109,7 +109,7 @@ export default function WiralClient() {
             <BulletList
               items={[
                 "Embedded as the core engineering partner with direct ownership of the entire product build",
-                "Defined system architecture and technical foundations collaboratively with the Wiral.ai team",
+                "Defined system architecture and technical foundations collaboratively with the client team",
                 "Built the primary user-facing workflows — the features that define the product experience",
                 "Set up deployment pipeline and production infrastructure for reliable, repeatable releases",
                 "Implemented integrations and automation to reduce manual overhead from launch",
@@ -121,7 +121,7 @@ export default function WiralClient() {
             <p className="font-sans text-body-sm text-muted leading-relaxed">
               This was a scoped implementation partnership. We worked in
               structured delivery cycles with clear milestones and deployable
-              increments. The Wiral.ai team had full visibility into progress
+              increments. The client team had full visibility into progress
               at every stage. We prioritized stability, maintainability, and
               production readiness — not feature count — because the
               product’s market entry depended on reliability.
@@ -134,7 +134,7 @@ export default function WiralClient() {
                 "Production-ready system delivered on timeline — enabling the team to go to market on schedule",
                 "Reliable core workflows — the primary user-facing features work as expected in production",
                 "Reduced time-to-market through focused, senior-led execution with no handoff delays",
-                "Solid technical foundation the Wiral.ai team can operate and iterate on independently",
+                "Solid technical foundation the client team can operate and iterate on independently",
               ]}
             />
           </CaseSection>
@@ -163,7 +163,7 @@ export default function WiralClient() {
             <p className="font-sans text-body-sm text-muted leading-relaxed">
               For a product company entering a market, the difference between
               shipping on time and shipping late can define the business.
-              Wiral.ai needed more than engineering hours — they needed a
+              The client needed more than engineering hours — they needed a
               partner who would own the outcome. By embedding directly and
               taking full accountability for architecture, build, and
               deployment, we removed the execution risk and gave the team

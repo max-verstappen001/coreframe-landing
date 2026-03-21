@@ -32,7 +32,7 @@ const CATEGORIES: { key: Category; label: string }[] = [
 
 const PROJECTS: Project[] = [
   {
-    title: "Wiral.ai",
+    title: "Implementation Partnership",
     category: "ai-projects",
     categoryLabel: "AI Project",
     description:
@@ -45,7 +45,6 @@ const PROJECTS: Project[] = [
     ],
     stack: ["Next.js", "TypeScript", "Cloud Infrastructure", "AI/ML", "CI/CD"],
     status: "Completed",
-    href: "/case-studies/wiral",
   },
   {
     title: "CoreFrame AI Assistant",
@@ -316,8 +315,8 @@ function ProjectsCTA() {
                 Start Your Project
               </Button>
             </Magnetic>
-            <Button href="/case-studies" variant="secondary">
-              View Case Studies
+            <Button href="/about" variant="secondary">
+              Learn More About Us
             </Button>
           </div>
         </Reveal>

@@ -7,7 +7,6 @@ import { Reveal } from "@/lib/animations";
 
 const FOOTER_LINKS = [
   { label: "Services", href: "/#services" },
-  { label: "Case Studies", href: "/case-studies" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -132,7 +131,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <p className="font-sans text-caption text-subtle">
-            &copy; {new Date().getFullYear()} CoreFrame Technologies. All
+            &copy; {new Date().getFullYear()} CoreFrame Technologies Private Limited. All
             rights reserved.
           </p>
           <p className="font-sans text-caption text-subtle">
