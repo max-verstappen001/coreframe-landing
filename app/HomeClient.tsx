@@ -753,7 +753,6 @@ function InPractice() {
   const examples = [
     "AI agents for customer support, ops, and internal workflows \u2014 live in weeks, not months",
     "POS + payments + CRM unified into a single operating layer",
-    "Margin visibility dashboards with real-time data from every location",
     "End-to-end automation that replaces repetitive manual work",
     "Full-stack product builds \u2014 from zero to production-grade software",
     "Systems modernization for businesses that have outgrown their current stack",
