@@ -134,9 +134,23 @@ export function Footer() {
             &copy; {new Date().getFullYear()} CoreFrame Technologies Private Limited. All
             rights reserved.
           </p>
-          <p className="font-sans text-caption text-subtle">
-            Built with precision.
-          </p>
+          <div className="flex items-center gap-6">
+            <Link
+              href="/terms"
+              className="font-sans text-caption text-subtle hover:text-foreground transition-colors duration-300"
+            >
+              Terms
+            </Link>
+            <Link
+              href="/privacy"
+              className="font-sans text-caption text-subtle hover:text-foreground transition-colors duration-300"
+            >
+              Privacy
+            </Link>
+            <p className="font-sans text-caption text-subtle">
+              Built with precision.
+            </p>
+          </div>
         </div>
       </Container>
     </footer>
