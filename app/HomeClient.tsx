@@ -1,807 +1,441 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Section } from "@/components/Section";
 import { Button, ArrowRight } from "@/components/Button";
-import { Card } from "@/components/Card";
 import { Container } from "@/components/Container";
-import { SectionQuery } from "@/components/SectionQuery";
 import { LogoMarquee } from "@/components/LogoMarquee";
+import { NumberedItem } from "@/components/NumberedItem";
+import { CategoryBadge } from "@/components/CategoryBadge";
+import { Accordion } from "@/components/Accordion";
+import {
+  HeroMark,
+  DotGrid,
+  WaveDivider,
+  AsciiBlock,
+  CodeNodesGraphic,
+  NeuralGraphGraphic,
+  InterlockGraphic,
+} from "@/components/Graphics";
 import {
   Reveal,
-  Stagger,
-  StaggerItem,
   TextReveal,
   Magnetic,
+  ScrollIndicator,
+  BlurReveal,
+  LineMask,
+  CursorSpotlight,
+  MarqueeBand,
+  TickerStrip,
 } from "@/lib/animations";
-import { useState } from "react";
+import { PROJECTS, type Project } from "@/lib/projects";
 
 /* ────────────────────────── Hero ────────────────────────── */
 function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
   return (
     <section
-      className="relative min-h-screen flex items-center overflow-hidden"
+      ref={ref}
+      className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-32 pb-12"
     >
       <div className="absolute inset-0 bg-grid mask-fade-b" />
-      <div className="absolute inset-0 bg-radial-fade" />
+      <CursorSpotlight color="rgba(200, 255, 0, 0.08)" size={600} />
+      <motion.div
+        style={{ y }}
+        className="absolute top-1/3 -left-32 w-96 h-96 rounded-full bg-accent/5 blur-[140px]"
+      />
 
-      <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-accent/5 blur-[120px]" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-blue-500/5 blur-[120px]" />
-
-      <div
-        className="relative z-10 w-full"
+      {/* Big animated mark — right side, faint */}
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0, 1], [0, -100]) }}
+        className="hidden md:block absolute top-1/2 -translate-y-1/2 right-[-8%] w-[55vh] max-w-[640px] opacity-50"
       >
+        <HeroMark />
+      </motion.div>
+
+      {/* Top label */}
+      <Container>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex items-center justify-between font-display text-caption uppercase tracking-[0.2em] text-muted"
+        >
+          <span>You are now entering</span>
+          <span className="hidden md:inline text-subtle">
+            CRFRM / 01 / 2026
+          </span>
+        </motion.div>
+      </Container>
+
+      {/* Main headline */}
+      <motion.div style={{ opacity }} className="relative z-10 w-full">
         <Container>
-          <div className="max-w-4xl">
-            {/* Eyebrow */}
+          <div className="max-w-5xl">
+            <TextReveal
+              text="A studio for software that ships."
+              tag="h1"
+              className="font-heading text-display-xl text-foreground"
+              delay={0.3}
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-10 flex flex-wrap items-baseline gap-x-3 font-heading text-2xl md:text-3xl text-foreground"
+            >
+              <span className="text-muted">We build</span>
+              <TickerStrip
+                items={[
+                  "AI agents",
+                  "automation systems",
+                  "production platforms",
+                  "intelligent tooling",
+                ]}
+              />
+              <span className="text-muted">that ship.</span>
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-8"
-            >
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border-hover bg-bg-card/50 font-display text-caption uppercase text-muted">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-                </span>
-                Business Intelligence. Technical Execution.
-              </span>
-            </motion.div>
-
-            <TextReveal
-              text="Technology That Understands Your Business."
-              tag="h1"
-              className="font-heading text-display-lg text-foreground"
-              delay={0.4}
-            />
-
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-8 max-w-2xl font-sans text-body-lg text-muted leading-relaxed"
-            >
-              Most agencies build what you spec without understanding why. Most
-              consultants advise without building. CoreFrame does both &mdash;
-              combining deep commercial thinking with hands-on technical
-              delivery to build AI-powered systems that actually move the
-              needle.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-12 flex flex-wrap gap-4"
+              transition={{ duration: 0.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-16"
             >
               <Magnetic strength={0.12}>
-                <Button
-                  href="/contact"
-                  variant="primary"
-                  icon={<ArrowRight />}
-                >
-                  Start a Conversation
+                <Button href="/contact" variant="primary" icon={<ArrowRight />}>
+                  Talk to us
                 </Button>
               </Magnetic>
-              <Button href="/about" variant="secondary">
-                Learn About Us
-              </Button>
             </motion.div>
           </div>
-
-
         </Container>
-      </div>
+      </motion.div>
+
+      {/* Bottom row */}
+      <Container>
+        <ScrollIndicator />
+      </Container>
     </section>
   );
 }
 
-/* ────────────────────────── Trust Strip ────────────────────────── */
-function TrustStrip() {
+/* ────────────────────────── Branded Divider ────────────────────────── */
+function BrandedDivider() {
   return (
-    <div className="relative border-y border-border overflow-hidden">
-      <div className="absolute inset-0 bg-bg-elevated" />
-      <Container className="relative py-8">
-        <Reveal>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
-            {[
-              "Business-first engineering",
-              "AI-native delivery",
-              "Senior-led, always",
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                <span className="font-display text-sm tracking-wide text-muted">
-                  {item}
-                </span>
-              </div>
-            ))}
+    <>
+      <div className="border-y border-border bg-bg-elevated/40">
+        <Container>
+          <div className="py-4 flex items-center justify-between font-display text-caption uppercase tracking-[0.2em] text-subtle">
+            <span>© 2026 — CoreFrame</span>
+            <span className="hidden md:inline">Built in production. Shipped on time.</span>
+            <span>v.01</span>
           </div>
-        </Reveal>
-      </Container>
-    </div>
+        </Container>
+      </div>
+      <div className="relative border-b border-border bg-bg overflow-hidden py-8 md:py-12">
+        <MarqueeBand
+          speed={45}
+          items={[
+            "AI Agents",
+            "Automation",
+            "Engineering",
+            "Production",
+            "On-device",
+            "Shipped",
+          ]}
+        />
+      </div>
+    </>
   );
 }
 
-/* ────────────────────────── Services ────────────────────────── */
-function Services() {
-  const services = [
-    {
-      number: "01",
-      title: "Strategy + Delivery",
-      items: [
-        "We diagnose the business problem before designing the solution",
-        "Architecture, vendor decisions, and technical roadmapping",
-        "The same senior minds that plan it are the ones who build it",
-      ],
-    },
-    {
-      number: "02",
-      title: "Systems & Digital Transformation",
-      items: [
-        "Unify fragmented tools \u2014 POS, payments, CRM, ops \u2014 into one layer",
-        "Real-time dashboards and business intelligence that drive decisions",
-        "Workflow redesign and automation for teams ready to scale",
-      ],
-    },
-    {
-      number: "03",
-      title: "AI Agents & Automation",
-      items: [
-        "Custom AI agents for support, operations, and internal workflows",
-        "Automation that cuts headcount cost and eliminates repetitive work",
-        "Intelligent tooling that gives small teams the leverage of large ones",
-      ],
-    },
-  ];
+/* ────────────────────────── Statement Modules ────────────────────────── */
+const STATEMENTS: {
+  marker: "A" | "B" | "C";
+  index: number;
+  headline: string;
+  Visual: React.ComponentType<{ className?: string }>;
+}[] = [
+  {
+    marker: "A",
+    index: 1,
+    headline: "Software that actually solves problems.",
+    Visual: CodeNodesGraphic,
+  },
+  {
+    marker: "B",
+    index: 2,
+    headline: "Engineers who grew up building with AI.",
+    Visual: NeuralGraphGraphic,
+  },
+  {
+    marker: "C",
+    index: 3,
+    headline: "Not a vendor — your technical co-founder.",
+    Visual: InterlockGraphic,
+  },
+];
 
+function Statements() {
   return (
-    <Section id="services" background="elevated" padding="large">
-      <Reveal>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-          <div>
-            <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-              Capabilities
-            </span>
-            <h2 className="mt-4 font-heading text-display-md text-foreground">
-              What We Do
-            </h2>
-          </div>
-          <p className="max-w-md font-sans text-body-sm text-muted">
-            We speak business and we build technology. Most can&rsquo;t do both well.
-          </p>
-        </div>
-      </Reveal>
-
-      <Stagger className="grid md:grid-cols-3 gap-6" staggerDelay={0.15}>
-        {services.map((service) => (
-          <StaggerItem key={service.number} className="h-full">
-            <div className="group relative rounded-2xl border border-border bg-bg-card p-8 md:p-10 transition-colors duration-500 hover:border-border-hover hover:bg-surface h-full flex flex-col">
-              <span className="font-display text-caption text-accent tracking-widest">
-                {service.number}
-              </span>
-
-              <h3 className="mt-6 font-heading text-display-sm text-foreground">
-                {service.title}
-              </h3>
-
-              <ul className="mt-6 space-y-3 flex-1">
-                {service.items.map((item, j) => (
-                  <li key={j} className="flex items-start gap-3">
-                    <span className="mt-2 block h-[5px] w-[5px] rounded-full bg-accent/60 shrink-0" />
-                    <span className="font-sans text-body-sm text-muted leading-relaxed">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 h-[1px] bg-border group-hover:bg-accent/30 transition-colors duration-500" />
-            </div>
-          </StaggerItem>
+    <Section id="capabilities" padding="large">
+      <div className="space-y-px">
+        {STATEMENTS.map((s, i) => (
+          <StatementBlock key={s.marker} statement={s} index={i} />
         ))}
-      </Stagger>
-
-      <SectionQuery
-        section="Services"
-        prompt="Have a question about our capabilities?"
-        placeholder="e.g. What does a strategic retainer include?"
-      />
+      </div>
     </Section>
+  );
+}
+
+function StatementBlock({
+  statement: s,
+  index,
+}: {
+  statement: (typeof STATEMENTS)[number];
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.9, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative grid md:grid-cols-12 gap-8 md:gap-12 py-20 md:py-28 border-t border-border first:border-t-0 -mx-6 px-6 md:-mx-10 md:px-10 overflow-hidden"
+    >
+      {/* Ghost background numeral */}
+      <span
+        aria-hidden
+        className="ghost-numeral absolute -right-8 top-1/2 -translate-y-1/2 opacity-30 transition-opacity duration-700 group-hover:opacity-60"
+      >
+        {`0${s.index}`}
+      </span>
+
+      <div className="relative md:col-span-8">
+        <h3 className="font-heading text-display-md md:text-display-lg text-foreground leading-[1.0]">
+          {s.headline}
+        </h3>
+      </div>
+
+      <div className="relative md:col-span-4 self-center">
+        <s.Visual className="max-w-[280px] md:max-w-none" />
+      </div>
+    </motion.div>
   );
 }
 
 /* ────────────────────────── Selected Work ────────────────────────── */
 function SelectedWork() {
-  const cases = [
-    {
-
-      href: "/projects",
-      tag: "Implementation Partnership",
-      title: "Implementation Partnership",
-      description:
-        "A product company that needed to move from concept to shipped, production-grade software \u2014 fast. We embedded as the core engineering partner, owned architecture and delivery, and shipped a stable system with reliable workflows on timeline \u2014 enabling the team to go to market with confidence.",
-      outcomes: [
-        "Production-ready on timeline",
-        "Reliable core workflows",
-        "Reduced time-to-market",
-      ],
-    },
-  ];
-
   return (
-    <Section padding="large">
+    <Section padding="large" background="elevated">
       <Reveal>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="flex items-end justify-between mb-16">
           <div>
-            <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-              Engagements
-            </span>
-            <h2 className="mt-4 font-heading text-display-md text-foreground">
-              Selected Work
+            <h2 className="font-heading text-display-md text-foreground leading-[1.0]">
+              Selected work.
             </h2>
           </div>
           <Button href="/projects" variant="ghost" icon={<ArrowRight />}>
-            All projects
+            All work
           </Button>
         </div>
       </Reveal>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {cases.map((c, i) => (
-          <Reveal key={c.title} delay={i * 0.15} className="h-full">
-            <Card href={c.href} className="flex flex-col h-full">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="w-2 h-[1px] bg-accent" />
-                <span className="font-display text-caption uppercase tracking-[0.15em] text-accent">
-                  {c.tag}
-                </span>
-              </div>
-
-              <h3 className="font-heading text-display-sm text-foreground group-hover:text-accent transition-colors duration-300">
-                {c.title}
-              </h3>
-
-              <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed flex-1">
-                {c.description}
-              </p>
-
-              <div className="mt-8 pt-6 border-t border-border">
-                <div className="flex flex-wrap gap-3">
-                  {c.outcomes.map((outcome) => (
-                    <span
-                      key={outcome}
-                      className="px-3 py-1 rounded-full bg-bg-elevated border border-border font-display text-[11px] text-muted"
-                    >
-                      {outcome}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-6 flex items-center gap-2 font-display text-sm text-accent group-hover:gap-3 transition-colors duration-300">
-                View project
-                <ArrowRight />
-              </div>
-            </Card>
+        {PROJECTS.map((project, i) => (
+          <Reveal key={project.title} delay={0.05 + i * 0.05}>
+            <ProjectCard project={project} index={i} />
           </Reveal>
         ))}
       </div>
-
-      <SectionQuery
-        section="Selected Work"
-        prompt="Curious about one of these projects?"
-        placeholder="e.g. How did you approach this implementation engagement?"
-      />
     </Section>
   );
 }
 
-/* ────────────────────────── Who We Work With ────────────────────────── */
-function Audience() {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const isExternal = project.href?.startsWith("http");
+  const href = project.href ?? "/projects";
+  const linkProps = isExternal
+    ? { target: "_blank", rel: "noopener noreferrer" as const }
+    : {};
+
   return (
-    <Section background="elevated" padding="large">
-      <Reveal>
-        <div className="text-center mb-16">
-          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-            Fit Assessment
-          </span>
-          <h2 className="mt-4 font-heading text-display-md text-foreground">
-            Built for Ambitious Businesses
-          </h2>
-        </div>
-      </Reveal>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-border bg-bg-card p-8 md:p-10 h-full">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  className="text-accent"
-                >
-                  <path
-                    d="M3 8l3.5 3.5L13 5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <h3 className="font-heading text-xl text-foreground">
-                A good fit
-              </h3>
-            </div>
-            <ul className="space-y-5">
-              {[
-                "Businesses that want technology to give them a real competitive edge",
-                "Founders and operators who need a partner that understands both sides \u2014 the business and the build",
-                "Teams ready to adopt AI and automation to reduce costs and move faster",
-                "Companies that have outgrown their systems and need someone to own the transformation",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <span className="mt-2 h-[5px] w-[5px] rounded-full bg-accent shrink-0" />
-                  <span className="font-sans text-body-sm text-muted leading-relaxed">
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.25}>
-          <div className="rounded-2xl border border-border bg-bg-card p-8 md:p-10 h-full">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-full bg-surface flex items-center justify-center">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  className="text-subtle"
-                >
-                  <path
-                    d="M4 4l8 8M12 4l-8 8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-              <h3 className="font-heading text-xl text-foreground">
-                Not a fit
-              </h3>
-            </div>
-            <ul className="space-y-5">
-              {[
-                "One-off brochure websites or landing pages",
-                "Short-term feature-only contracts with no strategic context",
-                "Engagements where the cheapest bid wins \u2014 we compete on depth, not price",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <span className="mt-2 h-[5px] w-[5px] rounded-full bg-subtle shrink-0" />
-                  <span className="font-sans text-body-sm text-muted leading-relaxed">
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-      </div>
-
-      <SectionQuery
-        section="Fit Assessment"
-        prompt="Not sure if you're a good fit? Ask us."
-        placeholder="e.g. We're a 20-person ops team — are we the right profile?"
-      />
-    </Section>
-  );
-}
-
-/* ────────────────────────── How We Engage ────────────────────────── */
-function Engagement() {
-  const [activeStep, setActiveStep] = useState(0);
-
-  const models = [
-    {
-      title: "Discovery sprint",
-      description:
-        "A focused 2\u20134 week diagnostic. We map your operations, systems, and data flows, identify the highest-leverage opportunities, and deliver a clear transformation roadmap with prioritized recommendations. Most engagements start here.",
-      iconPath: "M21 21l-4.35-4.35",
-      iconCircle: true,
-    },
-    {
-      title: "Strategic advisory",
-      description:
-        "Ongoing strategic counsel on architecture decisions, vendor selection, technology roadmap, and operational priorities. Ideal for founders who need a senior technical perspective without a full implementation engagement.",
-      iconPath: "M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83",
-    },
-    {
-      title: "Implementation partnership",
-      description:
-        "We own the build. From architecture to deployment, we take full responsibility for delivering production-grade systems \u2014 working in structured cycles with defined milestones and measurable outcomes at every stage.",
-      iconPath: "M22 11.08V12a10 10 0 11-5.93-9.14",
-      iconPolyline: "22 4 12 14.01 9 11.01",
-    },
-    {
-      title: "Retained transformation partner",
-      description:
-        "Our deepest model. We embed with your team as a long-term strategic and technical partner \u2014 owning systems modernization, operational improvement, and ongoing iteration. Typically spans 6\u201318 months.",
-      iconPath: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
-    },
-  ];
-
-  const renderIcon = (m: (typeof models)[number]) => (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="text-accent"
+    <a
+      href={href}
+      {...linkProps}
+      className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border bg-bg-card p-7 md:p-9 transition-all duration-500 hover:border-border-hover hover:bg-surface"
     >
-      {m.iconCircle && <circle cx="11" cy="11" r="8" />}
-      <path d={m.iconPath} />
-      {m.iconPolyline && <polyline points={m.iconPolyline} />}
-    </svg>
-  );
+      <span
+        aria-hidden
+        className="ghost-numeral absolute -right-4 -bottom-12 opacity-15 transition-opacity duration-700 group-hover:opacity-30"
+        style={{ fontSize: "10rem" }}
+      >
+        {String(index + 1).padStart(2, "0")}
+      </span>
 
-  return (
-    <Section id="engagement" padding="large">
-      <Reveal>
-        <div className="text-center mb-20">
-          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-            Engagement Models
-          </span>
-          <h2 className="mt-4 font-heading text-display-md text-foreground">How We Engage</h2>
+      <div className="relative">
+        <div className="flex items-center gap-3 mb-5">
+          <CategoryBadge category={project.categoryLabel} status={project.status} />
         </div>
-      </Reveal>
-
-      <div className="max-w-5xl mx-auto">
-        <div className="grid md:grid-cols-[280px_1fr] gap-12 md:gap-16">
-          <Reveal>
-            <div className="relative">
-              <div className="absolute left-[15px] top-0 bottom-0 w-[1px] bg-border" />
-              <div className="space-y-2">
-                {models.map((model, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => setActiveStep(i)}
-                    className={`relative w-full flex items-center gap-4 text-left px-4 py-4 rounded-xl transition-all duration-300 ${
-                      activeStep === i
-                        ? "bg-bg-card border border-border-hover"
-                        : "hover:bg-bg-card/50"
-                    }`}
-                  >
-                    <div
-                      className={`relative z-10 w-[30px] h-[30px] rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-500 ${
-                        activeStep === i
-                          ? "border-accent bg-accent/10"
-                          : activeStep > i
-                            ? "border-accent/40 bg-accent/5"
-                            : "border-border bg-bg"
-                      }`}
-                    >
-                      <span
-                        className={`font-display text-[10px] transition-colors duration-300 ${
-                          activeStep >= i ? "text-accent" : "text-subtle"
-                        }`}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                    <span
-                      className={`font-display text-sm transition-colors duration-300 ${
-                        activeStep === i ? "text-foreground" : "text-muted"
-                      }`}
-                    >
-                      {model.title}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-
-          <div className="relative min-h-[200px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeStep}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-2xl border border-border bg-bg-card p-8 md:p-12"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
-                    {renderIcon(models[activeStep])}
-                  </div>
-                  <div>
-                    <span className="font-display text-caption uppercase tracking-[0.15em] text-accent">
-                      Model {String(activeStep + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="font-heading text-xl text-foreground">
-                      {models[activeStep].title}
-                    </h3>
-                  </div>
-                </div>
-
-                <p className="font-sans text-body text-muted leading-relaxed">
-                  {models[activeStep].description}
-                </p>
-
-                <div className="mt-8 flex items-center justify-between">
-                  <button
-                    type="button"
-                    onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
-                    disabled={activeStep === 0}
-                    className="flex items-center gap-2 font-display text-sm text-muted hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors duration-300"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M10 12L6 8l4-4" />
-                    </svg>
-                    Previous
-                  </button>
-
-                  <div className="flex items-center gap-2">
-                    {models.map((_, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={() => setActiveStep(i)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          i === activeStep ? "bg-accent w-6" : "bg-border hover:bg-border-hover"
-                        }`}
-                      />
-                    ))}
-                  </div>
-
-                  {activeStep < models.length - 1 ? (
-                    <button
-                      type="button"
-                      onClick={() => setActiveStep(activeStep + 1)}
-                      className="flex items-center gap-2 font-display text-sm text-accent hover:text-accent-dark transition-colors duration-300"
-                    >
-                      Next
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M6 4l4 4-4 4" />
-                      </svg>
-                    </button>
-                  ) : (
-                    <Button href="/contact" variant="ghost" icon={<ArrowRight />}>
-                      Get started
-                    </Button>
-                  )}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
+        <h3 className="font-heading text-2xl md:text-3xl text-foreground leading-tight transition-colors duration-300 group-hover:text-accent">
+          {project.title}
+        </h3>
+        <p className="mt-2 font-display text-caption uppercase tracking-[0.12em] text-subtle">
+          {project.client}
+        </p>
+        <p className="mt-5 font-sans text-body-sm text-muted leading-relaxed">
+          {project.description}
+        </p>
       </div>
-    </Section>
+
+      <div className="relative mt-7 pt-5 border-t border-border flex items-center justify-between gap-4">
+        <div className="flex flex-wrap gap-x-4 gap-y-1">
+          {project.stack.slice(0, 3).map((tech) => (
+            <span
+              key={tech}
+              className="font-display text-caption uppercase tracking-[0.12em] text-subtle"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+        <span className="flex items-center gap-2 font-display text-sm text-accent transition-all duration-300 group-hover:gap-3 whitespace-nowrap">
+          {isExternal ? "Visit" : "View"}
+          <ArrowRight />
+        </span>
+      </div>
+    </a>
   );
 }
 
 /* ────────────────────────── FAQ ────────────────────────── */
-const FAQS = [
+const FAQ_ITEMS = [
   {
-    q: "What makes CoreFrame different from other tech agencies?",
-    a: "Most agencies are great at building what you tell them to build. The problem is, most clients don't know exactly what to build — they know the business problem. CoreFrame starts from the commercial context: what does the business actually need to grow, operate efficiently, or outcompete? Then we design and build the technical solution. That combination of business understanding and engineering execution is rare, and it's what makes the difference between software that gets shelved and systems that drive real outcomes.",
+    question: "What kinds of work do you take on?",
+    answer:
+      "AI agents, automation systems, and production-grade software. We work with founders and operators who need real engineering — not a long deck and a roadmap.",
   },
   {
-    q: "What kinds of businesses do you work with?",
-    a: "Founder-led and operator-run businesses that are serious about using technology to grow. Restaurants, SaaS companies, service businesses, and operators managing operational complexity. The common thread: they need a partner who understands what they're trying to achieve commercially, not just a team that executes tickets.",
+    question: "How quickly can you move?",
+    answer:
+      "AI agents and automations: 1–3 weeks. Full product builds: 4–10 weeks depending on scope. We start with a short discovery to align on direction, then ship.",
   },
   {
-    q: "How quickly can you move?",
-    a: "Fast when it matters. AI agents and automations: 1–3 weeks. Full product builds: 4–10 weeks depending on scope. We begin with a short discovery sprint to map the problem, align on direction, and hit the ground running. No multi-month warm-ups or bloated procurement phases.",
+    question: "Do I need a spec before reaching out?",
+    answer:
+      "No. A problem statement is enough. Most people come to us with the business problem, not a feature list — we help shape the rest.",
   },
   {
-    q: "How do you help businesses with AI?",
-    a: "AI is now table stakes for competitive businesses. We build AI agents that handle customer support, internal ops, and complex workflows — giving small teams the leverage of a much larger operation. We also integrate AI into existing systems: CRMs, ERPs, dashboards, and custom workflows. We move from brief to working system fast, and we measure success in operational impact, not model metrics.",
+    question: "Can you work alongside our team?",
+    answer:
+      "Yes. We embed with internal teams or own the build end-to-end. Senior engineers throughout — no junior handoffs.",
   },
   {
-    q: "Do I need to know what to build before I reach out?",
-    a: "No — and you shouldn't have to. That's partly why CoreFrame exists. If you have a business problem, a growth blocker, or a process you know is costing you money, that's enough to start. We'll help you figure out the right technical approach. Most clients come to us with a problem statement, not a spec sheet.",
-  },
-  {
-    q: "What does an engagement look like in practice?",
-    a: "We start with a discovery sprint — 2–4 weeks to map your operations, identify where technology can create the most leverage, and produce a clear roadmap. From there we move into delivery: building, shipping, and iterating with measurable milestones. Senior engineers own the work end-to-end. No junior handoffs.",
-  },
-  {
-    q: "Can you work alongside our internal team?",
-    a: "Yes. We embed with your team, not around it. Whether you have existing developers, a product manager, or just a vision and no technical staff — we adapt. We've led engagements from scratch and we've augmented internal teams as a senior strategic layer.",
-  },
-  {
-    q: "How do I get started?",
-    a: "Use the contact form. Tell us about your business, what you're trying to solve, and where things stand today. We'll respond within 1–2 business days and set up a call to see if there's a fit.",
+    question: "How do I get started?",
+    answer:
+      "Send a note via the contact page or chat. We'll respond in 1–2 business days and set up a call.",
   },
 ];
 
 function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
   return (
-    <Section id="faq" padding="large">
+    <Section id="faq" padding="large" className="overflow-hidden">
+      <DotGrid className="opacity-30" size={24} />
+      <span
+        aria-hidden
+        className="ghost-numeral absolute -left-4 -top-12 opacity-20 select-none"
+      >
+        ?
+      </span>
       <Reveal>
-        <div className="text-center mb-16">
-          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-            FAQ
-          </span>
-          <h2 className="mt-4 font-heading text-display-md text-foreground">
-            Common Questions
-          </h2>
-          <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
-            Answers to the questions we hear most often.
-          </p>
+        <div className="relative grid md:grid-cols-12 gap-8 md:gap-12 mb-12">
+          <div className="md:col-span-4">
+            <h2 className="font-heading text-display-md text-foreground leading-[1.0]">
+              Common questions.
+            </h2>
+            <LineMask className="mt-8 max-w-[120px]" delay={0.4} />
+          </div>
+          <div className="md:col-span-8">
+            <Accordion items={FAQ_ITEMS} />
+          </div>
         </div>
       </Reveal>
-
-      <div className="max-w-3xl mx-auto divide-y divide-border">
-        {FAQS.map((item, i) => {
-          const isOpen = openIndex === i;
-          return (
-            <Reveal key={i} delay={i * 0.04}>
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full flex items-start justify-between gap-6 py-7 text-left group"
-                  aria-expanded={isOpen}
-                >
-                  <span className="font-heading text-lg text-foreground group-hover:text-accent transition-colors duration-300 leading-snug">
-                    {item.q}
-                  </span>
-                  <span
-                    className={`shrink-0 flex items-center justify-center w-7 h-7 rounded-full border transition-all duration-300 ${
-                      isOpen
-                        ? "border-accent bg-accent/10 rotate-45"
-                        : "border-border-hover group-hover:border-accent"
-                    }`}
-                  >
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      className={`transition-colors duration-300 ${
-                        isOpen ? "text-accent" : "text-muted group-hover:text-accent"
-                      }`}
-                    >
-                      <path d="M6 1v10M1 6h10" />
-                    </svg>
-                  </span>
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="answer"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="pb-7 font-sans text-body-sm text-muted leading-relaxed">
-                        {item.a}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </Reveal>
-          );
-        })}
-      </div>
     </Section>
   );
 }
 
 /* ────────────────────────── Final CTA ────────────────────────── */
 function FinalCTA() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 1.02]);
+
   return (
     <Section background="elevated" padding="large" className="overflow-hidden">
-      <div className="absolute inset-0 bg-radial-fade opacity-50" />
-
-      <div className="relative text-center">
-        <Reveal>
-          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-            Ready?
-          </span>
-          <h2 className="mt-6 font-heading text-display-lg text-foreground max-w-3xl mx-auto">
-            Ready to build technology that actually serves your business?
-          </h2>
-          <p className="mt-6 font-sans text-body text-muted max-w-lg mx-auto">
-            Get a partner who speaks both languages &mdash; business strategy and
-            technical execution. Limited engagements open.
-          </p>
-          <div className="mt-10">
+      <CursorSpotlight color="rgba(200, 255, 0, 0.06)" size={700} />
+      <motion.div ref={ref} style={{ scale }} className="relative">
+        <div className="text-center max-w-4xl mx-auto">
+          <Reveal>
+            <NumberedItem
+              index={0}
+              label="START"
+              className="justify-center mb-10"
+            />
+          </Reveal>
+          <TextReveal
+            text="Got something to build?"
+            tag="h2"
+            className="font-heading text-display-xl text-foreground"
+          />
+          <BlurReveal delay={0.5} className="mt-12">
             <Magnetic strength={0.12}>
-              <Button
-                href="/contact"
-                variant="primary"
-                icon={<ArrowRight />}
-              >
-                Start a Conversation
+              <Button href="/contact" variant="primary" icon={<ArrowRight />}>
+                Talk to us
               </Button>
             </Magnetic>
-          </div>
+          </BlurReveal>
+        </div>
+      </motion.div>
+    </Section>
+  );
+}
+
+/* ────────────────────────── Process / Terminal ────────────────────────── */
+function ProcessBlock() {
+  return (
+    <Section padding="large" className="overflow-hidden">
+      <DotGrid className="opacity-50" size={20} />
+      <div className="relative grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+        <Reveal className="md:col-span-5">
+          <h2 className="font-heading text-display-md text-foreground leading-[1.0]">
+            One command. One team. Shipped.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.2} className="md:col-span-7">
+          <AsciiBlock />
         </Reveal>
       </div>
     </Section>
   );
 }
 
-/* ────────────────────────── In Practice ────────────────────────── */
-function InPractice() {
-  const examples = [
-    "AI agents for customer support, ops, and internal workflows \u2014 live in weeks, not months",
-    "POS + payments + CRM unified into a single operating layer",
-    "End-to-end automation that replaces repetitive manual work",
-    "Full-stack product builds \u2014 from zero to production-grade software",
-    "Systems modernization for businesses that have outgrown their current stack",
-  ];
-
-  return (
-    <Section padding="large">
-      <Reveal>
-        <div className="max-w-3xl mx-auto">
-          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-            What We Ship
-          </span>
-          <h2 className="mt-4 font-heading text-display-md text-foreground">
-            Real Work. Real Outcomes.
-          </h2>
-          <p className="mt-4 font-sans text-body-sm text-muted max-w-xl">
-            We build things that run in production and show up in your numbers.
-            Here&rsquo;s the kind of work we deliver:
-          </p>
-          <ul className="mt-10 space-y-5">
-            {examples.map((item, i) => (
-              <li key={i} className="flex items-start gap-4">
-                <span className="mt-2 h-[5px] w-[5px] rounded-full bg-accent shrink-0" />
-                <span className="font-sans text-body-sm text-muted leading-relaxed">
-                  {item}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Reveal>
-    </Section>
-  );
-}
-
-
-
-/* ────────────────────────── Built With ────────────────────────── */
+/* ────────────────────────── Built With Marquee ────────────────────────── */
 function BuiltWith() {
   return (
-    <div className="relative border-y border-border overflow-hidden">
-      <div className="absolute inset-0 bg-bg-elevated" />
-      <Container className="relative py-6">
-        <Reveal>
-          <p className="text-center font-display text-caption uppercase tracking-[0.2em] text-subtle mb-4">
-            Built with modern infrastructure
-          </p>
-        </Reveal>
-      </Container>
+    <div className="relative border-y border-border overflow-hidden bg-bg-elevated bg-scanline">
       <LogoMarquee />
     </div>
   );
@@ -812,12 +446,12 @@ export default function HomeClient() {
   return (
     <>
       <Hero />
-      <TrustStrip />
+      <BrandedDivider />
+      <Statements />
+      <WaveDivider className="border-y border-border bg-bg-elevated/30" />
+      <SelectedWork />
+      <ProcessBlock />
       <BuiltWith />
-      <Services />
-      <InPractice />
-      <Audience />
-      <Engagement />
       <FAQ />
       <FinalCTA />
     </>

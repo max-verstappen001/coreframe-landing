@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
+import ProjectsClient from "./ProjectsClient";
 
 export default function ProjectsPage() {
-  notFound();
+  return <ProjectsClient />;
 }

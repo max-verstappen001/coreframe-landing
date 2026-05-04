@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { heading, sans, display } from "@/lib/fonts";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { NoiseOverlay } from "@/lib/animations";
 
 import "./globals.css";
 
@@ -40,6 +41,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="font-sans antialiased bg-bg text-foreground">
+        <NoiseOverlay />
         <Navbar />
         <main>{children}</main>
         <Footer />

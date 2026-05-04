@@ -71,7 +71,9 @@ export function Navbar() {
         <Container className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="relative group">
-            <span className="font-display text-xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-accent">
+            <span
+              className="font-display text-xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-accent"
+            >
               CoreFrame
             </span>
             <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-500 ease-out-expo group-hover:w-full" />

@@ -10,17 +10,27 @@ import { Reveal, Stagger, StaggerItem, TextReveal, Magnetic } from "@/lib/animat
 const TEAM = [
   {
     name: "Sanjay Nanda N J",
-    role: "Founder & CEO",
+    role: "Co-founder & CEO",
     description:
-      "Sanjay leads CoreFrame's strategy and delivery. He has designed and shipped production-grade systems across restaurant operations, SaaS, and service businesses — with deep hands-on experience in systems architecture, product engineering, and applied AI. He works directly with every client.",
+      "Sanjay leads CoreFrame's strategy and delivery, working directly with every client. He has shipped production-grade systems across restaurant operations, SaaS, fintech, and services — with deep hands-on experience spanning systems architecture, product engineering, applied AI, digital transformation, and private market investments.",
+    email: "work@sanjaynanda.dev",
     linkedin: "https://www.linkedin.com/in/sanjaynandanj/",
   },
   {
     name: "Nandakumar K",
     role: "Director, Commercial Strategy",
     description:
-      "With 25+ years building and scaling businesses across industries, Nandakumar brings rare commercial depth to every engagement. He shapes go-to-market direction, manages client relationships, and ensures every engagement delivers measurable business value — not just technical output.",
+      "With 25+ years building and scaling businesses across industries, Nandakumar brings rare commercial depth to every engagement. He shapes go-to-market direction, manages client relationships, and makes sure everything we deliver translates into measurable business value — margin, efficiency, and outcomes — not just technical output.",
+    email: "info@coreframetech.in",
     linkedin: "https://www.linkedin.com/in/nandakumar-kathirvel-55613056/",
+  },
+  {
+    name: "Amudhan Panneerselvam",
+    role: "Co-founder & CTO",
+    description:
+      "Amudhan leads CoreFrame's technology vision — pairing full-stack engineering with applied AI, IoT, and hardware. He has shipped production-grade platforms including AI-driven learning systems with advanced RAG and automation workflows, spanning intelligent software through to real-world connected devices. World, Asian, and Indian Book of Records holder for the world's smallest and lightest satellite.",
+    email: "aamudhan2000@gmail.com",
+    linkedin: "https://www.linkedin.com/in/amudhan-panneerselvam/",
   },
 ];
 
@@ -149,11 +159,11 @@ function Team() {
         </div>
       </Reveal>
 
-      <Stagger className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto" staggerDelay={0.15}>
+      <Stagger className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto" staggerDelay={0.15}>
         {TEAM.map((member) => (
-          <StaggerItem key={member.name}>
-            <Card tilt={false}>
-              <div className="text-center">
+          <StaggerItem key={member.name} className="h-full">
+            <Card tilt={false} className="h-full">
+              <div className="flex flex-col h-full text-center">
                 <div className="w-20 h-20 mx-auto rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mb-6">
                   <span className="font-heading text-2xl text-accent">
                     {member.name.charAt(0)}
@@ -168,9 +178,9 @@ function Team() {
                 <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed">
                   {member.description}
                 </p>
-                <div className="mt-6 flex items-center justify-center gap-4">
+                <div className="mt-auto pt-6 flex items-center justify-center gap-4">
                   <a
-                    href="mailto:info@coreframetech.in"
+                    href={`mailto:${member.email}`}
                     className="font-display text-[12px] text-muted hover:text-accent transition-colors duration-300"
                   >
                     Email
