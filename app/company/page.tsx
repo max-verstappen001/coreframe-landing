@@ -1,12 +1,24 @@
-import { Metadata } from "next";
+import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import CompanyClient from "./CompanyClient";
 
-export const metadata: Metadata = {
-  title: "Company",
+const PATH = "/company";
+
+export const metadata = pageMetadata({
+  title: "Company — Research to Transformation",
   description:
-    "Coreframe Technologies is an AI research and engineering company — research generates capability, engineering builds production systems, transformation integrates them into operations.",
-};
+    "Coreframe Technologies is an AI research and engineering company — research generates capability, engineering builds systems, transformation runs them in operations.",
+  path: PATH,
+});
 
 export default function CompanyPage() {
-  return <CompanyClient />;
+  const jsonLd = breadcrumbJsonLd([{ name: "Company", path: PATH }]);
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <CompanyClient />
+    </>
+  );
 }

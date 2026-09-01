@@ -1,12 +1,31 @@
-import { Metadata } from "next";
+import { pageMetadata, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import SecurityClient from "./SecurityClient";
+import { FAQ_ITEMS } from "./faq";
 
-export const metadata: Metadata = {
-  title: "Security",
+const PATH = "/security";
+
+export const metadata = pageMetadata({
+  title: "Security Practices & Architecture",
   description:
-    "Coreframe's security practices and principles — encryption, access control, environment isolation, customer-controlled deployments and incident response, matched to each engagement's threat model.",
-};
+    "Coreframe's security practices — encryption, access control, environment isolation, customer-controlled deployments and incident response matched to each engagement.",
+  path: PATH,
+});
 
 export default function SecurityPage() {
-  return <SecurityClient />;
+  const jsonLd = [
+    breadcrumbJsonLd([{ name: "Security", path: PATH }]),
+    faqJsonLd(FAQ_ITEMS),
+  ];
+  return (
+    <>
+      {jsonLd.map((data, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+        />
+      ))}
+      <SecurityClient />
+    </>
+  );
 }
