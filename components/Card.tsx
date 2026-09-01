@@ -16,10 +16,10 @@ export function Card({ children, href, className = "" }: CardProps) {
     <div
       className={clsx(
         "group relative overflow-hidden rounded-2xl",
-        "bg-bg-card border border-border",
+        "bg-bg-card border border-border shadow-soft",
         "p-8 md:p-10",
-        "transition-[border-color,transform] duration-300 ease-out",
-        "hover:border-border-hover hover:-translate-y-1",
+        "transition-[border-color,transform,box-shadow] duration-300 ease-out",
+        "hover:border-border-hover hover:-translate-y-1 hover:shadow-card",
         className
       )}
     >

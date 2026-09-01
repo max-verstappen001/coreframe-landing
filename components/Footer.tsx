@@ -1,15 +1,65 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Container } from "./Container";
 import { Reveal } from "@/lib/animations";
+import { CoreframeWordmark } from "./CoreframeWordmark";
+import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
+import { INDUSTRIES } from "@/lib/industries";
 
-const FOOTER_LINKS = [
-  { label: "Services", href: "/#services" },
-  { label: "About", href: "/about" },
+const CAPABILITY_LINKS = CAPABILITIES.slice(0, 6).map((c) => ({
+  label: c.short,
+  href: capabilityHref(c),
+}));
+
+const INDUSTRY_LINKS = INDUSTRIES.map((i) => ({
+  label: i.short,
+  href: "/industries",
+}));
+
+const COMPANY_LINKS = [
+  { label: "Company", href: "/company" },
+  { label: "Coreframe Labs", href: "/labs" },
+  { label: "Work", href: "/work" },
+  { label: "Insights", href: "/insights" },
+  { label: "Careers", href: "/company/careers" },
   { label: "Contact", href: "/contact" },
 ];
+
+const LEGAL_LINKS = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Use", href: "/terms" },
+  { label: "Security", href: "/security" },
+  { label: "Responsible AI", href: "/responsible-ai" },
+];
+
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
+  return (
+    <div>
+      <h3 className="font-display text-caption uppercase tracking-[0.15em] text-subtle mb-4">
+        {title}
+      </h3>
+      <ul className="space-y-3">
+        {links.map((link) => (
+          <li key={link.label}>
+            <Link
+              href={link.href}
+              className="font-sans text-body-sm text-muted hover:text-foreground transition-colors duration-300"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export function Footer() {
   return (
@@ -18,17 +68,41 @@ export function Footer() {
         <Reveal>
           <div className="grid md:grid-cols-12 gap-12 md:gap-8">
             {/* Brand */}
-            <div className="md:col-span-5">
+            <div className="md:col-span-4">
               <Link
                 href="/"
-                className="font-display text-xl font-bold tracking-tight text-foreground hover:text-accent transition-colors duration-300"
+                className="group inline-flex items-center gap-1.5 font-mono text-xl font-bold tracking-tight text-foreground"
               >
-                CoreFrame
+                <span className="text-subtle transition-colors group-hover:text-accent">[</span>
+                <img
+                  src="/logos/coreframe-mark.png"
+                  alt=""
+                  width={18}
+                  height={18}
+                  className="h-[18px] w-[18px] object-contain"
+                />
+                <CoreframeWordmark height={17} />
+                <span className="text-subtle transition-colors group-hover:text-accent">]</span>
               </Link>
               <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed max-w-sm">
-                Strategic transformation partner for founder-led and
-                operator-led businesses. Boutique by design. Senior-led always.
+                Engineering intelligent systems for the real world. Private
+                AI, enterprise knowledge systems and autonomous workflows —
+                designed, deployed and operated on infrastructure you
+                control.
               </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {["Private AI", "Enterprise AI", "Digital Transformation"].map(
+                  (tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg px-3 py-1 font-display text-[11px] uppercase tracking-[0.12em] text-muted"
+                    >
+                      <span className="h-1 w-1 rounded-full bg-accent" />
+                      {tag}
+                    </span>
+                  )
+                )}
+              </div>
               <a
                 href="mailto:info@coreframetech.in"
                 className="inline-block mt-4 font-display text-body-sm text-accent hover:text-foreground transition-colors duration-300"
@@ -73,57 +147,17 @@ export function Footer() {
               </div>
             </div>
 
-            {/* Navigation */}
-            <div className="md:col-span-3 md:col-start-7">
-              <h3 className="font-display text-caption uppercase tracking-[0.15em] text-subtle mb-4">
-                Navigation
-              </h3>
-              <ul className="space-y-3">
-                {FOOTER_LINKS.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="font-sans text-body-sm text-muted hover:text-foreground transition-colors duration-300"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <div className="md:col-span-2">
+              <FooterColumn title="Capabilities" links={CAPABILITY_LINKS} />
             </div>
-
-            {/* Status */}
-            <div className="md:col-span-4">
-              <h3 className="font-display text-caption uppercase tracking-[0.15em] text-subtle mb-4">
-                Status
-              </h3>
-              <div className="flex items-center gap-3 mb-4">
-                <span className="relative flex h-2 w-2">
-                  <span className="inline-flex h-2 w-2 rounded-full bg-accent" />
-                </span>
-                <span className="font-sans text-body-sm text-muted">
-                  Selective engagements. Limited capacity.
-                </span>
-              </div>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 font-display text-body-sm text-accent hover:text-foreground transition-colors duration-300 group"
-              >
-                Start a conversation
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                >
-                  <path d="M3 8h10M9 4l4 4-4 4" />
-                </svg>
-              </Link>
+            <div className="md:col-span-2">
+              <FooterColumn title="Industries" links={INDUSTRY_LINKS} />
+            </div>
+            <div className="md:col-span-2">
+              <FooterColumn title="Company" links={COMPANY_LINKS} />
+            </div>
+            <div className="md:col-span-2">
+              <FooterColumn title="Legal" links={LEGAL_LINKS} />
             </div>
           </div>
         </Reveal>
@@ -131,25 +165,40 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <p className="font-sans text-caption text-subtle">
-            &copy; {new Date().getFullYear()} CoreFrame Technologies Private Limited. All
-            rights reserved.
+            &copy; {new Date().getFullYear()} Coreframe Technologies Private
+            Limited. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link
-              href="/terms"
-              className="font-sans text-caption text-subtle hover:text-foreground transition-colors duration-300"
+            <a
+              href="https://www.linkedin.com/company/coreframe-technologies"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Coreframe on LinkedIn"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-border text-subtle hover:border-accent hover:text-accent transition-colors duration-300"
             >
-              Terms
-            </Link>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z" />
+              </svg>
+            </a>
             <Link
-              href="/privacy"
-              className="font-sans text-caption text-subtle hover:text-foreground transition-colors duration-300"
+              href="/contact"
+              className="inline-flex items-center gap-2 font-display text-body-sm text-accent hover:text-foreground transition-colors duration-300 group"
             >
-              Privacy
+              Discuss a Project
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
             </Link>
-            <p className="font-sans text-caption text-subtle">
-              Built with precision.
-            </p>
           </div>
         </div>
       </Container>

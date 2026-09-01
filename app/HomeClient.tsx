@@ -1,260 +1,119 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import Link from "next/link";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/Section";
-import { Button, ArrowRight } from "@/components/Button";
 import { Container } from "@/components/Container";
-import { LogoMarquee } from "@/components/LogoMarquee";
-import { NumberedItem } from "@/components/NumberedItem";
-import { CategoryBadge } from "@/components/CategoryBadge";
-import { Accordion } from "@/components/Accordion";
-import {
-  HeroMark,
-  DotGrid,
-  WaveDivider,
-  AsciiBlock,
-  CodeNodesGraphic,
-  NeuralGraphGraphic,
-  InterlockGraphic,
-} from "@/components/Graphics";
-import {
-  Reveal,
-  TextReveal,
-  Magnetic,
-  ScrollIndicator,
-  BlurReveal,
-  LineMask,
-  CursorSpotlight,
-  MarqueeBand,
-  TickerStrip,
-} from "@/lib/animations";
-import { PROJECTS, type Project } from "@/lib/projects";
+import { Reveal, BlurReveal } from "@/lib/animations";
+import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
+import { INDUSTRIES } from "@/lib/industries";
+import { WORK_ITEMS } from "@/lib/work";
 
-/* ────────────────────────── Hero ────────────────────────── */
+/* ═════════════════════════ Hero ═════════════════════════ */
+const DEPLOYMENT_BADGES = ["On-Premise", "Private Cloud", "Hybrid", "Edge"];
+
 function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
   return (
-    <section
-      ref={ref}
-      className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-32 pb-12"
-    >
-      <div className="absolute inset-0 bg-grid mask-fade-b" />
-      <CursorSpotlight color="rgba(200, 255, 0, 0.08)" size={600} />
-      <motion.div
-        style={{ y }}
-        className="absolute top-1/3 -left-32 w-96 h-96 rounded-full bg-accent/5 blur-[140px]"
-      />
-
-      {/* Big animated mark — right side, faint */}
-      <motion.div
-        style={{ y: useTransform(scrollYProgress, [0, 1], [0, -100]) }}
-        className="hidden md:block absolute top-1/2 -translate-y-1/2 right-[-8%] w-[55vh] max-w-[640px] opacity-50"
-      >
-        <HeroMark />
-      </motion.div>
-
-      {/* Top label */}
-      <Container>
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex items-center justify-between font-display text-caption uppercase tracking-[0.2em] text-muted"
-        >
-          <span>You are now entering</span>
-          <span className="hidden md:inline text-subtle">
-            CRFRM / 01 / 2026
-          </span>
-        </motion.div>
-      </Container>
-
-      {/* Main headline */}
-      <motion.div style={{ opacity }} className="relative z-10 w-full">
-        <Container>
-          <div className="max-w-5xl">
-            <TextReveal
-              text="A studio for software that ships."
-              tag="h1"
-              className="font-heading text-display-xl text-foreground"
-              delay={0.3}
-            />
-
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-10 flex flex-wrap items-baseline gap-x-3 font-heading text-2xl md:text-3xl text-foreground"
-            >
-              <span className="text-muted">We build</span>
-              <TickerStrip
-                items={[
-                  "AI agents",
-                  "automation systems",
-                  "production platforms",
-                  "intelligent tooling",
-                ]}
-              />
-              <span className="text-muted">that ship.</span>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-16"
-            >
-              <Magnetic strength={0.12}>
-                <Button href="/contact" variant="primary" icon={<ArrowRight />}>
-                  Talk to us
-                </Button>
-              </Magnetic>
-            </motion.div>
-          </div>
-        </Container>
-      </motion.div>
-
-      {/* Bottom row */}
-      <Container>
-        <ScrollIndicator />
+    <section className="relative min-h-[92svh] flex items-center overflow-hidden bg-radial-fade">
+      <div aria-hidden className="absolute inset-0 bg-dots opacity-50 pointer-events-none" />
+      <Container className="relative pt-28 pb-16 md:pt-32">
+        <div className="mx-auto max-w-4xl text-center">
+          <BlurReveal>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent mb-8">
+              Private AI · Enterprise AI · Digital Transformation
+            </p>
+          </BlurReveal>
+          <BlurReveal delay={0.08}>
+            <h1 className="font-display font-medium text-[clamp(2.5rem,6.5vw,5rem)] leading-[1.03] tracking-[-0.025em] text-foreground">
+              Engineering intelligent systems for the real world.
+            </h1>
+          </BlurReveal>
+          <BlurReveal delay={0.18}>
+            <p className="mt-8 mx-auto max-w-2xl font-sans text-body-lg text-muted leading-relaxed">
+              Coreframe is an AI research and engineering company helping
+              enterprises deploy private AI, intelligent software and
+              autonomous systems across their operations — on their own
+              infrastructure, inside their real workflows.
+            </p>
+          </BlurReveal>
+          <BlurReveal delay={0.26}>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-lg bg-foreground px-7 h-12 font-mono text-[13px] uppercase tracking-[0.1em] text-bg hover:bg-accent hover:text-on-accent transition-colors duration-300"
+              >
+                Discuss a Project
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </Link>
+              <Link
+                href="/capabilities"
+                className="inline-flex items-center rounded-lg border border-border-hover px-7 h-12 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground hover:border-accent hover:text-accent transition-colors duration-300"
+              >
+                Explore Capabilities
+              </Link>
+            </div>
+          </BlurReveal>
+          <BlurReveal delay={0.34}>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+              {DEPLOYMENT_BADGES.map((b) => (
+                <span
+                  key={b}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-elevated/60 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-muted"
+                >
+                  <span className="h-1 w-1 rounded-full bg-accent" />
+                  {b}
+                </span>
+              ))}
+            </div>
+          </BlurReveal>
+        </div>
       </Container>
     </section>
   );
 }
 
-/* ────────────────────────── Branded Divider ────────────────────────── */
-function BrandedDivider() {
-  return (
-    <>
-      <div className="border-y border-border bg-bg-elevated/40">
-        <Container>
-          <div className="py-4 flex items-center justify-between font-display text-caption uppercase tracking-[0.2em] text-subtle">
-            <span>© 2026 — CoreFrame</span>
-            <span className="hidden md:inline">Built in production. Shipped on time.</span>
-            <span>v.01</span>
-          </div>
-        </Container>
-      </div>
-      <div className="relative border-b border-border bg-bg overflow-hidden py-8 md:py-12">
-        <MarqueeBand
-          speed={45}
-          items={[
-            "AI Agents",
-            "Automation",
-            "Engineering",
-            "Production",
-            "On-device",
-            "Shipped",
-          ]}
-        />
-      </div>
-    </>
-  );
-}
-
-/* ────────────────────────── Statement Modules ────────────────────────── */
-const STATEMENTS: {
-  marker: "A" | "B" | "C";
-  index: number;
-  headline: string;
-  Visual: React.ComponentType<{ className?: string }>;
-}[] = [
+/* ═════════════════════════ Design. Deploy. Operate. ═════════════════════════ */
+const PILLARS = [
   {
-    marker: "A",
-    index: 1,
-    headline: "Software that actually solves problems.",
-    Visual: CodeNodesGraphic,
+    n: "01",
+    title: "We design serious AI systems.",
+    body: "We architect AI systems around your data, constraints and threat model — not around a demo. Retrieval, agents, evaluation and infrastructure engineered to hold up in production.",
   },
   {
-    marker: "B",
-    index: 2,
-    headline: "Engineers who grew up building with AI.",
-    Visual: NeuralGraphGraphic,
+    n: "02",
+    title: "We deploy into real environments.",
+    body: "We integrate intelligence into the systems, documents and operational workflows your business already runs on, with human oversight where it matters.",
   },
   {
-    marker: "C",
-    index: 3,
-    headline: "Not a vendor — your technical co-founder.",
-    Visual: InterlockGraphic,
+    n: "03",
+    title: "We can run AI privately.",
+    body: "On-premise, private cloud, hybrid or edge. Your data stays on infrastructure you control.",
   },
-];
+] as const;
 
-function Statements() {
+function Pillars() {
   return (
-    <Section id="capabilities" padding="large">
-      <div className="space-y-px">
-        {STATEMENTS.map((s, i) => (
-          <StatementBlock key={s.marker} statement={s} index={i} />
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-function StatementBlock({
-  statement: s,
-  index,
-}: {
-  statement: (typeof STATEMENTS)[number];
-  index: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.9, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative grid md:grid-cols-12 gap-8 md:gap-12 py-20 md:py-28 border-t border-border first:border-t-0 -mx-6 px-6 md:-mx-10 md:px-10 overflow-hidden"
-    >
-      {/* Ghost background numeral */}
-      <span
-        aria-hidden
-        className="ghost-numeral absolute -right-8 top-1/2 -translate-y-1/2 opacity-30 transition-opacity duration-700 group-hover:opacity-60"
-      >
-        {`0${s.index}`}
-      </span>
-
-      <div className="relative md:col-span-8">
-        <h3 className="font-heading text-display-md md:text-display-lg text-foreground leading-[1.0]">
-          {s.headline}
-        </h3>
-      </div>
-
-      <div className="relative md:col-span-4 self-center">
-        <s.Visual className="max-w-[280px] md:max-w-none" />
-      </div>
-    </motion.div>
-  );
-}
-
-/* ────────────────────────── Selected Work ────────────────────────── */
-function SelectedWork() {
-  return (
-    <Section padding="large" background="elevated">
+    <Section padding="large">
       <Reveal>
-        <div className="flex items-end justify-between mb-16">
-          <div>
-            <h2 className="font-heading text-display-md text-foreground leading-[1.0]">
-              Selected work.
-            </h2>
-          </div>
-          <Button href="/projects" variant="ghost" icon={<ArrowRight />}>
-            All work
-          </Button>
-        </div>
+        <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] text-center max-w-2xl mx-auto">
+          Design. Deploy. Operate.
+        </h2>
       </Reveal>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        {PROJECTS.map((project, i) => (
-          <Reveal key={project.title} delay={0.05 + i * 0.05}>
-            <ProjectCard project={project} index={i} />
+      <div className="mt-14 grid md:grid-cols-3 gap-4">
+        {PILLARS.map((p, i) => (
+          <Reveal key={p.n} delay={i * 0.08}>
+            <div className="h-full rounded-2xl border border-border bg-bg-card p-7 md:p-8">
+              <span className="font-mono text-xs text-subtle">{p.n}</span>
+              <h3 className="mt-4 font-display font-medium text-xl text-foreground leading-snug">
+                {p.title}
+              </h3>
+              <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
+                {p.body}
+              </p>
+            </div>
           </Reveal>
         ))}
       </div>
@@ -262,198 +121,549 @@ function SelectedWork() {
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const isExternal = project.href?.startsWith("http");
-  const href = project.href ?? "/projects";
-  const linkProps = isExternal
-    ? { target: "_blank", rel: "noopener noreferrer" as const }
-    : {};
-
+/* ═════════════════════════ Capabilities grid ═════════════════════════ */
+function CapabilitiesGrid() {
   return (
-    <a
-      href={href}
-      {...linkProps}
-      className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border bg-bg-card p-7 md:p-9 transition-all duration-500 hover:border-border-hover hover:bg-surface"
-    >
-      <span
-        aria-hidden
-        className="ghost-numeral absolute -right-4 -bottom-12 opacity-15 transition-opacity duration-700 group-hover:opacity-30"
-        style={{ fontSize: "10rem" }}
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
-
-      <div className="relative">
-        <div className="flex items-center gap-3 mb-5">
-          <CategoryBadge category={project.categoryLabel} status={project.status} />
+    <Section padding="large" background="elevated">
+      <Reveal>
+        <div className="flex items-end justify-between gap-6 mb-12">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+              [ Capabilities ]
+            </p>
+            <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05]">
+              One partner across the AI
+              <br className="hidden md:block" /> engineering lifecycle.
+            </h2>
+          </div>
+          <Link
+            href="/capabilities"
+            className="hidden sm:inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-muted hover:text-foreground transition-colors"
+          >
+            All capabilities
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </Link>
         </div>
-        <h3 className="font-heading text-2xl md:text-3xl text-foreground leading-tight transition-colors duration-300 group-hover:text-accent">
-          {project.title}
-        </h3>
-        <p className="mt-2 font-display text-caption uppercase tracking-[0.12em] text-subtle">
-          {project.client}
-        </p>
-        <p className="mt-5 font-sans text-body-sm text-muted leading-relaxed">
-          {project.description}
-        </p>
-      </div>
-
-      <div className="relative mt-7 pt-5 border-t border-border flex items-center justify-between gap-4">
-        <div className="flex flex-wrap gap-x-4 gap-y-1">
-          {project.stack.slice(0, 3).map((tech) => (
-            <span
-              key={tech}
-              className="font-display text-caption uppercase tracking-[0.12em] text-subtle"
+      </Reveal>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {CAPABILITIES.map((c, i) => (
+          <Reveal key={c.slug} delay={i * 0.05}>
+            <Link
+              href={capabilityHref(c)}
+              className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-bg-card p-6 transition-all duration-500 hover:border-border-hover hover:shadow-card"
             >
-              {tech}
-            </span>
-          ))}
-        </div>
-        <span className="flex items-center gap-2 font-display text-sm text-accent transition-all duration-300 group-hover:gap-3 whitespace-nowrap">
-          {isExternal ? "Visit" : "View"}
-          <ArrowRight />
-        </span>
+              <div>
+                <h3 className="font-display font-medium text-lg text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
+                  {c.title}
+                </h3>
+                <p className="mt-2.5 font-sans text-body-sm text-muted leading-relaxed">
+                  {c.oneLiner}
+                </p>
+              </div>
+              <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.1em] text-subtle">
+                For you if {c.forYouIf.toLowerCase()}
+              </p>
+            </Link>
+          </Reveal>
+        ))}
       </div>
-    </a>
+    </Section>
   );
 }
 
-/* ────────────────────────── FAQ ────────────────────────── */
+/* ═════════════════════════ Private AI flagship band ═════════════════════════ */
+function PrivateAIBand() {
+  return (
+    <Section padding="large">
+      <Reveal>
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-bg-elevated">
+          <div aria-hidden className="absolute inset-0 bg-dots opacity-60 pointer-events-none" />
+          <div className="relative px-8 py-16 md:px-16 md:py-20 grid md:grid-cols-12 gap-10 items-center">
+            <div className="md:col-span-8">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent mb-5">
+                [ Private AI — flagship ]
+              </p>
+              <h2 className="font-display font-medium text-[clamp(1.9rem,3.6vw,2.75rem)] leading-[1.08] tracking-[-0.02em] text-foreground">
+                Your data. Your infrastructure. Your intelligence.
+              </h2>
+              <p className="mt-5 max-w-xl font-sans text-body text-muted leading-relaxed">
+                Many enterprises can&apos;t send confidential contracts,
+                engineering documents or operational data to public AI
+                services. Coreframe builds private AI systems — including
+                on-premise and air-gapped deployments — so your models run
+                where your data lives.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-2">
+                {DEPLOYMENT_BADGES.map((b) => (
+                  <span
+                    key={b}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg px-3 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-muted"
+                  >
+                    <span className="h-1 w-1 rounded-full bg-accent" />
+                    {b}
+                  </span>
+                ))}
+              </div>
+              <Link
+                href="/capabilities"
+                className="mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-accent hover:text-foreground transition-colors"
+              >
+                Explore Private AI
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </Link>
+            </div>
+            <div className="md:col-span-4">
+              <div className="rounded-xl border border-border bg-bg-card p-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-subtle mb-3">
+                  Deployment
+                </p>
+                <div className="space-y-2">
+                  {["Ingestion", "Private vector store", "In-environment inference", "Application"].map(
+                    (step, i) => (
+                      <div key={step} className="flex items-center gap-3">
+                        <span className="font-mono text-[10px] text-subtle w-4">{i + 1}</span>
+                        <span className="flex-1 rounded-md border border-border bg-bg px-3 py-2 font-mono text-[11px] text-muted">
+                          {step}
+                        </span>
+                      </div>
+                    )
+                  )}
+                </div>
+                <p className="mt-4 font-mono text-[10px] text-subtle leading-relaxed">
+                  No data egress to third-party model APIs in a private
+                  deployment pattern.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ═════════════════════════ Industries ═════════════════════════ */
+function IndustriesGrid() {
+  return (
+    <Section padding="large" background="elevated">
+      <Reveal>
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+          [ Industries ]
+        </p>
+        <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] max-w-2xl">
+          Built for document-heavy, high-stakes operations.
+        </h2>
+      </Reveal>
+      <div className="mt-12 grid sm:grid-cols-2 gap-4">
+        {INDUSTRIES.map((ind, i) => (
+          <Reveal key={ind.slug} delay={i * 0.06}>
+            <Link
+              href="/industries"
+              className="group block h-full rounded-2xl border border-border bg-bg-card p-7 transition-all duration-500 hover:border-border-hover hover:shadow-card"
+            >
+              <h3 className="font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
+                {ind.title}
+              </h3>
+              <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
+                {ind.description}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-x-3 gap-y-1.5">
+                {ind.useCases.slice(0, 3).map((u) => (
+                  <span key={u} className="font-mono text-[10px] uppercase tracking-[0.08em] text-subtle">
+                    {u}
+                  </span>
+                ))}
+              </div>
+            </Link>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ═════════════════════════ Operating model ═════════════════════════ */
+const ENGAGEMENT_STEPS = ["Assess", "Architect", "Build", "Deploy", "Operate"];
+
+function OperatingModel() {
+  return (
+    <Section padding="large">
+      <div className="grid md:grid-cols-12 gap-10 md:gap-8">
+        <Reveal className="md:col-span-5">
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+            [ How we work ]
+          </p>
+          <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05]">
+            Research → Engineering → Transformation.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1} className="md:col-span-7 flex flex-col justify-center">
+          <p className="font-sans text-body text-muted leading-relaxed max-w-lg">
+            Research generates technical capability. Engineering turns it
+            into production systems. Transformation integrates it into how
+            your business actually operates.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-2">
+            {ENGAGEMENT_STEPS.map((step, i) => (
+              <div key={step} className="flex items-center gap-2">
+                <span className="inline-flex items-center rounded-full border border-border bg-bg-elevated px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-foreground">
+                  {step}
+                </span>
+                {i < ENGAGEMENT_STEPS.length - 1 && (
+                  <span className="text-subtle font-mono text-xs">→</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </Section>
+  );
+}
+
+/* ═════════════════════════ Labs teaser ═════════════════════════ */
+function LabsTeaser() {
+  return (
+    <Section padding="large" background="elevated">
+      <Reveal>
+        <div className="rounded-3xl border border-border bg-bg-card px-8 py-12 md:px-14 md:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+              [ Coreframe Labs ]
+            </p>
+            <h2 className="font-display font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.08] tracking-[-0.02em] text-foreground max-w-xl">
+              Applied research, not innovation theatre.
+            </h2>
+            <p className="mt-4 max-w-xl font-sans text-body-sm text-muted leading-relaxed">
+              Coreframe Labs is our applied research practice — private AI,
+              small language models, agent infrastructure, evaluation and
+              safety. Research feeds directly into what we deploy.
+            </p>
+          </div>
+          <Link
+            href="/labs"
+            className="shrink-0 inline-flex items-center gap-2 rounded-lg border border-border-hover px-6 h-11 font-mono text-[12.5px] uppercase tracking-[0.1em] text-foreground hover:border-accent hover:text-accent transition-colors duration-300"
+          >
+            Visit Coreframe Labs
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </Link>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ═════════════════════════ Selected work ═════════════════════════ */
+function SelectedWork() {
+  return (
+    <Section padding="large">
+      <Reveal>
+        <div className="flex items-end justify-between gap-6 mb-12">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+              [ Selected work ]
+            </p>
+            <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05]">
+              Selected work.
+            </h2>
+            <p className="mt-3 font-sans text-body-sm text-muted max-w-md">
+              Anonymized where attribution is pending. We don&apos;t publish
+              metrics we can&apos;t substantiate.
+            </p>
+          </div>
+          <Link
+            href="/work"
+            className="hidden sm:inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-muted hover:text-foreground transition-colors"
+          >
+            All work
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </Link>
+        </div>
+      </Reveal>
+      <div className="grid md:grid-cols-3 gap-4">
+        {WORK_ITEMS.map((item, i) => (
+          <Reveal key={item.slug} delay={i * 0.06}>
+            <Link
+              href="/work"
+              className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-bg-card p-7 transition-all duration-500 hover:border-border-hover hover:shadow-card"
+            >
+              <div>
+                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-subtle">
+                  {item.industry}
+                </span>
+                <h3 className="mt-3 font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
+                  {item.category}
+                </h3>
+                <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
+                  {item.challenge}
+                </p>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {item.tags.map((tag) => (
+                  <span key={tag} className="font-mono text-[10px] uppercase tracking-[0.08em] text-subtle">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </Link>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ═════════════════════════ Security & responsibility ═════════════════════════ */
+function SecurityResponsibility() {
+  return (
+    <Section padding="large" background="elevated">
+      <div className="grid md:grid-cols-2 gap-4">
+        <Reveal>
+          <Link
+            href="/security"
+            className="group block h-full rounded-2xl border border-border bg-bg-card p-8 transition-all duration-500 hover:border-border-hover hover:shadow-card"
+          >
+            <h3 className="font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
+              Security architecture, matched to your requirements.
+            </h3>
+            <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
+              Security architecture is determined by the requirements,
+              deployment environment and threat model of each engagement.
+            </p>
+            <span className="mt-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-accent">
+              Security
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
+            </span>
+          </Link>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <Link
+            href="/responsible-ai"
+            className="group block h-full rounded-2xl border border-border bg-bg-card p-8 transition-all duration-500 hover:border-border-hover hover:shadow-card"
+          >
+            <h3 className="font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
+              Responsible AI, stated honestly.
+            </h3>
+            <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
+              AI systems are probabilistic and can be wrong. We design for
+              human oversight, evidence-backed outputs and honest handling
+              of AI limitations.
+            </p>
+            <span className="mt-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-accent">
+              Responsible AI
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
+            </span>
+          </Link>
+        </Reveal>
+      </div>
+    </Section>
+  );
+}
+
+/* ═════════════════════════ Technology ecosystem (muted, low on page) ═════════════════════════ */
+const TECH_AREAS = [
+  "Open-weight LLMs",
+  "Small Language Models",
+  "Vector Databases",
+  "Kubernetes & GPU Orchestration",
+  "Agent Orchestration (MCP)",
+  "Cloud & Private Infrastructure",
+  "Observability & Evaluation",
+];
+
+function TechEcosystem() {
+  return (
+    <Section padding="default">
+      <Reveal>
+        <p className="text-center font-mono text-xs uppercase tracking-[0.18em] text-subtle mb-8">
+          Technology ecosystem
+        </p>
+        <p className="text-center mx-auto max-w-xl font-sans text-body-sm text-muted mb-8">
+          We work across the modern AI and cloud stack, and select tools per
+          engagement rather than by default.
+        </p>
+      </Reveal>
+      <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+        {TECH_AREAS.map((t) => (
+          <span
+            key={t}
+            className="font-mono text-[11px] uppercase tracking-[0.08em] text-subtle/70"
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ═════════════════════════ FAQ ═════════════════════════ */
 const FAQ_ITEMS = [
   {
-    question: "What kinds of work do you take on?",
+    question: "How is Coreframe different from a typical AI agency?",
     answer:
-      "AI agents, automation systems, and production-grade software. We work with founders and operators who need real engineering — not a long deck and a roadmap.",
+      "Most agencies retrofit AI onto existing products or outsource execution to whoever's available. We're built around private AI and enterprise infrastructure specifically — the same engineers who scope an engagement build and operate it.",
   },
   {
-    question: "How quickly can you move?",
+    question: "Can you deploy AI without our data leaving our environment?",
     answer:
-      "AI agents and automations: 1–3 weeks. Full product builds: 4–10 weeks depending on scope. We start with a short discovery to align on direction, then ship.",
+      "Yes — that's Private AI. On-premise, private cloud, hybrid or air-gapped deployment, so inference happens where your data already lives.",
   },
   {
-    question: "Do I need a spec before reaching out?",
+    question: "What's a typical engagement timeline?",
     answer:
-      "No. A problem statement is enough. Most people come to us with the business problem, not a feature list — we help shape the rest.",
+      "Strategy and readiness work is usually a few weeks. Implementation depends on scope — we size timelines during scoping, not before, rather than quoting a number that doesn't reflect the actual work.",
   },
   {
-    question: "Can you work alongside our team?",
+    question: "Do we need a fully scoped project before reaching out?",
     answer:
-      "Yes. We embed with internal teams or own the build end-to-end. Senior engineers throughout — no junior handoffs.",
+      "No. Many engagements start as a readiness assessment or architecture conversation precisely because the scope isn't clear yet.",
   },
   {
-    question: "How do I get started?",
+    question: "Do you only work with large enterprises?",
     answer:
-      "Send a note via the contact page or chat. We'll respond in 1–2 business days and set up a call.",
+      "Our focus is industrial, energy, enterprise and technology organizations with real operational complexity — company size matters less than whether the problem involves confidential data, complex workflows, or infrastructure worth taking seriously.",
   },
 ];
 
 function FAQ() {
+  const [open, setOpen] = useState<number | null>(null);
   return (
-    <Section id="faq" padding="large" className="overflow-hidden">
-      <DotGrid className="opacity-30" size={24} />
-      <span
-        aria-hidden
-        className="ghost-numeral absolute -left-4 -top-12 opacity-20 select-none"
-      >
-        ?
-      </span>
+    <Section padding="large">
       <Reveal>
-        <div className="relative grid md:grid-cols-12 gap-8 md:gap-12 mb-12">
-          <div className="md:col-span-4">
-            <h2 className="font-heading text-display-md text-foreground leading-[1.0]">
-              Common questions.
-            </h2>
-            <LineMask className="mt-8 max-w-[120px]" delay={0.4} />
-          </div>
-          <div className="md:col-span-8">
-            <Accordion items={FAQ_ITEMS} />
-          </div>
-        </div>
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+          [ FAQs ]
+        </p>
+        <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] max-w-xl">
+          Working with Coreframe.
+        </h2>
       </Reveal>
-    </Section>
-  );
-}
-
-/* ────────────────────────── Final CTA ────────────────────────── */
-function FinalCTA() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 1.02]);
-
-  return (
-    <Section background="elevated" padding="large" className="overflow-hidden">
-      <CursorSpotlight color="rgba(200, 255, 0, 0.06)" size={700} />
-      <motion.div ref={ref} style={{ scale }} className="relative">
-        <div className="text-center max-w-4xl mx-auto">
-          <Reveal>
-            <NumberedItem
-              index={0}
-              label="START"
-              className="justify-center mb-10"
-            />
-          </Reveal>
-          <TextReveal
-            text="Got something to build?"
-            tag="h2"
-            className="font-heading text-display-xl text-foreground"
-          />
-          <BlurReveal delay={0.5} className="mt-12">
-            <Magnetic strength={0.12}>
-              <Button href="/contact" variant="primary" icon={<ArrowRight />}>
-                Talk to us
-              </Button>
-            </Magnetic>
-          </BlurReveal>
-        </div>
-      </motion.div>
-    </Section>
-  );
-}
-
-/* ────────────────────────── Process / Terminal ────────────────────────── */
-function ProcessBlock() {
-  return (
-    <Section padding="large" className="overflow-hidden">
-      <DotGrid className="opacity-50" size={20} />
-      <div className="relative grid md:grid-cols-12 gap-8 md:gap-12 items-center">
-        <Reveal className="md:col-span-5">
-          <h2 className="font-heading text-display-md text-foreground leading-[1.0]">
-            One command. One team. Shipped.
-          </h2>
-        </Reveal>
-        <Reveal delay={0.2} className="md:col-span-7">
-          <AsciiBlock />
-        </Reveal>
+      <div className="mt-10 border-t border-border">
+        {FAQ_ITEMS.map((item, i) => {
+          const isOpen = open === i;
+          return (
+            <div key={item.question} className="border-b border-border">
+              <button
+                type="button"
+                onClick={() => setOpen(isOpen ? null : i)}
+                className="group flex w-full items-center gap-6 py-6 text-left"
+                aria-expanded={isOpen}
+              >
+                <span className="font-mono text-xs text-subtle tabular-nums pt-0.5 shrink-0">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`flex-1 font-display font-medium text-lg md:text-xl leading-snug transition-colors ${
+                    isOpen ? "text-accent" : "text-foreground group-hover:text-accent"
+                  }`}
+                >
+                  {item.question}
+                </span>
+                <span
+                  className={`shrink-0 font-display text-2xl leading-none text-muted transition-transform duration-500 ease-out-expo ${
+                    isOpen ? "rotate-45 text-accent" : ""
+                  }`}
+                  aria-hidden
+                >
+                  +
+                </span>
+              </button>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{
+                      height: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+                      opacity: { duration: 0.3, ease: "easeOut" },
+                    }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pb-6 pl-[calc(0.75rem+1.5rem)] pr-12 font-sans text-body-sm text-muted leading-relaxed max-w-2xl">
+                      {item.answer}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
       </div>
     </Section>
   );
 }
 
-/* ────────────────────────── Built With Marquee ────────────────────────── */
-function BuiltWith() {
+/* ═════════════════════════ Closing CTA ═════════════════════════ */
+function ClosingCTA() {
   return (
-    <div className="relative border-y border-border overflow-hidden bg-bg-elevated bg-scanline">
-      <LogoMarquee />
-    </div>
+    <Section padding="large">
+      <div className="relative overflow-hidden rounded-3xl border border-border bg-bg-elevated">
+        <div aria-hidden className="absolute inset-0 bg-dots opacity-60 pointer-events-none" />
+        <div aria-hidden className="absolute inset-0 bg-radial-fade pointer-events-none" />
+        <div className="relative px-8 py-16 md:px-16 md:py-24 text-center">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent mb-6">
+            [ Start ]
+          </p>
+          <h2 className="font-display font-medium text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
+            Let&apos;s discuss what you&apos;re trying to build.
+          </h2>
+          <p className="mt-6 mx-auto max-w-xl font-sans text-body-lg text-muted">
+            Tell us about your data, your constraints and your environment.
+            We&apos;ll tell you what&apos;s realistic.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-lg bg-foreground px-7 h-12 font-mono text-[13px] uppercase tracking-[0.1em] text-bg hover:bg-accent hover:text-on-accent transition-colors duration-300"
+            >
+              Discuss a Project
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
+            </Link>
+            <a
+              href="mailto:info@coreframetech.in"
+              className="inline-flex items-center rounded-lg border border-border-hover px-7 h-12 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground hover:border-accent hover:text-accent transition-colors duration-300"
+            >
+              info@coreframetech.in
+            </a>
+          </div>
+        </div>
+      </div>
+    </Section>
   );
 }
 
-/* ────────────────────────── Page Composition ────────────────────────── */
+/* ═════════════════════════ Page ═════════════════════════ */
 export default function HomeClient() {
   return (
     <>
       <Hero />
-      <BrandedDivider />
-      <Statements />
-      <WaveDivider className="border-y border-border bg-bg-elevated/30" />
+      <Pillars />
+      <CapabilitiesGrid />
+      <PrivateAIBand />
+      <IndustriesGrid />
+      <OperatingModel />
+      <LabsTeaser />
       <SelectedWork />
-      <ProcessBlock />
-      <BuiltWith />
+      <SecurityResponsibility />
+      <TechEcosystem />
       <FAQ />
-      <FinalCTA />
+      <ClosingCTA />
     </>
   );
 }

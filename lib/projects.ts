@@ -80,6 +80,22 @@ export const PROJECTS: Project[] = [
     status: "live",
   },
   {
+    title: "MarginX — Restaurant Operating System",
+    category: "digital-transformation",
+    categoryLabel: "Digital Transformation",
+    client: "Restaurant operators · North America",
+    description:
+      "A unified operating system for restaurants that replaces 5+ disconnected tools — consolidating recipes, food cost tracking, labour scheduling, sales, and P&L into one platform. Daily monitoring surfaces the 2–4% margin drift that month-end reports miss, with demand forecasting and a built-in marketing engine, all syncing live with Toast, Square, Lightspeed, and Clover.",
+    metrics: [
+      { value: "5+", label: "Tools replaced" },
+      { value: "Daily", label: "Food & labour cost" },
+      { value: "Realtime", label: "P&L visibility" },
+    ],
+    stack: ["Next.js", "POS Integrations", "Forecasting", "CRM & SMS"],
+    status: "live",
+    href: "https://marginx.ca",
+  },
+  {
     title: "Ecommerce Websites",
     category: "digital-transformation",
     categoryLabel: "Digital Transformation",
