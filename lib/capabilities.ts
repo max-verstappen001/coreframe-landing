@@ -25,6 +25,7 @@ export const CAPABILITIES: Capability[] = [
     short: "Private AI",
     oneLiner: "Run production AI on infrastructure you control.",
     forYouIf: "Your data can't leave your environment.",
+    live: true,
   },
   {
     slug: "enterprise-ai",
