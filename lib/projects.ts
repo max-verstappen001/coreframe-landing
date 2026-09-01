@@ -96,6 +96,38 @@ export const PROJECTS: Project[] = [
     href: "https://marginx.ca",
   },
   {
+    title: "Orca — Creator Marketing Platform",
+    category: "ai-apps",
+    categoryLabel: "AI App",
+    client: "Orca · B2B SaaS & fintech",
+    description:
+      "End-to-end creator marketing platform that lets brands run influencer campaigns with the rigor of paid ads. AI fit-scoring matches brands to vetted creators, live attribution tracks views, clicks, signups, and CAC per creator, and payouts run automatically on publish with tax handling built in.",
+    metrics: [
+      { value: "120+", label: "Vetted creators" },
+      { value: "3.1x", label: "Pilot ROAS" },
+      { value: "Auto", label: "Payouts & compliance" },
+    ],
+    stack: ["Next.js", "Fit-Scoring ML", "Attribution", "Payments"],
+    status: "live",
+    href: "https://tryorca.io",
+  },
+  {
+    title: "Sultan Ahmet Turkish Cuisine",
+    category: "digital-transformation",
+    categoryLabel: "Digital Transformation",
+    client: "Restaurant chain · Ontario, Canada",
+    description:
+      "Multi-location web presence for a growing Turkish restaurant chain spanning Mississauga, Hamilton, Ottawa, Ajax, Toronto, and Pearson Airport — built to support ongoing expansion and franchise recruitment.",
+    metrics: [
+      { value: "Multi", label: "Location pages" },
+      { value: "Fast", label: "Core Web Vitals" },
+      { value: "SEO", label: "Local optimization" },
+    ],
+    stack: ["Next.js", "Tailwind", "SEO"],
+    status: "live",
+    href: "https://sultanahmet.ca",
+  },
+  {
     title: "Ecommerce Websites",
     category: "digital-transformation",
     categoryLabel: "Digital Transformation",
