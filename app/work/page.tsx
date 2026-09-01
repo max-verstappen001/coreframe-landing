@@ -1,12 +1,24 @@
-import { Metadata } from "next";
+import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import WorkClient from "./WorkClient";
 
-export const metadata: Metadata = {
-  title: "Work & Case Studies",
+const PATH = "/work";
+
+export const metadata = pageMetadata({
+  title: "Work — Selected Engagements",
   description:
-    "Selected engagements in private AI, enterprise knowledge systems and workflow automation — anonymized where attribution is pending. Problem, constraints, architecture, outcome.",
-};
+    "Selected engagements in private AI, enterprise knowledge systems and workflow automation. Problem, constraints, architecture, outcome.",
+  path: PATH,
+});
 
 export default function WorkPage() {
-  return <WorkClient />;
+  const jsonLd = breadcrumbJsonLd([{ name: "Work", path: PATH }]);
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <WorkClient />
+    </>
+  );
 }

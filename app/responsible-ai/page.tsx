@@ -1,12 +1,31 @@
-import { Metadata } from "next";
+import { pageMetadata, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import ResponsibleAIClient from "./ResponsibleAIClient";
+import { FAQ_ITEMS } from "./faq";
 
-export const metadata: Metadata = {
-  title: "Responsible AI",
+const PATH = "/responsible-ai";
+
+export const metadata = pageMetadata({
+  title: "Responsible AI — Our Approach",
   description:
-    "How Coreframe handles AI limitations — governance, human oversight, evidence-backed outputs, evaluation and clear responsibility allocation. Honest about what AI can and cannot do.",
-};
+    "How Coreframe handles AI limitations — governance, human oversight, evidence-backed outputs and clear responsibility allocation, stated honestly.",
+  path: PATH,
+});
 
 export default function ResponsibleAIPage() {
-  return <ResponsibleAIClient />;
+  const jsonLd = [
+    breadcrumbJsonLd([{ name: "Responsible AI", path: PATH }]),
+    faqJsonLd(FAQ_ITEMS),
+  ];
+  return (
+    <>
+      {jsonLd.map((data, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+        />
+      ))}
+      <ResponsibleAIClient />
+    </>
+  );
 }

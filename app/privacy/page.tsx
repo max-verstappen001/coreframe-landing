@@ -1,5 +1,13 @@
 import Link from "next/link";
 import { Section } from "@/components/Section";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Privacy Policy",
+  description:
+    "How Coreframe Technologies collects, uses and protects information — what we collect, how it's used, and your choices.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

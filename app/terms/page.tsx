@@ -1,5 +1,13 @@
 import Link from "next/link";
 import { Section } from "@/components/Section";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Terms & Conditions",
+  description:
+    "Terms and conditions governing use of the Coreframe Technologies website and services.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

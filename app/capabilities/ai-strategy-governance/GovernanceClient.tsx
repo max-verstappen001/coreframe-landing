@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Section } from "@/components/Section";
 import { Container } from "@/components/Container";
 import { Reveal, BlurReveal } from "@/lib/animations";
+import { FAQ_ITEMS } from "./faq";
 
 const PROVIDES = [
   {
@@ -251,20 +252,7 @@ function EngagementModel() {
 }
 
 function FAQ() {
-  const items = [
-    {
-      q: "Can you evaluate a system you didn't build?",
-      a: "Yes — independent evaluation and red-teaming are offered for systems built by other vendors or in-house teams.",
-    },
-    {
-      q: "Do you push us toward building something?",
-      a: "No. Build-vs-buy analysis is part of the work, and \"don't build this\" is a valid, common outcome.",
-    },
-    {
-      q: "How long does a readiness assessment take?",
-      a: "It depends on scope, but most run a few weeks — enough to be grounded in your actual data and constraints, not a generic framework.",
-    },
-  ];
+  const items = FAQ_ITEMS;
   return (
     <Section padding="large" background="elevated">
       <Reveal>

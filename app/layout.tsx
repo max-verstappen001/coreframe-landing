@@ -5,16 +5,50 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { NoiseOverlay } from "@/lib/animations";
+import { siteConfig, organizationJsonLd } from "@/lib/seo";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: "Coreframe Technologies — Enterprise & Private AI Engineering",
     template: "%s — Coreframe Technologies",
   },
-  description:
-    "Coreframe is an AI research and engineering company helping enterprises deploy private AI, intelligent software and autonomous systems across their operations — on-premise, private cloud, hybrid or edge.",
+  description: siteConfig.description,
+  keywords: [
+    "private AI",
+    "on-premise LLM",
+    "enterprise AI",
+    "AI agents",
+    "AI infrastructure",
+    "AI governance",
+    "AI engineering company",
+  ],
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    title: "Coreframe Technologies — Enterprise & Private AI Engineering",
+    description: siteConfig.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Coreframe Technologies — Enterprise & Private AI Engineering",
+    description: siteConfig.description,
+  },
+  icons: {
+    icon: "/icon.png",
+  },
+  alternates: {
+    canonical: siteConfig.url,
+    types: {
+      "text/plain": `${siteConfig.url}/llms.txt`,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -40,6 +74,18 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* Machine-readable discovery hints for AI agents and answer engines */}
+        <link rel="llms-txt" type="text/plain" href="/llms.txt" title="LLMs.txt" />
+        <link
+          rel="alternate"
+          type="application/json"
+          href="/api/agent"
+          title="Coreframe Agent Interface"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
+        />
       </head>
       <body className="font-sans antialiased bg-bg text-foreground">
         <NoiseOverlay />
