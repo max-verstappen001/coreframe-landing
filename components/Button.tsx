@@ -32,8 +32,8 @@ export function Button({
   const variants = {
     primary: clsx(
       "px-8 py-4 rounded-full",
-      "bg-accent text-on-accent",
-      "hover:bg-accent-dark hover:shadow-[0_0_30px_rgba(200,255,0,0.3)]",
+      "bg-foreground text-bg",
+      "hover:bg-accent hover:text-on-accent hover:shadow-[0_10px_40px_-10px_var(--color-glow-strong)]",
       "active:scale-[0.98]"
     ),
     secondary: clsx(

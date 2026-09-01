@@ -24,32 +24,38 @@
   75%      { transform: translate3d(8px, -10px, 0); }
 }
 
-:root {
-  /* Dark premium palette */
-  color-scheme: dark;
-  --color-bg: #0a0a0b;
-  --color-bg-elevated: #111113;
-  --color-bg-card: #161618;
-  --color-surface: #1a1a1d;
-  --color-surface-hover: #222225;
-  --color-foreground: #f5f5f7;
-  --color-muted: #8a8a8e;
-  --color-subtle: #4a4a4e;
-  --color-accent: #c8ff00;
-  --color-accent-muted: rgba(200, 255, 0, 0.15);
-  --color-accent-dark: #a3d900;
-  --color-on-accent: #0a0a0b;
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(255, 255, 255, 0.12);
-  --color-gradient-1: #c8ff00;
-  --color-gradient-2: #00d4ff;
-  --color-gradient-3: #ff6b35;
-  --color-grid-line: rgba(255, 255, 255, 0.02);
-  --color-glass: rgba(17, 17, 19, 0.8);
-  --color-glow-strong: rgba(200, 255, 0, 0.1);
-  --color-glow-soft: rgba(200, 255, 0, 0.05);
+@keyframes blob-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(40px, -30px, 0) scale(1.05); }
+  66%      { transform: translate3d(-30px, 20px, 0) scale(0.97); }
+}
 
-  /* Spacing system (8px base) */
+/* ─── Default: light theme (enterprise-trust, richer accent) ─── */
+:root {
+  color-scheme: light;
+  --color-bg: #ffffff;
+  --color-bg-elevated: #f5f5f3;     /* neutral off-white (360Labs panels) */
+  --color-bg-card: #ffffff;
+  --color-surface: #efefec;
+  --color-surface-hover: #e6e6e2;
+  --color-foreground: #101216;      /* near-black, minimal */
+  --color-muted: #5b636e;
+  --color-subtle: #9298a2;
+  --color-accent: #1e3a6b;          /* CoreFrame navy — AA on white */
+  --color-accent-muted: rgba(30, 58, 107, 0.10);
+  --color-accent-dark: #14264a;
+  --color-on-accent: #ffffff;
+  --color-ink: #0b1f3a;             /* deep enterprise navy for emphasis */
+  --color-border: rgba(16, 18, 22, 0.12);
+  --color-border-hover: rgba(16, 18, 22, 0.24);
+  --color-gradient-1: #1e3a6b;
+  --color-gradient-2: #4f46e5;
+  --color-gradient-3: #f97316;
+  --color-grid-line: rgba(16, 18, 22, 0.05);
+  --color-glass: rgba(255, 255, 255, 0.72);
+  --color-glow-strong: rgba(30, 58, 107, 0.20);
+  --color-glow-soft: rgba(30, 58, 107, 0.09);
+
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -65,39 +71,38 @@
   --space-40: 10rem;
   --space-48: 12rem;
 
-  /* Easing curves */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 
-  /* Noise overlay */
-  --noise-opacity: 0.03;
+  --noise-opacity: 0.012;
 }
 
-:root[data-theme="light"] {
-  color-scheme: light;
-  --color-bg: #f4f6ef;
-  --color-bg-elevated: #edf0e6;
-  --color-bg-card: #e3e8dc;
-  --color-surface: #d7decf;
-  --color-surface-hover: #c9d3be;
-  --color-foreground: #12160d;
-  --color-muted: #58604c;
-  --color-subtle: #7a836b;
-  --color-accent: #90b800;
-  --color-accent-muted: rgba(144, 184, 0, 0.18);
-  --color-accent-dark: #789a00;
-  --color-on-accent: #0f130a;
-  --color-border: rgba(18, 22, 13, 0.12);
-  --color-border-hover: rgba(18, 22, 13, 0.2);
-  --color-gradient-1: #90b800;
-  --color-gradient-2: #0f9ab8;
-  --color-gradient-3: #e06a2b;
-  --color-grid-line: rgba(18, 22, 13, 0.04);
-  --color-glass: rgba(237, 240, 230, 0.82);
-  --color-glow-strong: rgba(144, 184, 0, 0.24);
-  --color-glow-soft: rgba(144, 184, 0, 0.12);
-  --noise-opacity: 0.015;
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #0a0a0b;
+  --color-bg-elevated: #111113;
+  --color-bg-card: #161618;
+  --color-surface: #1a1a1d;
+  --color-surface-hover: #222225;
+  --color-foreground: #f5f5f7;
+  --color-muted: #8a8a8e;
+  --color-subtle: #4a4a4e;
+  --color-accent: #6b9be8;          /* lighter CoreFrame blue for dark bg */
+  --color-accent-muted: rgba(107, 155, 232, 0.18);
+  --color-accent-dark: #4f7fd0;
+  --color-on-accent: #0a0a0b;
+  --color-ink: #e8edf5;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.16);
+  --color-gradient-1: #6b9be8;
+  --color-gradient-2: #818cf8;
+  --color-gradient-3: #f97316;
+  --color-grid-line: rgba(255, 255, 255, 0.025);
+  --color-glass: rgba(17, 17, 19, 0.72);
+  --color-glow-strong: rgba(107, 155, 232, 0.18);
+  --color-glow-soft: rgba(107, 155, 232, 0.08);
+  --noise-opacity: 0.025;
 }
 
 * {
@@ -119,7 +124,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Noise texture overlay — static PNG-style pattern (GPU-friendly) */
 body::before {
   content: "";
   position: fixed;
@@ -137,25 +141,11 @@ body::before {
   color: var(--color-on-accent);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-subtle); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
 
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-subtle);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-muted);
-}
-
-/* Focus styles */
 input:focus,
 textarea:focus {
   outline: none;
@@ -163,7 +153,6 @@ textarea:focus {
   box-shadow: 0 0 0 3px var(--color-accent-muted);
 }
 
-/* Custom utilities */
 @layer utilities {
   .text-gradient {
     background: linear-gradient(135deg, var(--color-gradient-1), var(--color-gradient-2));
@@ -198,6 +187,13 @@ textarea:focus {
     );
   }
 
+  .bg-soft-aura {
+    background:
+      radial-gradient(60% 50% at 15% 20%, rgba(20, 184, 166, 0.10), transparent 60%),
+      radial-gradient(50% 40% at 85% 10%, rgba(99, 102, 241, 0.08), transparent 65%),
+      radial-gradient(70% 50% at 50% 100%, rgba(20, 184, 166, 0.06), transparent 60%);
+  }
+
   .mask-fade-b {
     mask-image: linear-gradient(to bottom, black 60%, transparent);
     -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent);
@@ -222,10 +218,11 @@ textarea:focus {
   }
 
   .ghost-numeral {
-    font-family: var(--font-heading), Georgia, serif;
-    font-size: clamp(12rem, 28vw, 28rem);
+    font-family: var(--font-heading), system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(10rem, 22vw, 20rem);
     line-height: 0.85;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.05em;
     color: transparent;
     -webkit-text-stroke: 1px var(--color-border-hover);
     pointer-events: none;
@@ -233,7 +230,7 @@ textarea:focus {
   }
 
   .glow-text {
-    text-shadow: 0 0 40px rgba(200, 255, 0, 0.3);
+    text-shadow: 0 0 40px var(--color-glow-strong);
   }
 
   .line-clamp-3 {
@@ -242,26 +239,56 @@ textarea:focus {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  .shadow-soft {
+    box-shadow:
+      0 1px 2px rgba(8, 18, 34, 0.04),
+      0 8px 24px -6px rgba(8, 18, 34, 0.07);
+  }
+
+  .shadow-card {
+    box-shadow:
+      0 1px 0 rgba(8, 18, 34, 0.04),
+      0 2px 6px -2px rgba(8, 18, 34, 0.06),
+      0 24px 48px -16px rgba(8, 18, 34, 0.12);
+  }
+
+  /* Premium layered elevation for hero panels / proof cards */
+  .shadow-elevated {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 1px 1px rgba(8, 18, 34, 0.04),
+      0 8px 16px -8px rgba(8, 18, 34, 0.10),
+      0 40px 80px -24px rgba(8, 18, 34, 0.18);
+  }
+
+  /* Hairline ring that reads as crisp definition on light surfaces */
+  .ring-hairline {
+    box-shadow:
+      0 0 0 1px var(--color-border),
+      0 1px 2px rgba(8, 18, 34, 0.04);
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(var(--color-grid-line) 1.1px, transparent 1.1px);
+    background-size: 22px 22px;
+  }
 }
 
-/* Magnetic button hover effect */
-.magnetic-btn {
-  transition: transform 0.3s var(--ease-out-expo);
-}
+.magnetic-btn { transition: transform 0.3s var(--ease-out-expo); }
 
-/* Horizontal rule with gradient */
 .hr-gradient {
   height: 1px;
   border: none;
   background: linear-gradient(90deg, transparent, var(--color-border-hover), transparent);
 }
 
-/* Glass morphism */
 .glass {
   background: var(--color-glass);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
 }
 
-/* Animated gradient border */
 @keyframes gradient-rotate {
   0% { --angle: 0deg; }
   100% { --angle: 360deg; }
@@ -296,3 +323,5 @@ textarea:focus {
   border-radius: inherit;
   z-index: -1;
 }
+
+.blob-drift { animation: blob-drift 18s ease-in-out infinite; }

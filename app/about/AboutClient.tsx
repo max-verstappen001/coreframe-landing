@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Section } from "@/components/Section";
 import { Button, ArrowRight } from "@/components/Button";
-import { Card } from "@/components/Card";
 import { Reveal, Stagger, StaggerItem, TextReveal, Magnetic } from "@/lib/animations";
 
 /* ────────────────────────── Team Data ────────────────────────── */
@@ -146,60 +145,64 @@ function Team() {
   return (
     <Section padding="large">
       <Reveal>
-        <div className="text-center mb-16">
-          <span className="font-display text-caption uppercase tracking-[0.2em] text-accent">
-            Our Team
-          </span>
-          <h2 className="mt-4 font-heading text-display-md text-foreground">
-            The People Behind CoreFrame
+        <div className="max-w-2xl mb-14">
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+            [ The team ]
+          </p>
+          <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05]">
+            A senior team of operators, engineers, and builders.
           </h2>
-          <p className="mt-4 font-sans text-body-sm text-muted max-w-lg mx-auto">
-            A small, senior team — by design. The people doing the strategic thinking are the same people building the systems.
+          <p className="mt-5 font-sans text-body text-muted leading-relaxed">
+            Small by design. The people doing the strategic thinking are the
+            same people building the systems — no junior handoffs.
           </p>
         </div>
       </Reveal>
 
-      <Stagger className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto" staggerDelay={0.15}>
-        {TEAM.map((member) => (
-          <StaggerItem key={member.name} className="h-full">
-            <Card tilt={false} className="h-full">
-              <div className="flex flex-col h-full text-center">
-                <div className="w-20 h-20 mx-auto rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mb-6">
-                  <span className="font-heading text-2xl text-accent">
-                    {member.name.charAt(0)}
-                  </span>
-                </div>
-                <h3 className="font-heading text-xl text-foreground">
-                  {member.name}
-                </h3>
-                <p className="mt-1 font-display text-caption uppercase tracking-wide text-accent">
+      <div className="border-t border-border grid md:grid-cols-2 gap-x-5">
+        {TEAM.map((member, i) => (
+          <Reveal key={member.name} delay={(i % 2) * 0.08}>
+            <div className="group h-full border-b border-border py-8 md:py-10 md:[&:nth-child(odd)]:pr-8 md:[&:nth-child(even)]:pl-8 md:[&:nth-child(even)]:border-l">
+              <div className="flex items-center justify-between gap-4 mb-4">
+                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-subtle tabular-nums">
+                  {String(i + 1).padStart(2, "0")} / Team
+                </span>
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-accent text-right">
                   {member.role}
-                </p>
-                <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed">
-                  {member.description}
-                </p>
-                <div className="mt-auto pt-6 flex items-center justify-center gap-4">
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="font-display text-[12px] text-muted hover:text-accent transition-colors duration-300"
-                  >
-                    Email
-                  </a>
-                  <span className="w-1 h-1 rounded-full bg-border" />
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-display text-[12px] text-muted hover:text-accent transition-colors duration-300"
-                  >
-                    LinkedIn
-                  </a>
-                </div>
+                </span>
               </div>
-            </Card>
-          </StaggerItem>
+              <h3 className="font-display font-medium text-2xl md:text-[1.9rem] leading-tight text-foreground">
+                {member.name}
+              </h3>
+              <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed">
+                {member.description}
+              </p>
+              <div className="mt-6 flex items-center gap-4">
+                <a
+                  href={`mailto:${member.email}`}
+                  className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted hover:text-accent transition-colors duration-300"
+                >
+                  Email
+                </a>
+                <span className="w-1 h-1 rounded-full bg-border" />
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted hover:text-accent transition-colors duration-300"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </Reveal>
         ))}
-      </Stagger>
+      </div>
+
+      <div className="mt-10 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.14em] text-subtle">
+        <span>// Team</span>
+        <span>{TEAM.length} people</span>
+      </div>
     </Section>
   );
 }

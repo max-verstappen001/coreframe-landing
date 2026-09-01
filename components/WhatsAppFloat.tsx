@@ -1,0 +1,28 @@
+"use client";
+
+// TODO: replace with the real Coreframe WhatsApp number (digits only, country code first, no '+').
+const WHATSAPP_NUMBER = "919999999999";
+const WHATSAPP_MESSAGE = "Hi Coreframe, I'd like to chat.";
+
+export function WhatsAppFloat() {
+  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with us on WhatsApp"
+      className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:shadow-[0_0_30px_rgba(37,211,102,0.5)] hover:scale-105 transition-all duration-300"
+    >
+      <svg
+        viewBox="0 0 32 32"
+        fill="currentColor"
+        className="w-7 h-7"
+        aria-hidden="true"
+      >
+        <path d="M16.003 3C9.374 3 4 8.373 4 15c0 2.345.674 4.534 1.84 6.378L4 29l7.79-1.804A11.946 11.946 0 0 0 16.003 27C22.63 27 28 21.627 28 15S22.63 3 16.003 3Zm0 21.818c-1.81 0-3.51-.482-4.97-1.32l-.356-.204-4.62 1.07 1.092-4.502-.232-.367A9.804 9.804 0 0 1 6.182 15c0-5.42 4.41-9.818 9.821-9.818 5.41 0 9.818 4.398 9.818 9.818 0 5.42-4.408 9.818-9.818 9.818Zm5.387-7.347c-.295-.148-1.747-.862-2.018-.96-.27-.099-.467-.148-.663.148-.197.295-.762.96-.935 1.158-.172.197-.344.222-.64.074-.295-.148-1.247-.46-2.376-1.467-.878-.783-1.471-1.75-1.644-2.045-.172-.295-.018-.454.13-.601.133-.132.295-.344.443-.516.148-.172.197-.295.295-.492.099-.197.05-.369-.025-.517-.074-.148-.663-1.602-.908-2.196-.24-.577-.484-.498-.663-.508l-.566-.01c-.197 0-.517.074-.787.369-.27.295-1.033 1.01-1.033 2.464 0 1.454 1.058 2.86 1.205 3.057.148.197 2.083 3.184 5.05 4.466.706.305 1.256.487 1.685.623.708.225 1.353.194 1.862.118.568-.085 1.747-.714 1.994-1.404.246-.689.246-1.28.172-1.403-.074-.123-.27-.197-.566-.345Z" />
+      </svg>
+    </a>
+  );
+}
