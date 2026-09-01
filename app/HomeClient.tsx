@@ -207,7 +207,7 @@ function PrivateAIBand() {
                 ))}
               </div>
               <Link
-                href="/capabilities"
+                href="/capabilities/private-ai"
                 className="mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-accent hover:text-foreground transition-colors"
               >
                 Explore Private AI
