@@ -6,7 +6,7 @@ const PATH = "/industries";
 export const metadata = pageMetadata({
   title: "Industries — Where Coreframe Works",
   description:
-    "Industrial, energy & engineering; retail & hospitality; enterprise services; technology & digital platforms — where Coreframe focuses its AI and engineering work.",
+    "Coreframe works across industries — deepest so far in industrial & energy, retail & hospitality, enterprise services, and technology, wherever confidential data or complex workflows make private AI worth doing right.",
   path: PATH,
 });
 

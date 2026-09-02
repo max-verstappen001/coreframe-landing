@@ -6,7 +6,7 @@ export interface Industry {
   useCases: string[];
 }
 
-/** Four focused verticals — depth over a claim on twenty industries. */
+/** Where we've built the deepest expertise so far — not an exhaustive list of who we work with. */
 export const INDUSTRIES: Industry[] = [
   {
     slug: "industrial-energy",
