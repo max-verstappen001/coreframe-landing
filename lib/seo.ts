@@ -101,6 +101,31 @@ export function organizationJsonLd() {
   };
 }
 
+/**
+ * Sitewide SiteNavigationElement JSON-LD — signals the site's primary
+ * pages to search engines as a hint for sitelink selection on branded
+ * queries. Kept in sync with the primary nav in components/Navbar.tsx.
+ */
+export function siteNavigationJsonLd() {
+  const items: { name: string; path: string }[] = [
+    { name: "Capabilities", path: "/capabilities" },
+    { name: "Industries", path: "/industries" },
+    { name: "Coreframe Labs", path: "/labs" },
+    { name: "Work", path: "/work" },
+    { name: "Insights", path: "/insights" },
+    { name: "Company", path: "/company" },
+    { name: "Careers", path: "/company/careers" },
+    { name: "Contact", path: "/contact" },
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    name: items.map((item) => item.name),
+    url: items.map((item) => `${siteConfig.url}${item.path}`),
+  };
+}
+
 /** JSON-LD for a specific capability/service page. */
 export function serviceJsonLd({
   name,

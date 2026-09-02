@@ -1,7 +1,6 @@
 "use client";
 
-// TODO: replace with the real Coreframe WhatsApp number (digits only, country code first, no '+').
-const WHATSAPP_NUMBER = "919999999999";
+const WHATSAPP_NUMBER = "916383831327";
 const WHATSAPP_MESSAGE = "Hi Coreframe, I'd like to chat.";
 
 export function WhatsAppFloat() {

@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { NoiseOverlay } from "@/lib/animations";
-import { siteConfig, organizationJsonLd } from "@/lib/seo";
+import { siteConfig, organizationJsonLd, siteNavigationJsonLd } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -85,6 +85,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationJsonLd()) }}
         />
       </head>
       <body className="font-sans antialiased bg-bg text-foreground">

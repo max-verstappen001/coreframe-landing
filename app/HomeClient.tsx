@@ -534,7 +534,7 @@ const FAQ_ITEMS = [
   {
     question: "Do you only work with large enterprises?",
     answer:
-      "Our focus is industrial, energy, enterprise and technology organizations with real operational complexity — company size matters less than whether the problem involves confidential data, complex workflows, or infrastructure worth taking seriously.",
+      "No. We work across industries — company size and vertical matter less than whether the problem involves confidential data, complex workflows, or infrastructure worth taking seriously.",
   },
 ];
 

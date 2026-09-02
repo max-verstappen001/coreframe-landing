@@ -27,13 +27,14 @@ function Hero() {
           </BlurReveal>
           <BlurReveal delay={0.08}>
             <h1 className="font-display font-medium text-[clamp(2.25rem,5.5vw,4rem)] leading-[1.05] tracking-[-0.02em] text-foreground">
-              Depth in a few industries, not a claim on all of them.
+              We work across industries — depth comes from the problem, not the sector.
             </h1>
           </BlurReveal>
           <BlurReveal delay={0.16}>
             <p className="mt-6 mx-auto max-w-xl font-sans text-body-lg text-muted leading-relaxed">
-              We focus where document-heavy, high-stakes operations make
-              private, enterprise-grade AI genuinely valuable.
+              Wherever confidential data, complex workflows, or high-stakes
+              operations make private, enterprise-grade AI genuinely
+              valuable — that&apos;s where we go deep.
             </p>
           </BlurReveal>
         </div>
@@ -45,6 +46,14 @@ function Hero() {
 function IndustriesList() {
   return (
     <Section padding="large">
+      <Reveal>
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+          [ Where we've gone deepest ]
+        </p>
+        <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] max-w-xl mb-10">
+          A few examples, not the whole list.
+        </h2>
+      </Reveal>
       <div className="grid md:grid-cols-2 gap-4">
         {INDUSTRIES.map((ind, i) => (
           <Reveal key={ind.slug} delay={i * 0.06}>
