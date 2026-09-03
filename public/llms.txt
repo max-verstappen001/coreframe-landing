@@ -8,7 +8,7 @@ Coreframe Technologies Private Limited. Contact: info@coreframetech.in. Machine-
 
 - [Private AI & On-Premise LLMs](https://coreframetech.in/capabilities/private-ai): On-premise, private-cloud, hybrid and air-gapped LLM deployment; small language models, local inference, data-sovereignty architecture. For teams whose data can't leave their environment.
 - [AI Agents & Autonomous Workflows](https://coreframetech.in/capabilities/ai-agents): Tool-using AI agents, multi-agent systems and agentic workflow automation with human-in-the-loop oversight, MCP integrations and auditability.
-- [AI Strategy, Governance & Evaluation](https://coreframetech.in/capabilities/ai-strategy-governance): AI readiness assessments, roadmaps, model evaluation, red-teaming and governance advisory.
+- [AI Strategy, Governance & Evaluation](https://coreframetech.in/capabilities/ai-strategy-governance): AI readiness assessments, roadmaps, model evaluation, red-teaming, governance advisory and EU AI Act compliance assessment (risk classification, gap register, conformity documentation, human-in-the-loop protocols).
 - [All capabilities](https://coreframetech.in/capabilities): Overview of all seven capability areas, including Enterprise AI & Knowledge Systems, AI Infrastructure & Engineering, Software Engineering & Digital Transformation, and Edge AI & Intelligent Systems (landing pages in progress).
 
 ## Company

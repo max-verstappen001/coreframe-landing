@@ -37,13 +37,48 @@ const PROVIDES = [
     ],
   },
   {
-    title: "Governance",
+    title: "Governance & compliance",
     items: [
-      "AI governance",
+      "AI governance frameworks",
       "Data governance",
-      "AI risk assessment",
-      "Responsible AI",
+      "EU AI Act compliance assessment",
+      "AI risk, bias & impact assessment",
+      "Conformity & technical documentation",
+      "Human-in-the-loop review protocols",
+      "Responsible AI training",
     ],
+  },
+];
+
+/**
+ * Assessment themes for the compliance assessment. Aligned with the EU's
+ * requirements for trustworthy AI and the obligations the AI Act places on
+ * providers and deployers of high-risk systems.
+ */
+const ASSESSMENT_THEMES = [
+  {
+    title: "Human agency & oversight",
+    body: "Who can intervene, override or halt the system — and whether they actually can in practice, not just on paper.",
+  },
+  {
+    title: "Technical robustness & safety",
+    body: "Accuracy, resilience to adversarial input, fallback behaviour and how failure is detected and contained.",
+  },
+  {
+    title: "Privacy & data governance",
+    body: "Lawful basis, data minimisation, retention, and whether training and inference data stay where they're supposed to.",
+  },
+  {
+    title: "Transparency",
+    body: "Whether users know they're interacting with AI, whether outputs are explainable, and whether documentation matches the system.",
+  },
+  {
+    title: "Fairness & non-discrimination",
+    body: "Measured performance across the populations the system serves, and where outcomes diverge.",
+  },
+  {
+    title: "Accountability",
+    body: "Ownership, logging, audit trails and incident handling — who answers for the system when something goes wrong.",
   },
 ];
 
@@ -63,6 +98,14 @@ const USE_CASES = [
   {
     title: "Red-teaming a deployed system",
     body: "Adversarial testing of a system already in production — including one we didn't build — to find failure modes before your users do.",
+  },
+  {
+    title: "EU AI Act compliance assessment",
+    body: "Classify your AI systems against the Act's risk tiers, find the gaps in documentation, oversight and transparency, and leave with an audit-ready remediation plan.",
+  },
+  {
+    title: "Bias & fairness audit",
+    body: "Test a model's outputs across the groups it actually serves, document where they diverge, and decide what's acceptable before a regulator or customer asks.",
   },
 ];
 
@@ -93,9 +136,9 @@ function Hero() {
           </BlurReveal>
           <BlurReveal delay={0.16}>
             <p className="mt-6 mx-auto max-w-xl font-sans text-body-lg text-muted leading-relaxed">
-              Readiness assessments, roadmaps, evaluation, red-teaming and
-              governance that de-risk enterprise AI before and after you
-              build.
+              Readiness assessments, roadmaps, evaluation, red-teaming,
+              governance and EU AI Act compliance assessment that de-risk
+              enterprise AI before and after you build.
             </p>
           </BlurReveal>
           <BlurReveal delay={0.24}>
@@ -200,9 +243,79 @@ function UseCases() {
   );
 }
 
-function Process() {
+function ComplianceAssessment() {
   return (
     <Section padding="large" background="elevated">
+      <Reveal>
+        <div className="max-w-2xl">
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+            [ AI Act compliance assessment ]
+          </p>
+          <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05]">
+            Prove your AI systems are safe, compliant and trustworthy.
+          </h2>
+          <p className="mt-5 font-sans text-body text-muted leading-relaxed">
+            The EU AI Act (Regulation 2024/1689) puts concrete obligations
+            on anyone who builds or deploys AI in or for the EU — risk
+            classification, technical documentation, human oversight,
+            transparency and post-market monitoring. We run a
+            human-supervised assessment of each system against those
+            obligations and against the requirements for trustworthy AI,
+            and hand back a gap register, a remediation plan and the
+            documentation a regulator or auditor will ask for.
+          </p>
+        </div>
+      </Reveal>
+      <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {ASSESSMENT_THEMES.map((t, i) => (
+          <Reveal key={t.title} delay={i * 0.05}>
+            <div className="h-full rounded-2xl border border-border bg-bg-card p-6">
+              <span className="font-mono text-xs text-subtle">{String(i + 1).padStart(2, "0")}</span>
+              <h3 className="mt-3 font-display font-medium text-lg text-foreground">
+                {t.title}
+              </h3>
+              <p className="mt-2 font-sans text-body-sm text-muted leading-relaxed">
+                {t.body}
+              </p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <Reveal delay={0.2}>
+        <div className="mt-8 rounded-2xl border border-border bg-bg-elevated p-7 max-w-3xl">
+          <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-subtle mb-2">
+            What you get
+          </p>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
+            {[
+              "Risk classification per system under the AI Act",
+              "Gap register mapped to specific obligations",
+              "Prioritised remediation plan with owners",
+              "Technical documentation and conformity evidence",
+              "Human-in-the-loop review protocols for high-stakes decisions",
+              "Responsible AI workshops for the teams who operate the systems",
+            ].map((item) => (
+              <li key={item} className="font-sans text-body-sm text-muted leading-relaxed">
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-5 font-sans text-[13px] text-subtle leading-relaxed">
+            An assessment is an engineering and governance review, not
+            legal advice, and it does not by itself constitute
+            certification. Where formal conformity assessment or
+            certification is required, we scope that explicitly and work
+            alongside your legal counsel.
+          </p>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+function Process() {
+  return (
+    <Section padding="large">
       <Reveal>
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
           [ Process ]
@@ -232,7 +345,7 @@ function Process() {
 
 function EngagementModel() {
   return (
-    <Section padding="large">
+    <Section padding="large" background="elevated">
       <Reveal>
         <div className="rounded-2xl border border-border bg-bg-card p-8 max-w-3xl">
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
@@ -254,7 +367,7 @@ function EngagementModel() {
 function FAQ() {
   const items = FAQ_ITEMS;
   return (
-    <Section padding="large" background="elevated">
+    <Section padding="large">
       <Reveal>
         <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] mb-10">
           FAQs
@@ -317,6 +430,7 @@ export default function GovernanceClient() {
       <Problem />
       <Provides />
       <UseCases />
+      <ComplianceAssessment />
       <Process />
       <EngagementModel />
       <FAQ />
