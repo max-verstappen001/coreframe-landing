@@ -96,6 +96,7 @@ export function organizationJsonLd() {
       "AI agents",
       "AI infrastructure",
       "AI governance",
+      "EU AI Act compliance",
       "Software engineering",
     ],
   };

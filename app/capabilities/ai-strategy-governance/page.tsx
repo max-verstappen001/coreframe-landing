@@ -4,7 +4,7 @@ import { FAQ_ITEMS } from "./faq";
 
 const TITLE = "AI Strategy, Governance & Evaluation";
 const DESCRIPTION =
-  "AI readiness assessments, roadmaps, model evaluation, red-teaming and governance — advisory that de-risks enterprise AI before and after deployment.";
+  "AI readiness assessments, roadmaps, model evaluation, red-teaming, governance and EU AI Act compliance assessment — advisory that de-risks enterprise AI before and after deployment.";
 const PATH = "/capabilities/ai-strategy-governance";
 
 export const metadata = pageMetadata({

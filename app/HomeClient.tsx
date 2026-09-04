@@ -5,6 +5,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/Section";
 import { Container } from "@/components/Container";
+import { PrivateAIDiagram } from "@/components/PrivateAIDiagram";
+import { HeroSystemVisual } from "@/components/HeroSystemVisual";
+import { IconTile, type IconName } from "@/components/Icons";
 import { Reveal, BlurReveal } from "@/lib/animations";
 import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
 import { INDUSTRIES } from "@/lib/industries";
@@ -13,24 +16,43 @@ import { WORK_ITEMS } from "@/lib/work";
 /* ═════════════════════════ Hero ═════════════════════════ */
 const DEPLOYMENT_BADGES = ["On-Premise", "Private Cloud", "Hybrid", "Edge"];
 
+/* Icons keyed by slug so lib/capabilities.ts and lib/industries.ts stay purely data. */
+const CAPABILITY_ICONS: Record<string, IconName> = {
+  "private-ai": "lock",
+  "enterprise-ai": "documents",
+  "ai-agents": "agents",
+  "ai-infrastructure": "server",
+  "software-engineering": "code",
+  "ai-strategy-governance": "compass",
+  "edge-ai": "chip",
+};
+
+const INDUSTRY_ICONS: Record<string, IconName> = {
+  "industrial-energy": "bolt",
+  "retail-hospitality": "store",
+  enterprise: "building",
+  technology: "circuit",
+};
+
 function Hero() {
   return (
     <section className="relative min-h-[92svh] flex items-center overflow-hidden bg-radial-fade">
       <div aria-hidden className="absolute inset-0 bg-dots opacity-50 pointer-events-none" />
       <Container className="relative pt-28 pb-16 md:pt-32">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="mx-auto max-w-4xl text-center lg:col-span-7 lg:mx-0 lg:max-w-none lg:text-left">
           <BlurReveal>
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent mb-8">
               Private AI · Enterprise AI · Digital Transformation
             </p>
           </BlurReveal>
           <BlurReveal delay={0.08}>
-            <h1 className="font-display font-medium text-[clamp(2.5rem,6.5vw,5rem)] leading-[1.03] tracking-[-0.025em] text-foreground">
+            <h1 className="font-display font-medium text-[clamp(2.5rem,5.2vw,4.5rem)] leading-[1.03] tracking-[-0.025em] text-foreground">
               Engineering intelligent systems for the real world.
             </h1>
           </BlurReveal>
           <BlurReveal delay={0.18}>
-            <p className="mt-8 mx-auto max-w-2xl font-sans text-body-lg text-muted leading-relaxed">
+            <p className="mt-8 mx-auto max-w-2xl font-sans text-body-lg text-muted leading-relaxed lg:mx-0">
               Coreframe is an AI research and engineering company helping
               enterprises deploy private AI, intelligent software and
               autonomous systems across their operations — on their own
@@ -38,7 +60,7 @@ function Hero() {
             </p>
           </BlurReveal>
           <BlurReveal delay={0.26}>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 rounded-lg bg-foreground px-7 h-12 font-mono text-[13px] uppercase tracking-[0.1em] text-bg hover:bg-accent hover:text-on-accent transition-colors duration-300"
@@ -57,7 +79,7 @@ function Hero() {
             </div>
           </BlurReveal>
           <BlurReveal delay={0.34}>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
               {DEPLOYMENT_BADGES.map((b) => (
                 <span
                   key={b}
@@ -70,6 +92,12 @@ function Hero() {
             </div>
           </BlurReveal>
         </div>
+        <div className="lg:col-span-5">
+          <BlurReveal delay={0.3}>
+            <HeroSystemVisual className="mx-auto max-w-[340px] sm:max-w-[420px] lg:max-w-none" />
+          </BlurReveal>
+        </div>
+        </div>
       </Container>
     </section>
   );
@@ -79,16 +107,19 @@ function Hero() {
 const PILLARS = [
   {
     n: "01",
+    icon: "blueprint",
     title: "We design serious AI systems.",
     body: "We architect AI systems around your data, constraints and threat model — not around a demo. Retrieval, agents, evaluation and infrastructure engineered to hold up in production.",
   },
   {
     n: "02",
+    icon: "upload",
     title: "We deploy into real environments.",
     body: "We integrate intelligence into the systems, documents and operational workflows your business already runs on, with human oversight where it matters.",
   },
   {
     n: "03",
+    icon: "lock",
     title: "We can run AI privately.",
     body: "On-premise, private cloud, hybrid or edge. Your data stays on infrastructure you control.",
   },
@@ -106,7 +137,10 @@ function Pillars() {
         {PILLARS.map((p, i) => (
           <Reveal key={p.n} delay={i * 0.08}>
             <div className="h-full rounded-2xl border border-border bg-bg-card p-7 md:p-8">
-              <span className="font-mono text-xs text-subtle">{p.n}</span>
+              <div className="flex items-center justify-between">
+                <IconTile name={p.icon} />
+                <span className="font-mono text-xs text-subtle">{p.n}</span>
+              </div>
               <h3 className="mt-4 font-display font-medium text-xl text-foreground leading-snug">
                 {p.title}
               </h3>
@@ -155,7 +189,8 @@ function CapabilitiesGrid() {
               className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-bg-card p-6 transition-all duration-500 hover:border-border-hover hover:shadow-card"
             >
               <div>
-                <h3 className="font-display font-medium text-lg text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
+                <IconTile name={CAPABILITY_ICONS[c.slug] ?? "hexagon"} />
+                <h3 className="mt-5 font-display font-medium text-lg text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
                   {c.title}
                 </h3>
                 <p className="mt-2.5 font-sans text-body-sm text-muted leading-relaxed">
@@ -180,8 +215,8 @@ function PrivateAIBand() {
       <Reveal>
         <div className="relative overflow-hidden rounded-3xl border border-border bg-bg-elevated">
           <div aria-hidden className="absolute inset-0 bg-dots opacity-60 pointer-events-none" />
-          <div className="relative px-8 py-16 md:px-16 md:py-20 grid md:grid-cols-12 gap-10 items-center">
-            <div className="md:col-span-8">
+          <div className="relative px-8 py-16 md:px-16 md:py-20 grid md:grid-cols-12 gap-10 md:gap-12 items-center">
+            <div className="md:col-span-5">
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent mb-5">
                 [ Private AI — flagship ]
               </p>
@@ -216,28 +251,8 @@ function PrivateAIBand() {
                 </svg>
               </Link>
             </div>
-            <div className="md:col-span-4">
-              <div className="rounded-xl border border-border bg-bg-card p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-subtle mb-3">
-                  Deployment
-                </p>
-                <div className="space-y-2">
-                  {["Ingestion", "Private vector store", "In-environment inference", "Application"].map(
-                    (step, i) => (
-                      <div key={step} className="flex items-center gap-3">
-                        <span className="font-mono text-[10px] text-subtle w-4">{i + 1}</span>
-                        <span className="flex-1 rounded-md border border-border bg-bg px-3 py-2 font-mono text-[11px] text-muted">
-                          {step}
-                        </span>
-                      </div>
-                    )
-                  )}
-                </div>
-                <p className="mt-4 font-mono text-[10px] text-subtle leading-relaxed">
-                  No data egress to third-party model APIs in a private
-                  deployment pattern.
-                </p>
-              </div>
+            <div className="md:col-span-7 -mx-8 px-8 overflow-x-auto md:mx-0 md:px-0 md:overflow-visible">
+              <PrivateAIDiagram className="min-w-[520px] md:min-w-0" />
             </div>
           </div>
         </div>
@@ -265,7 +280,8 @@ function IndustriesGrid() {
               href="/industries"
               className="group block h-full rounded-2xl border border-border bg-bg-card p-7 transition-all duration-500 hover:border-border-hover hover:shadow-card"
             >
-              <h3 className="font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
+              <IconTile name={INDUSTRY_ICONS[ind.slug] ?? "hexagon"} />
+              <h3 className="mt-5 font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
                 {ind.title}
               </h3>
               <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
@@ -287,7 +303,13 @@ function IndustriesGrid() {
 }
 
 /* ═════════════════════════ Operating model ═════════════════════════ */
-const ENGAGEMENT_STEPS = ["Assess", "Architect", "Build", "Deploy", "Operate"];
+const ENGAGEMENT_STEPS = [
+  { label: "Assess", desc: "Data, workflows and readiness" },
+  { label: "Architect", desc: "System design and threat model" },
+  { label: "Build", desc: "Models, agents and integration" },
+  { label: "Deploy", desc: "Into your environment" },
+  { label: "Operate", desc: "Evaluate, monitor, improve" },
+];
 
 function OperatingModel() {
   return (
@@ -307,20 +329,38 @@ function OperatingModel() {
             into production systems. Transformation integrates it into how
             your business actually operates.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-2">
-            {ENGAGEMENT_STEPS.map((step, i) => (
-              <div key={step} className="flex items-center gap-2">
-                <span className="inline-flex items-center rounded-full border border-border bg-bg-elevated px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-foreground">
-                  {step}
-                </span>
-                {i < ENGAGEMENT_STEPS.length - 1 && (
-                  <span className="text-subtle font-mono text-xs">→</span>
-                )}
-              </div>
-            ))}
-          </div>
         </Reveal>
       </div>
+
+      <Reveal delay={0.15}>
+        <ol className="relative mt-14 grid gap-8 md:grid-cols-5 md:gap-4">
+          {/* Connector rail: vertical on mobile, horizontal (and drawn on scroll) on md+ */}
+          <div aria-hidden className="absolute bottom-5 left-5 top-5 w-px bg-border md:hidden" />
+          <div aria-hidden className="absolute left-[10%] right-[10%] top-5 hidden h-px bg-border md:block" />
+          <motion.div
+            aria-hidden
+            className="absolute left-[10%] right-[10%] top-5 hidden h-px origin-left bg-accent md:block"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          />
+          {ENGAGEMENT_STEPS.map((step, i) => (
+            <li
+              key={step.label}
+              className="relative flex items-start gap-4 md:flex-col md:items-center md:text-center"
+            >
+              <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border-hover bg-bg-card font-mono text-[11px] text-accent">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="md:mt-4">
+                <p className="font-display font-medium text-base text-foreground">{step.label}</p>
+                <p className="mt-1 font-sans text-body-sm text-muted">{step.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Reveal>
     </Section>
   );
 }
@@ -431,7 +471,8 @@ function SecurityResponsibility() {
             href="/security"
             className="group block h-full rounded-2xl border border-border bg-bg-card p-8 transition-all duration-500 hover:border-border-hover hover:shadow-card"
           >
-            <h3 className="font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
+            <IconTile name="shield" />
+            <h3 className="mt-5 font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
               Security architecture, matched to your requirements.
             </h3>
             <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
@@ -451,7 +492,8 @@ function SecurityResponsibility() {
             href="/responsible-ai"
             className="group block h-full rounded-2xl border border-border bg-bg-card p-8 transition-all duration-500 hover:border-border-hover hover:shadow-card"
           >
-            <h3 className="font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
+            <IconTile name="scale" />
+            <h3 className="mt-5 font-display font-medium text-xl text-foreground leading-snug transition-colors duration-300 group-hover:text-accent">
               Responsible AI, stated honestly.
             </h3>
             <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">

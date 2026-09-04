@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { heading, sans, display, mono } from "@/lib/fonts";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -23,6 +22,7 @@ export const metadata: Metadata = {
     "AI agents",
     "AI infrastructure",
     "AI governance",
+    "EU AI Act compliance",
     "AI engineering company",
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
@@ -97,11 +97,6 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <WhatsAppFloat />
-        <Script
-          src="https://widget.owlish.bot/loader.js"
-          data-agent-id="agt_2homy93hec1ioyex"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );

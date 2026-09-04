@@ -62,7 +62,8 @@ export const CAPABILITIES: Capability[] = [
     slug: "ai-strategy-governance",
     title: "AI Strategy, Governance & Evaluation",
     short: "AI Strategy",
-    oneLiner: "Readiness, roadmap, evaluation, red-teaming and governance.",
+    oneLiner:
+      "Readiness, roadmap, evaluation, red-teaming, governance and AI Act compliance assessment.",
     forYouIf: "You're deciding where to start.",
     live: true,
   },
