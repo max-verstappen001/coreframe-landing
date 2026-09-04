@@ -283,6 +283,17 @@ function Governance() {
             compliance, we scope that explicitly as part of the
             engagement.
           </p>
+          <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed">
+            Where a system falls under the EU AI Act, we assess it against
+            the obligations that apply as part of our{" "}
+            <Link
+              href="/capabilities/ai-strategy-governance"
+              className="text-foreground underline underline-offset-4 decoration-border hover:text-accent hover:decoration-accent transition-colors duration-300"
+            >
+              AI Act compliance assessment
+            </Link>
+            .
+          </p>
         </div>
       </Reveal>
     </Section>
