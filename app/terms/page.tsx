@@ -24,7 +24,7 @@ export default function TermsPage() {
             <span className="text-subtle">Last updated:</span> May 2026
           </span>
           <span>
-            <span className="text-subtle">Governed by:</span> CoreFrame
+            <span className="text-subtle">Governed by:</span> Coreframe
             Technologies Private Limited
           </span>
         </div>
@@ -42,7 +42,7 @@ export default function TermsPage() {
         <Clause title="2. Intellectual Property">
           <p>
             All content, trademarks, and intellectual property are owned by
-            CoreFrame Technologies Private Limited or its licensors.
+            Coreframe Technologies Private Limited or its licensors.
             Reproduction or derivative works require our prior written
             permission.
           </p>

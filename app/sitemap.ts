@@ -14,6 +14,8 @@ const ROUTES: Entry[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/capabilities", changeFrequency: "weekly", priority: 0.9 },
   { path: "/capabilities/private-ai", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/capabilities/edge-ai", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/capabilities/ai-infrastructure", changeFrequency: "monthly", priority: 0.9 },
   { path: "/capabilities/ai-agents", changeFrequency: "monthly", priority: 0.9 },
   { path: "/capabilities/ai-strategy-governance", changeFrequency: "monthly", priority: 0.9 },
   { path: "/industries", changeFrequency: "monthly", priority: 0.8 },
@@ -35,10 +37,8 @@ const ROUTES: Entry[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
   return ROUTES.map((route) => ({
     url: `${siteConfig.url}${route.path}`,
-    lastModified,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));

@@ -50,6 +50,7 @@ export const CAPABILITIES: Capability[] = [
     short: "AI Infrastructure",
     oneLiner: "Model serving, GPU clusters, LLMOps and evaluation built for production.",
     forYouIf: "You need infrastructure, not API glue.",
+    live: true,
   },
   {
     slug: "software-engineering",
@@ -73,5 +74,6 @@ export const CAPABILITIES: Capability[] = [
     short: "Edge AI",
     oneLiner: "Inference at the edge, computer vision and embedded intelligence.",
     forYouIf: "Intelligence has to run on-device or offline.",
+    live: true,
   },
 ];

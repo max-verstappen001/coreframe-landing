@@ -11,7 +11,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Coreframe Technologies — Enterprise & Private AI Engineering",
+    default: "Coreframe Technologies | Private AI & Edge AI",
     template: "%s — Coreframe Technologies",
   },
   description: siteConfig.description,
@@ -19,7 +19,8 @@ export const metadata: Metadata = {
     "private AI",
     "on-premise LLM",
     "enterprise AI",
-    "AI agents",
+    "edge AI",
+    "LLMOps",
     "AI infrastructure",
     "AI governance",
     "EU AI Act compliance",
@@ -32,12 +33,12 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: siteConfig.locale,
     url: siteConfig.url,
-    title: "Coreframe Technologies — Enterprise & Private AI Engineering",
+    title: "Coreframe Technologies | Private AI & Edge AI",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Coreframe Technologies — Enterprise & Private AI Engineering",
+    title: "Coreframe Technologies | Private AI & Edge AI",
     description: siteConfig.description,
   },
   icons: {

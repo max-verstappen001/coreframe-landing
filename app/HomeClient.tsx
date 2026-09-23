@@ -164,15 +164,15 @@ export default function HomeClient() {
           <div className="hero-inner">
             <div className="snum hero-anim d1" style={{ marginBottom: 0 }}>01</div>
             <div className="crumbs hero-anim d1">
-              PRIVATE AI <span>/</span> ENTERPRISE AI <span>/</span> AI ENGINEERING
+              PRIVATE LLMS <span>/</span> ON-PREMISE AI <span>/</span> EDGE AI
             </div>
             <h1 className="hero-anim d2">
               Engineering<br />intelligent systems<br />
               <span className="accent">for the real world.</span>
             </h1>
             <p className="hero-sub hero-anim d3">
-              We design, build and operate AI systems inside the environments where your
-              data actually lives.
+              Coreframe Technologies designs, deploys and operates private LLMs,
+              on-premise AI and edge AI systems inside enterprise environments.
             </p>
             <div className="hero-cta hero-anim d4">
               <Link href="/contact" className="btn btn-primary">

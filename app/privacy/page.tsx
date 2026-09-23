@@ -24,7 +24,7 @@ export default function PrivacyPage() {
             <span className="text-subtle">Last updated:</span> May 2026
           </span>
           <span>
-            <span className="text-subtle">Governed by:</span> CoreFrame
+            <span className="text-subtle">Governed by:</span> Coreframe
             Technologies Private Limited
           </span>
         </div>

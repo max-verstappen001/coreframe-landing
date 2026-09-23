@@ -5,5 +5,13 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Keep the apex HTTPS origin as the single public host. Netlify preserves the
+# path and query string for splat redirects.
+[[redirects]]
+  from = "https://www.coreframetech.in/*"
+  to = "https://coreframetech.in/:splat"
+  status = 301
+  force = true
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
