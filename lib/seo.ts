@@ -7,13 +7,14 @@ import type { Metadata } from "next";
  */
 export const siteConfig = {
   name: "Coreframe Technologies",
-  legalName: "CoreFrame Technologies Private Limited",
+  legalName: "Coreframe Technologies Private Limited",
   shortName: "Coreframe",
   url: "https://coreframetech.in",
   description:
-    "Coreframe is an AI research and engineering company helping enterprises deploy private AI, intelligent software and autonomous systems across their operations — on-premise, private cloud, hybrid or edge.",
-  tagline: "Enterprise & Private AI Engineering",
+    "Coreframe Technologies builds private LLMs, on-premise AI and edge AI systems for enterprises—from deployment and integration to ongoing operations.",
+  tagline: "Private AI & Edge AI",
   email: "info@coreframetech.in",
+  telephone: "+91 63838 31327",
   logo: "/logos/coreframe-mark.png",
   wordmark: "/logos/coreframe-wordmark.png",
   sameAs: ["https://www.linkedin.com/company/coreframe-technologies"],
@@ -27,6 +28,8 @@ interface PageMetadataInput {
   path?: string;
   /** Set false for internal/dev pages that shouldn't be indexed. */
   index?: boolean;
+  /** Prevent the root title template being appended (used for the homepage). */
+  absoluteTitle?: boolean;
 }
 
 /**
@@ -41,6 +44,7 @@ export function pageMetadata({
   description,
   path = "/",
   index = true,
+  absoluteTitle = false,
 }: PageMetadataInput): Metadata {
   const url = `${siteConfig.url}${path === "/" ? "" : path}`;
   // Next's opengraph-image file convention only cascades to segments that
@@ -50,7 +54,7 @@ export function pageMetadata({
   const ogImage = { url: `${siteConfig.url}/opengraph-image`, width: 1200, height: 630 };
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: {
       canonical: url,
@@ -76,6 +80,19 @@ export function pageMetadata({
   };
 }
 
+/** Homepage-only WebSite markup used by search engines to resolve the site name. */
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteConfig.url}/#website`,
+    url: `${siteConfig.url}/`,
+    name: siteConfig.name,
+    alternateName: siteConfig.shortName,
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+  };
+}
+
 /** Sitewide Organization JSON-LD, injected once in the root layout. */
 export function organizationJsonLd() {
   return {
@@ -88,15 +105,22 @@ export function organizationJsonLd() {
     logo: `${siteConfig.url}${siteConfig.logo}`,
     description: siteConfig.description,
     email: siteConfig.email,
+    telephone: siteConfig.telephone,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: siteConfig.email,
+      telephone: siteConfig.telephone,
+      availableLanguage: "English",
+    },
     sameAs: siteConfig.sameAs,
     knowsAbout: [
       "Private AI",
       "On-premise LLM deployment",
       "Enterprise AI",
-      "AI agents",
       "AI infrastructure",
-      "AI governance",
-      "EU AI Act compliance",
+      "LLMOps",
+      "Edge AI",
       "Software engineering",
     ],
   };
@@ -166,10 +190,11 @@ export function faqJsonLd(items: { q: string; a: string }[]) {
 
 /** JSON-LD breadcrumb trail for a page nested under one or more sections. */
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
+  const trail = [{ name: "Home", path: "/" }, ...items];
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((item, i) => ({
+    itemListElement: trail.map((item, i) => ({
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
