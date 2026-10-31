@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { region } from "@/lib/region";
 import { Container } from "@/components/Container";
 
 type StepType = "text" | "email" | "textarea" | "choice";
@@ -25,9 +27,13 @@ const STEPS: Step[] = [
     question: "What are you building?",
     options: [
       "AI agent / automation",
-      "Full product build",
-      "Systems & integration",
-      "Digital transformation",
+      "Enterprise Claude implementation",
+      "Private / sovereign AI",
+      "Forward Deployed Engineering",
+      "AI readiness assessment",
+      "Training / enablement",
+      "Governance / evaluation",
+      "Managed AI operations",
       "Something else",
     ],
   },
@@ -58,12 +64,15 @@ const EMPTY: Answers = {
 const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
 export default function ContactClient() {
+  const [intent, setIntent] = useState("discovery");
+  useEffect(() => { setIntent(new URLSearchParams(window.location.search).get("intent") === "assessment" ? "assessment" : "discovery"); }, []);
   const [step, setStep] = useState(0);
   const [dir, setDir] = useState(1);
   const [answers, setAnswers] = useState<Answers>(EMPTY);
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+  const questionRef = useRef<HTMLHeadingElement>(null);
 
   const current = STEPS[step];
   const total = STEPS.length;
@@ -89,6 +98,7 @@ export default function ContactClient() {
   };
 
   const goNext = () => {
+    if (status === "sending") return;
     if (!validate()) return;
     if (isLast) {
       submit();
@@ -108,6 +118,7 @@ export default function ContactClient() {
     setAnswers((a) => ({ ...a, [current.key]: v }));
 
   const onKeyDown = (e: KeyboardEvent) => {
+    if (e.nativeEvent.isComposing) return;
     if (e.key === "Enter" && !(current.type === "textarea" && e.shiftKey)) {
       e.preventDefault();
       goNext();
@@ -116,13 +127,15 @@ export default function ContactClient() {
 
   const pickChoice = (opt: string) => {
     setAnswers((a) => ({ ...a, [current.key]: opt }));
-    if (isLast) return;
-    setDir(1);
-    setTimeout(() => setStep((s) => s + 1), 140);
+    setError(null);
   };
 
   async function submit() {
+    if (status === "sending") return;
     setStatus("sending");
+    let entry = {};
+    try { entry = JSON.parse(sessionStorage.getItem("coreframe-entry") || "{}"); } catch {}
+    const params = new URLSearchParams(window.location.search);
     const message = [
       answers.projectType && `Project: ${answers.projectType}`,
       answers.timeline && `Timeline: ${answers.timeline}`,
@@ -140,9 +153,11 @@ export default function ContactClient() {
           email: answers.email,
           company: answers.company,
           message,
+          attribution: { ...entry, intent, source: params.get("source") || "contact" },
         }),
       });
-      setStatus(res.ok ? "sent" : "error");
+      const result = await res.json();
+      setStatus(res.ok && result.success === true ? "sent" : "error");
     } catch {
       setStatus("error");
     }
@@ -155,6 +170,7 @@ export default function ContactClient() {
       <Container>
         {status === "sent" ? (
           <motion.div
+            role="status"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -167,8 +183,8 @@ export default function ContactClient() {
               Thanks, {answers.name.split(" ")[0] || "there"}.
             </h1>
             <p className="mt-6 font-sans text-body-lg text-muted max-w-lg leading-relaxed">
-              We&apos;ve got your note and will come back within 1–2 business
-              days with a path to shipped. In the meantime, feel free to reach us
+              We&apos;ve received your note and will follow up to discuss scope
+              and next steps. In the meantime, feel free to reach us
               directly.
             </p>
             <a
@@ -181,10 +197,12 @@ export default function ContactClient() {
         ) : (
           <>
             <h1 className="sr-only">Contact Coreframe Technologies</h1>
+            <p className="mb-4 text-sm text-muted max-w-2xl">{region.delivery} Share a brief overview; we will follow up to arrange the conversation.</p>
+            <p className="mb-8 text-sm text-muted">Your details and enquiry attribution are used to respond to your request. <Link href="/privacy" className="text-accent underline">Privacy policy</Link></p>
             {/* progress header */}
             <div className="max-w-3xl">
               <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.14em] text-subtle mb-3">
-                <span>Book a discovery call</span>
+                <span>{intent === "assessment" ? "Request an AI readiness assessment" : region.cta}</span>
                 <span className="tabular-nums">
                   {String(step + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                 </span>
@@ -208,9 +226,15 @@ export default function ContactClient() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: dir > 0 ? -40 : 40 }}
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  onAnimationComplete={() => {
+                    if (current.type === "choice") questionRef.current?.focus();
+                    else inputRef.current?.focus();
+                  }}
                 >
-                  <label
-                    htmlFor={current.key}
+                  <h2
+                    id="enquiry-question"
+                    ref={questionRef}
+                    tabIndex={-1}
                     className="block font-display font-medium text-[clamp(1.75rem,4.5vw,3rem)] leading-[1.08] tracking-[-0.02em] text-foreground"
                   >
                     {current.question}
@@ -219,10 +243,10 @@ export default function ContactClient() {
                         optional
                       </span>
                     )}
-                  </label>
+                  </h2>
 
                   {current.type === "choice" ? (
-                    <div className="mt-8 flex flex-wrap gap-3">
+                    <div role="group" aria-labelledby="enquiry-question" aria-describedby={error ? "enquiry-error" : undefined} className="mt-8 flex flex-wrap gap-3">
                       {current.options!.map((opt) => {
                         const active = value === opt;
                         return (
@@ -230,7 +254,8 @@ export default function ContactClient() {
                             key={opt}
                             type="button"
                             onClick={() => pickChoice(opt)}
-                            className={`rounded-lg border px-5 h-12 font-mono text-[13px] uppercase tracking-[0.08em] transition-all duration-300 ${
+                            aria-pressed={active}
+                            className={`rounded-lg border px-5 py-3 min-h-12 text-left font-mono text-[13px] uppercase tracking-[0.08em] transition-all duration-300 ${
                               active
                                 ? "border-accent bg-accent text-on-accent"
                                 : "border-border text-foreground hover:border-border-hover hover:bg-surface"
@@ -245,6 +270,11 @@ export default function ContactClient() {
                     <textarea
                       id={current.key}
                       ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+                      aria-invalid={Boolean(error)}
+                      aria-labelledby="enquiry-question"
+                      aria-describedby={error ? "enquiry-error" : undefined}
+                      disabled={status === "sending"}
+                      maxLength={current.key === "message" ? 10000 : 254}
                       value={value}
                       onChange={(e) => setValue(e.target.value)}
                       onKeyDown={onKeyDown}
@@ -257,6 +287,11 @@ export default function ContactClient() {
                       id={current.key}
                       ref={inputRef as React.RefObject<HTMLInputElement>}
                       type={current.type === "email" ? "email" : "text"}
+                      aria-invalid={Boolean(error)}
+                      aria-labelledby="enquiry-question"
+                      aria-describedby={error ? "enquiry-error" : undefined}
+                      autoComplete={current.key === "company" ? "organization" : current.key}
+                      maxLength={current.key === "name" ? 150 : current.key === "company" ? 200 : 254}
                       value={value}
                       onChange={(e) => setValue(e.target.value)}
                       onKeyDown={onKeyDown}
@@ -266,7 +301,7 @@ export default function ContactClient() {
                   )}
 
                   {error && (
-                    <p className="mt-4 font-mono text-xs uppercase tracking-[0.1em] text-red-500">
+                    <p id="enquiry-error" role="alert" className="mt-4 font-mono text-xs uppercase tracking-[0.1em] text-red-500">
                       {error}
                     </p>
                   )}
@@ -279,7 +314,7 @@ export default function ContactClient() {
               <button
                 type="button"
                 onClick={goBack}
-                disabled={step === 0}
+                disabled={step === 0 || status === "sending"}
                 className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted hover:text-foreground disabled:opacity-0 transition-colors"
               >
                 ← Back
@@ -311,8 +346,8 @@ export default function ContactClient() {
             </div>
 
             {status === "error" && (
-              <p className="max-w-3xl mt-6 font-mono text-xs uppercase tracking-[0.1em] text-red-500">
-                Something went wrong. Email us at info@coreframetech.in
+              <p role="alert" className="max-w-3xl mt-6 font-mono text-xs uppercase tracking-[0.1em] text-red-500">
+                We could not deliver your enquiry. Try again or <a href="mailto:info@coreframetech.in" className="underline">email info@coreframetech.in</a>.
               </p>
             )}
           </>

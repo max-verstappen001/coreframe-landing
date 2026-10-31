@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { isUAE, region } from "./region";
 
 /**
  * Single source of truth for site-wide identity — used by metadata,
@@ -9,16 +10,16 @@ export const siteConfig = {
   name: "Coreframe Technologies",
   legalName: "Coreframe Technologies Private Limited",
   shortName: "Coreframe",
-  url: "https://coreframetech.in",
+  url: region.origin,
   description:
-    "Coreframe Technologies builds private LLMs, on-premise AI and edge AI systems for enterprises—from deployment and integration to ongoing operations.",
-  tagline: "Private AI & Edge AI",
+    region.intro,
+  tagline: "Enterprise AI Engineering & Implementation",
   email: "info@coreframetech.in",
   telephone: "+91 63838 31327",
   logo: "/logos/coreframe-mark.png",
   wordmark: "/logos/coreframe-wordmark.png",
   sameAs: ["https://www.linkedin.com/company/coreframe-technologies"],
-  locale: "en_US",
+  locale: region.locale,
 };
 
 interface PageMetadataInput {
@@ -46,6 +47,8 @@ export function pageMetadata({
   index = true,
   absoluteTitle = false,
 }: PageMetadataInput): Metadata {
+  const regionalTitle = isUAE ? `${title} | UAE & GCC` : title;
+  const regionalDescription = isUAE ? `${description} For UAE and GCC organizations.` : description;
   const url = `${siteConfig.url}${path === "/" ? "" : path}`;
   // Next's opengraph-image file convention only cascades to segments that
   // don't declare their own `openGraph` metadata — since every page here
@@ -54,14 +57,15 @@ export function pageMetadata({
   const ogImage = { url: `${siteConfig.url}/opengraph-image`, width: 1200, height: 630 };
 
   return {
-    title: absoluteTitle ? { absolute: title } : title,
-    description,
+    title: absoluteTitle ? { absolute: regionalTitle } : regionalTitle,
+    description: regionalDescription,
     alternates: {
       canonical: url,
+      languages: { "en-IN": `https://coreframetech.in${path === "/" ? "" : path}`, "en-AE": `https://coreframe.ae${path === "/" ? "" : path}`, "x-default": `https://coreframetech.in${path === "/" ? "" : path}` },
     },
     openGraph: {
-      title,
-      description,
+      title: regionalTitle,
+      description: regionalDescription,
       url,
       siteName: siteConfig.name,
       locale: siteConfig.locale,
@@ -70,8 +74,8 @@ export function pageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: regionalTitle,
+      description: regionalDescription,
       images: [ogImage.url],
     },
     robots: index
@@ -133,6 +137,7 @@ export function organizationJsonLd() {
  */
 export function siteNavigationJsonLd() {
   const items: { name: string; path: string }[] = [
+    { name: "Services", path: "/services" },
     { name: "Capabilities", path: "/capabilities" },
     { name: "Industries", path: "/industries" },
     { name: "Coreframe Labs", path: "/labs" },
@@ -168,7 +173,7 @@ export function serviceJsonLd({
     description,
     url: `${siteConfig.url}${path}`,
     provider: { "@id": `${siteConfig.url}/#organization` },
-    areaServed: "Worldwide",
+    areaServed: isUAE ? ["United Arab Emirates", "GCC"] : "Worldwide",
   };
 }
 

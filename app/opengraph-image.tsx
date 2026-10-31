@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { region } from "@/lib/region";
 import { siteConfig } from "@/lib/seo";
 
 export const alt = siteConfig.name;
@@ -43,7 +44,7 @@ export default function Image() {
               color: "#f5f5f7",
             }}
           >
-            Enterprise & Private AI Engineering
+            Enterprise AI Engineering
           </div>
           <div
             style={{
@@ -54,8 +55,7 @@ export default function Image() {
               color: "#a3a3ad",
             }}
           >
-            Private AI, enterprise knowledge systems and autonomous
-            workflows — on-premise, private cloud, hybrid or edge.
+            {region.label} · Design, deploy and operate production AI.
           </div>
         </div>
       </div>

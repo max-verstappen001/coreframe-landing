@@ -5,6 +5,7 @@ import { Section } from "@/components/Section";
 import { Container } from "@/components/Container";
 import { Reveal, BlurReveal } from "@/lib/animations";
 import { WORK_ITEMS } from "@/lib/work";
+import { contactHref, region } from "@/lib/region";
 
 function Hero() {
   return (
@@ -86,10 +87,10 @@ function ClosingCTA() {
           </h2>
           <div className="mt-8">
             <Link
-              href="/contact"
+              href={contactHref("discovery", "/work")}
               className="inline-flex items-center gap-2 rounded-lg bg-foreground px-7 h-12 font-mono text-[13px] uppercase tracking-[0.1em] text-bg hover:bg-accent hover:text-on-accent transition-colors duration-300"
             >
-              Discuss a Project
+              {region.cta}
             </Link>
           </div>
         </div>
@@ -103,6 +104,18 @@ export default function WorkClient() {
     <>
       <Hero />
       <WorkGrid />
+      <Section padding="large" background="elevated">
+        <h2 className="font-display text-display-md leading-tight">Review the engineering behind an engagement.</h2>
+        <p className="mt-5 max-w-2xl text-muted">The summaries above describe existing engagements. Public architecture details, client attribution and measured results are not published for these summaries. In a technical discovery call, ask us to establish the relevant delivery scope and what evidence can be shared with permission.</p>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {[
+            { title: "Architecture and integration", body: "Review system boundaries, data flows, identity, retrieval and application integrations relevant to your workflow." },
+            { title: "Evaluation and release", body: "Discuss representative tasks, acceptance criteria, failure handling and the evidence needed before production release." },
+            { title: "People and ownership", body: "Meet the proposed delivery engineers. Review responsibilities, handover, monitoring and support expectations." },
+          ].map(item => <article key={item.title} className="rounded-2xl border border-border bg-bg-card p-7"><h3 className="font-display text-xl">{item.title}</h3><p className="mt-3 text-sm text-muted leading-relaxed">{item.body}</p></article>)}
+        </div>
+        <Link href="/about" className="mt-8 inline-block text-accent underline">Meet Coreframe’s team →</Link>
+      </Section>
       <ClosingCTA />
     </>
   );

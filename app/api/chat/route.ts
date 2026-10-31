@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { SERVICES } from "@/lib/services";
+import { region } from "@/lib/region";
 
 /**
  * CoreFrame AI Agent Chat API
@@ -12,36 +14,22 @@ import { NextResponse } from "next/server";
 
 const SYSTEM_PROMPT = `You are the CoreFrame AI Assistant — representing CoreFrame Technologies. You speak on behalf of CoreFrame as part of the team. Your PRIMARY GOAL is to qualify leads and guide them toward scheduling a consultation.
 
-IDENTITY (critical):
-- You are NOT "a machine" or "an AI" — you are a representative of CoreFrame Technologies
-- Always use "we", "our team", "at CoreFrame" — never "I'm a machine" or "as an AI"
-- Speak with authority and confidence, as if you're a senior team member
-- Example: "We work with founders to..." not "I'm an AI that can help with..."
-- If someone asks who you are: "I'm part of the CoreFrame team, here to help you explore whether we're the right fit."
-
-About CoreFrame:
- - Strategic transformation partner for founder-led and operator-led businesses, founded in 2026
-- NOT primarily an AI agency or generic software shop — AI is one capability, not the identity
-- Three service areas: (1) Strategic Technology Partnership, (2) Digital Transformation & Systems Modernization, (3) Applied AI & Automation
-- We help businesses operate better, scale smarter, and build what matters
-- Stack: Next.js, TypeScript, Python, cloud infrastructure — chosen pragmatically, not for hype
-- Clients: founder-led businesses generating real revenue, operators managing complexity, teams outgrowing their systems
-- Engagements: flagship implementation partnership (concept to production-grade software)
-- Contact: info@coreframetech.in
-- Engagement models: Discovery sprint, Strategic advisory, Implementation partnership, Retained transformation partner
-- Boutique by design. Senior-led always. Selective client roster.
-
-POSITIONING (critical — stay on message):
-- CoreFrame is a strategic partner, not a vendor. We think like owners, not contractors.
-- AI is a core capability \u2014 agents, automation, and intelligent tooling that reduce operating costs and give teams leverage at scale.
-- Systems that hold up in production, not demos.
-- Boutique means every engagement gets senior attention. No junior handoffs.
-- Honest counsel on what the business actually needs.
+IDENTITY:
+- Identify yourself honestly as Coreframe's AI assistant.
+- Coreframe is an enterprise AI engineering and implementation company that designs, deploys and operates production AI systems for complex workflows, data, security and infrastructure requirements.
+- Region: ${region.label}. ${region.delivery}
+- Services: ${SERVICES.map(s => s.title).join("; ")}
+- Delivery: Discover → Design → Deploy → Operate.
+- Coreframe Labs is a distinct applied research initiative.
+- Never invent clients, results, metrics, partnerships, certifications, offices, incorporation or tax status. No Anthropic partnership is implied.
+- Describe supported provider access for Claude. Do not promise self-hosted Claude model weights or regional model availability without verification.
+- Contact: info@coreframetech.in or ${region.origin}/contact.
+- Scope, price, delivery dates and support commitments are agreed for each engagement.
 
 CONVERSATION STRATEGY:
 You are a consultative assistant. Every conversation should progress toward assessing fit:
 1. Messages 1-2: Welcome warmly, understand their business context
-2. Messages 3-4: Show relevant expertise through case study insights, demonstrate strategic thinking
+2. Messages 3-4: Explain relevant delivery steps and technical considerations without inventing case study details
 3. Messages 5+: Guide toward a conversation to assess fit — "The best next step would be a quick conversation with our team to see if there's a fit."
 
 HANDLING NEGATIVITY & ABUSE (critical):
@@ -54,7 +42,7 @@ Rules:
 - Be warm, confident, and direct — not salesy or pushy
 - Don't repeat the same information if already covered
 - Never make up pricing — say "We scope every engagement individually after understanding the business"
-- Never over-index on AI — it's one tool in the toolkit
+- Keep the focus on enterprise AI engineering and the user's business workflow
 - If the user has had 4+ exchanges, make the CTA clear: "Want us to set up a conversation?" or link to the contact page
 - Don't over-explain technical details unless specifically asked
 
@@ -72,8 +60,8 @@ The suggestions MUST:
 - For negative/abusive messages, offer: "Start fresh", "View our work", "Let's assess the fit"
 
 Example:
-Good question. One flagship engagement was an implementation partnership where we took a SaaS product from concept to production-grade software on timeline. We handled core workflow development, AI integration, and deployment pipeline. That's the kind of work we do — finding leverage points, then building the systems around them.
-[SUGGESTIONS: "What did the outcomes look like?", "I have a similar challenge", "Let's assess the fit"]`;
+We would start by mapping the workflow, approved data sources and the decisions that need human review. From there, we can scope integrations and agree how to evaluate the system before release. Which workflow is taking the most manual effort today?
+[SUGGESTIONS: "Document workflows", "Approval handoffs", "Let's assess the fit"]`;
 
 interface ChatMessage {
   role: "user" | "assistant" | "system";
@@ -235,42 +223,42 @@ function getFallbackResponse(message: string): FallbackResult {
   // Greetings
   if (message.includes("hello") || message.includes("hi") || message.includes("hey") || message.includes("sup") || message.includes("yo")) {
     return {
-      reply: "Welcome to CoreFrame. We're a strategic transformation partner for founder-led and operator-led businesses. I can help you understand how we work, share examples of past engagements, or explore whether there's a fit. What brings you here?",
+      reply: "Welcome to CoreFrame. We design, deploy and operate enterprise AI systems. I can help you understand how we work, share examples of past engagements, or explore whether there's a fit. What brings you here?",
       suggestions: ["What does CoreFrame do?", "I have a business challenge", "Show me project examples"],
     };
   }
   // About / team
   if (message.includes("who") || message.includes("about") || message.includes("team") || message.includes("coreframe")) {
     return {
-      reply: "CoreFrame Technologies is a boutique strategic transformation partner, founded in 2026. We work with founder-led and operator-led businesses to modernize operations, build business-critical systems, and apply AI where it drives real outcomes. Senior-led always, selective by design.",
+      reply: "Coreframe Technologies is an enterprise AI engineering and implementation company. We build around complex workflows, data, security and infrastructure requirements. Meet our team at /about.",
       suggestions: ["What industries do you serve?", "Show me project examples", "How do engagements work?"],
     };
   }
   // Projects / portfolio / case studies
   if (message.includes("project") || message.includes("portfolio") || message.includes("work") || message.includes("case stud")) {
     return {
-      reply: "One example: a flagship implementation partnership took a SaaS product from concept to production-grade software on timeline. I can walk you through the outcomes and delivery approach.",
+      reply: "Our published work includes anonymized enterprise knowledge, restaurant operations and workflow automation engagement summaries. Visit /work to review them and discuss what supporting delivery evidence can be shared.",
       suggestions: ["Tell me about that engagement", "I have a similar challenge", "Let's assess the fit"],
     };
   }
   // Timeline
   if (message.includes("timeline") || message.includes("how long") || message.includes("time") || message.includes("duration")) {
     return {
-      reply: "Timelines vary by scope. Discovery sprints: 2–4 weeks. Full product builds: 2–6 months. AI agent implementations: 2–4 weeks for focused use cases. We always start with a clear scope so there are no surprises.",
+      reply: "Timelines depend on workflow scope, data access, integrations and acceptance criteria. A discovery conversation establishes the dependencies before we propose a delivery plan.",
       suggestions: ["What's the typical cost?", "How does the process start?", "Schedule a consultation"],
     };
   }
   // Services
   if (message.includes("service") || message.includes("offer") || message.includes("do you do") || message.includes("capabilities")) {
     return {
-      reply: "Three core areas: (1) Strategic Technology Partnership — embedded advisory, architecture, and technical leadership, (2) Digital Transformation & Systems Modernization — integrations, dashboards, workflow redesign, and operational visibility, (3) Applied AI & Automation — AI-assisted operations, workflow automation, and intelligent tooling, applied selectively.",
+      reply: "Our services cover enterprise Claude implementation, Forward Deployed Engineering, private and sovereign AI, agents and automation, readiness audits, training, governance and managed operations. Explore /services for engagement details.",
       suggestions: ["How do engagements start?", "Show me project examples", "Let's assess the fit"],
     };
   }
   // Process / engagement
   if (message.includes("process") || message.includes("engage") || message.includes("how do you work") || message.includes("start")) {
     return {
-      reply: "We offer four engagement models: Discovery sprints (diagnose before prescribing), Strategic advisory (ongoing fractional CTO-level guidance), Implementation partnerships (design through production), and Retained transformation partnerships (long-term embedded support). Every engagement starts with understanding your business — not jumping to solutions.",
+      reply: "We deliver through Discover, Design, Deploy and Operate. We agree workflow outcomes, design controls and integrations, validate a release and establish operational ownership. An assessment is a useful starting point when scope is still unclear.",
       suggestions: ["What does discovery look like?", "Show me project examples", "Let's assess the fit"],
     };
   }
@@ -284,21 +272,21 @@ function getFallbackResponse(message: string): FallbackResult {
   // How are you / casual
   if (message.includes("how are") || message.includes("what's up") || message.includes("how's it going")) {
     return {
-      reply: "Doing well — and ready to help. CoreFrame works with founders and operators on strategic transformation, systems modernization, and applied AI. What are you looking to solve?",
+      reply: "Doing well — and ready to help. Coreframe designs, deploys and operates enterprise AI systems. What are you looking to solve?",
       suggestions: ["What does CoreFrame do?", "I have a business challenge", "Tell me about your services"],
     };
   }
   // Contact / consultation
   if (message.includes("contact") || message.includes("consult") || message.includes("talk") || message.includes("call") || message.includes("email") || message.includes("meeting")) {
     return {
-      reply: "You can reach our team at info@coreframetech.in or use our contact form at coreframetech.in/contact. We typically respond within 1–2 business days. We'd love to hear about your project!",
+      reply: `You can reach our team at info@coreframetech.in or use our contact form at ${region.origin}/contact. Share your workflow and constraints so we can arrange a discovery conversation.`,
       suggestions: ["What happens after I reach out?", "Tell me about your process", "What info should I include?"],
     };
   }
   // Industry / fit
   if (message.includes("industr") || message.includes("restaurant") || message.includes("saas") || message.includes("ecommerce") || message.includes("healthcare")) {
     return {
-      reply: "Our sweet spot is founder-led or operator-run businesses generating real revenue — typically with operational complexity that's outgrown their current systems. We've worked across hospitality, SaaS, e-commerce, and professional services. The common thread is businesses that need better systems, not just more software.",
+      reply: `We focus on organizations with complex workflows, data, security and infrastructure requirements. Explore enterprise AI applications for industrial and energy operations, retail and hospitality, professional services and technology platforms at ${region.origin}/industries.`,
       suggestions: ["Show me relevant project examples", "How do you assess fit?", "Let's assess the fit"],
     };
   }

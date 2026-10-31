@@ -6,7 +6,7 @@ export interface Industry {
   useCases: string[];
 }
 
-/** Where we've built the deepest expertise so far — not an exhaustive list of who we work with. */
+/** Enterprise segments and candidate applications; not a claim of client delivery in every sector. */
 export const INDUSTRIES: Industry[] = [
   {
     slug: "industrial-energy",

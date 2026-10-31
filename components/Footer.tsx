@@ -4,17 +4,15 @@ import Link from "next/link";
 import { Container } from "./Container";
 import { Reveal } from "@/lib/animations";
 import { CoreframeWordmark } from "./CoreframeWordmark";
-import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
+import { SERVICES } from "@/lib/service-catalog";
+import { region, contactHref } from "@/lib/region";
 import { INDUSTRIES } from "@/lib/industries";
 
-const CAPABILITY_LINKS = CAPABILITIES.slice(0, 6).map((c) => ({
-  label: c.short,
-  href: capabilityHref(c),
-}));
+const CAPABILITY_LINKS = SERVICES.map(s => ({ label: s.short, href: `/services/${s.slug}` }));
 
 const INDUSTRY_LINKS = INDUSTRIES.map((i) => ({
   label: i.short,
-  href: "/industries",
+  href: `/industries/${i.slug}`,
 }));
 
 const COMPANY_LINKS = [
@@ -85,13 +83,13 @@ export function Footer() {
                 <span className="text-subtle transition-colors group-hover:text-accent">]</span>
               </Link>
               <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed max-w-sm">
-                Engineering intelligent systems for the real world. Private
-                AI, enterprise knowledge systems and autonomous workflows —
-                designed, deployed and operated on infrastructure you
-                control.
+                Enterprise AI engineering and implementation. We design, deploy and operate production systems around your workflows, data, security and infrastructure.
               </p>
+              <nav aria-label="Regional websites" className="mt-4 flex gap-4 text-sm text-accent"><a href="https://coreframetech.in">India &amp; Global</a><a href="https://coreframe.ae">UAE &amp; GCC</a></nav>
+              <p className="mt-4 text-sm text-muted">{region.delivery}</p>
+              <Link href={contactHref("discovery", "footer")} className="mt-4 inline-block text-accent underline">{region.cta} →</Link>
               <div className="mt-5 flex flex-wrap gap-2">
-                {["Private AI", "Enterprise AI", "Digital Transformation"].map(
+                {["Enterprise AI", "Implementation", region.label].map(
                   (tag) => (
                     <span
                       key={tag}
@@ -148,7 +146,7 @@ export function Footer() {
             </div>
 
             <div className="md:col-span-2">
-              <FooterColumn title="Capabilities" links={CAPABILITY_LINKS} />
+              <FooterColumn title="Services" links={CAPABILITY_LINKS} />
             </div>
             <div className="md:col-span-2">
               <FooterColumn title="Industries" links={INDUSTRY_LINKS} />

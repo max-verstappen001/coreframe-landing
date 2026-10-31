@@ -5,6 +5,7 @@ import { Section } from "@/components/Section";
 import { Container } from "@/components/Container";
 import { Reveal, BlurReveal } from "@/lib/animations";
 import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
+import { DELIVERY_PROCESS } from "@/lib/delivery";
 import { FAQ_ITEMS } from "./faq";
 
 const DEPLOYMENT_MODELS = [
@@ -26,13 +27,7 @@ const DEPLOYMENT_MODELS = [
   },
 ];
 
-const ENGAGEMENT_STEPS = [
-  { step: "Assess", body: "Understand the problem, the data, and the constraints." },
-  { step: "Architect", body: "Design the system and choose the deployment model." },
-  { step: "Build", body: "Engineer the system end to end." },
-  { step: "Deploy", body: "Ship into your real environment and workflows." },
-  { step: "Operate", body: "Run, evaluate and improve it over time." },
-];
+const ENGAGEMENT_STEPS = DELIVERY_PROCESS.map(s => ({ step: s.title, body: s.body }));
 
 function Hero() {
   return (
@@ -70,7 +65,7 @@ function Hero() {
                 href="#capabilities-list"
                 className="inline-flex items-center rounded-lg border border-border-hover px-7 h-12 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground hover:border-accent hover:text-accent transition-colors duration-300"
               >
-                Talk to an engineer
+                Explore technical capabilities
               </a>
             </div>
           </BlurReveal>
@@ -83,6 +78,7 @@ function Hero() {
 function CapabilitiesList() {
   return (
     <Section id="capabilities-list" padding="large">
+      <p className="mb-8 text-muted">Explore implementation engagements in our <Link href="/services" className="text-accent underline">enterprise AI services</Link>, or review the technical capabilities below.</p>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {CAPABILITIES.map((c, i) => (
           <Reveal key={c.slug} delay={i * 0.05}>
@@ -115,10 +111,10 @@ function HowWeEngage() {
           [ How we engage ]
         </p>
         <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] max-w-xl">
-          Assess. Architect. Build. Deploy. Operate.
+          Discover. Design. Deploy. Operate.
         </h2>
       </Reveal>
-      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {ENGAGEMENT_STEPS.map((s, i) => (
           <Reveal key={s.step} delay={i * 0.06}>
             <div className="h-full rounded-2xl border border-border bg-bg-card p-6">

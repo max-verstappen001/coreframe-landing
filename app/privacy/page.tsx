@@ -21,7 +21,7 @@ export default function PrivacyPage() {
         </h1>
         <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 font-sans text-body-sm text-muted">
           <span>
-            <span className="text-subtle">Last updated:</span> May 2026
+            <span className="text-subtle">Last updated:</span> October 2026
           </span>
           <span>
             <span className="text-subtle">Governed by:</span> Coreframe
@@ -39,10 +39,15 @@ export default function PrivacyPage() {
       <article className="prose-legal mt-14 space-y-12">
         <Clause title="Information We Collect">
           <ul>
-            <li>Basic contact details you provide (e.g., name, email).</li>
+            <li>Contact details and enquiry information you provide, including name, work email, company, service interest, timeline and message.</li>
+            <li>When you submit an enquiry, its regional site, CTA source, first landing path and campaign parameters. First-touch attribution is held in session storage for the current tab and is sent with the enquiry; it is not sent to a third-party analytics service by this feature.</li>
             <li>Usage data to help us improve performance and reliability.</li>
             <li>Any information you intentionally share with us for support.</li>
           </ul>
+        </Clause>
+
+        <Clause title="Website Storage and Enquiry Delivery">
+          <p>Our websites at coreframetech.in and coreframe.ae use local storage for your theme preference and session storage for enquiry attribution. You can clear these through your browser settings. Enquiries are delivered through Resend and, when configured, our notification webhook. Website hosting is configured for Netlify. These services may process information outside your country; use of the UAE site does not promise UAE-only processing.</p>
         </Clause>
 
         <Clause title="How We Use Information">
