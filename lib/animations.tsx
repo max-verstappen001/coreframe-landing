@@ -5,6 +5,7 @@ import {
   motion,
   AnimatePresence,
   useInView,
+  useReducedMotion,
   useAnimation,
   useScroll,
   useTransform,
@@ -40,13 +41,11 @@ export function Reveal({
   once = true,
   amount = 0.2,
 }: RevealProps) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={{
-        opacity: 0,
-        ...directionOffset[direction],
-      }}
+      initial={reduced ? false : { opacity: 0, ...directionOffset[direction] }}
       whileInView={{
         opacity: 1,
         x: 0,
@@ -290,10 +289,11 @@ export function BlurReveal({
   delay = 0,
   duration = 1.0,
 }: BlurRevealProps) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+      initial={reduced ? false : { opacity: 0, filter: "blur(10px)", y: 20 }}
       whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}

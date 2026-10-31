@@ -325,3 +325,11 @@ textarea:focus {
 }
 
 .blob-drift { animation: blob-drift 18s ease-in-out infinite; }
+
+/* Keyboard navigation remains visible across both themes. */
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+.skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 100; padding: .75rem 1rem; background: var(--color-bg); color: var(--color-foreground); border: 2px solid var(--color-accent); }
+.skip-link:focus { top: 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { contactHref, region } from "@/lib/region";
 import { Container } from "@/components/Container";
 import { Section } from "@/components/Section";
 import { BlurReveal, Reveal } from "@/lib/animations";
@@ -11,7 +12,7 @@ export interface ServiceLandingContent {
   intro: string;
   problemTitle: string;
   problem: string;
-  useCases: { title: string; body: string }[];
+  useCases: { title: string; body: string; href?: string }[];
   deliverables: { title: string; body: string }[];
   deployment: { title: string; body: string }[];
   operations: string;
@@ -20,7 +21,7 @@ export interface ServiceLandingContent {
   related: { label: string; href: string }[];
 }
 
-export function ServiceLanding({ content }: { content: ServiceLandingContent }) {
+export function ServiceLanding({ content, source = "service" }: { content: ServiceLandingContent; source?: string }) {
   return (
     <>
       <section className="relative overflow-hidden bg-radial-fade pb-16 pt-32 md:pb-20 md:pt-40">
@@ -37,7 +38,7 @@ export function ServiceLanding({ content }: { content: ServiceLandingContent }) 
               <p className="mx-auto mt-6 max-w-2xl font-sans text-body-lg leading-relaxed text-muted">{content.intro}</p>
             </BlurReveal>
             <BlurReveal delay={0.24}>
-              <Link href="/contact" className="mt-9 inline-flex h-12 items-center rounded-lg bg-foreground px-7 font-mono text-[13px] uppercase tracking-[0.1em] text-bg transition-colors hover:bg-accent hover:text-on-accent">Discuss a Project</Link>
+              <Link href={contactHref("discovery", source)} className="mt-9 inline-flex min-h-12 items-center justify-center rounded-lg bg-foreground px-7 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-bg transition-colors hover:bg-accent hover:text-on-accent">{region.cta}</Link>
             </BlurReveal>
           </div>
         </Container>
@@ -79,7 +80,8 @@ export function ServiceLanding({ content }: { content: ServiceLandingContent }) 
         <div className="rounded-3xl border border-border bg-bg-elevated px-8 py-14 text-center md:px-16">
           <h2 className="font-display text-[clamp(1.9rem,4vw,2.75rem)] font-medium leading-[1.05] text-foreground">Scope the right deployment.</h2>
           <p className="mx-auto mt-4 max-w-xl font-sans text-body text-muted">Tell us about the workload, data, environment and operational constraints. We’ll propose a practical first step.</p>
-          <Link href="/contact" className="mt-8 inline-flex h-12 items-center rounded-lg bg-foreground px-7 font-mono text-[13px] uppercase tracking-[0.1em] text-bg transition-colors hover:bg-accent hover:text-on-accent">Start a Project Enquiry</Link>
+          <Link href={contactHref("discovery", source)} className="mt-8 inline-flex h-12 items-center rounded-lg bg-foreground px-7 font-mono text-[13px] uppercase tracking-[0.1em] text-bg transition-colors hover:bg-accent hover:text-on-accent">Book a discovery call</Link>
+          <Link href={contactHref("assessment", source)} className="mt-5 block text-accent underline underline-offset-4">Request an AI readiness assessment</Link>
           <nav aria-label="Related capabilities" className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2">{content.related.map((item) => <Link key={item.href} href={item.href} className="font-mono text-xs uppercase tracking-[0.1em] text-accent hover:text-foreground">{item.label}</Link>)}</nav>
         </div>
       </Section>
@@ -91,6 +93,6 @@ function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) 
   return <><p className="mb-4 font-mono text-xs uppercase tracking-[0.16em] text-accent">[ {eyebrow} ]</p><h2 className="max-w-2xl font-display text-display-md font-medium leading-[1.05] text-foreground">{title}</h2></>;
 }
 
-function InfoCard({ title, body }: { title: string; body: string }) {
-  return <article className="h-full rounded-2xl border border-border bg-bg-card p-7"><h3 className="font-display text-xl font-medium leading-snug text-foreground">{title}</h3><p className="mt-3 font-sans text-body-sm leading-relaxed text-muted">{body}</p></article>;
+function InfoCard({ title, body, href }: { title: string; body: string; href?: string }) {
+  return <article className="h-full rounded-2xl border border-border bg-bg-card p-7"><h3 className="font-display text-xl font-medium leading-snug text-foreground">{href ? <Link href={href} className="hover:text-accent underline-offset-4 hover:underline">{title} →</Link> : title}</h3><p className="mt-3 font-sans text-body-sm leading-relaxed text-muted">{body}</p></article>;
 }

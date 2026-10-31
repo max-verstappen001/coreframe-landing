@@ -5,7 +5,7 @@ import { Section } from "@/components/Section";
 import { Container } from "@/components/Container";
 import { Reveal, BlurReveal } from "@/lib/animations";
 import { INDUSTRIES } from "@/lib/industries";
-import { CAPABILITIES } from "@/lib/capabilities";
+import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
 
 const LEAD_CAPABILITIES: Record<string, string[]> = {
   "industrial-energy": ["Private AI", "Enterprise AI", "AI Agents"],
@@ -48,7 +48,7 @@ function IndustriesList() {
     <Section padding="large">
       <Reveal>
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
-          [ Where we've gone deepest ]
+          [ Enterprise applications ]
         </p>
         <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] max-w-xl mb-10">
           A few examples, not the whole list.
@@ -59,7 +59,7 @@ function IndustriesList() {
           <Reveal key={ind.slug} delay={i * 0.06}>
             <div className="h-full rounded-2xl border border-border bg-bg-card p-8">
               <h3 className="font-display font-medium text-2xl text-foreground leading-snug">
-                {ind.title}
+                <Link href={`/industries/${ind.slug}`} className="hover:text-accent">{ind.title} →</Link>
               </h3>
               <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
                 {ind.description}
@@ -111,7 +111,7 @@ function CapabilityMap() {
         {CAPABILITIES.map((c) => (
           <Link
             key={c.slug}
-            href="/capabilities"
+            href={capabilityHref(c)}
             className="rounded-xl border border-border bg-bg-card px-5 py-4 hover:border-border-hover transition-colors duration-300"
           >
             <span className="font-display text-sm text-foreground">{c.short}</span>

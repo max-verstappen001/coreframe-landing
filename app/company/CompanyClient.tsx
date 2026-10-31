@@ -37,15 +37,12 @@ function Hero() {
           </BlurReveal>
           <BlurReveal delay={0.08}>
             <h1 className="font-display font-medium text-[clamp(2.25rem,5.5vw,4rem)] leading-[1.05] tracking-[-0.02em] text-foreground">
-              A research, engineering and transformation company.
+              Enterprise AI engineering, from implementation to operations.
             </h1>
           </BlurReveal>
           <BlurReveal delay={0.16}>
             <p className="mt-6 mx-auto max-w-xl font-sans text-body-lg text-muted leading-relaxed">
-              Coreframe Technologies is an AI research and engineering
-              company. Research generates technical capability. Engineering
-              turns it into production systems. Transformation integrates
-              it into how businesses actually operate.
+              Coreframe Technologies designs, deploys and operates production AI systems for organizations with complex workflows, data, security and infrastructure requirements. Coreframe Labs is our distinct applied research initiative.
             </p>
           </BlurReveal>
         </div>
@@ -183,8 +180,7 @@ function Leadership() {
         </p>
         <div className="rounded-2xl border border-border bg-bg-card p-8 max-w-2xl">
           <p className="font-sans text-body-sm text-muted leading-relaxed">
-            Leadership profiles are being finalized for publication.
-            In the meantime,{" "}
+            Meet our co-founders and commercial leadership on our <Link href="/about" className="text-accent underline">team page</Link>. For an engagement, ask to meet the engineers responsible for architecture and delivery. You can also {" "}
             <Link href="/contact" className="text-accent hover:text-foreground transition-colors">
               get in touch
             </Link>{" "}
@@ -227,7 +223,7 @@ function CareersCTA() {
 const FAQ_ITEMS = [
   {
     q: "How is Coreframe different from a typical AI agency or IT consultancy?",
-    a: "Most agencies retrofit AI onto existing products or outsource execution to whoever's available. We're built around private AI and enterprise infrastructure specifically — the same engineers who scope an engagement build and operate it.",
+    a: "Our engagements connect workflow discovery, system design, integration, evaluation and operational ownership. We scope the work around your business outcome and infrastructure constraints, with clear delivery responsibilities.",
   },
   {
     q: "What's a typical engagement timeline?",

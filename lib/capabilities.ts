@@ -10,6 +10,8 @@ export interface Capability {
 
 /** Cards route to the individual page once live, otherwise to the /capabilities overview. */
 export function capabilityHref(c: Capability): string {
+  if (c.slug === "enterprise-ai") return "/services/enterprise-ai-agents";
+  if (c.slug === "software-engineering") return "/services/forward-deployed-engineering";
   return c.live ? `/capabilities/${c.slug}` : "/capabilities";
 }
 

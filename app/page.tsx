@@ -1,10 +1,11 @@
 import { pageMetadata, websiteJsonLd } from "@/lib/seo";
+import { region } from "@/lib/region";
 import HomeClient from "./HomeClient";
 
 export const metadata = pageMetadata({
-  title: "Coreframe Technologies | Private AI & Edge AI",
+  title: "Coreframe Technologies | Enterprise AI Engineering",
   description:
-    "Coreframe Technologies builds private LLMs, on-premise AI and edge AI systems for enterprises—from deployment and integration to ongoing operations.",
+    region.intro,
   path: "/",
   absoluteTitle: true,
 });

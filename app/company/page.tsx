@@ -4,9 +4,9 @@ import CompanyClient from "./CompanyClient";
 const PATH = "/company";
 
 export const metadata = pageMetadata({
-  title: "Company — Research to Transformation",
+  title: "Company — Enterprise AI Engineering",
   description:
-    "Coreframe Technologies is an AI research and engineering company — research generates capability, engineering builds systems, transformation runs them in operations.",
+    "Coreframe Technologies is an enterprise AI engineering and implementation company. Meet our team and explore how we design, deploy and operate production AI.",
   path: PATH,
 });
 

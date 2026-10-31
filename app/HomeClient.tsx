@@ -1,11 +1,15 @@
 "use client";
 
+import Image from "next/image";
+
 import Link from "next/link";
 import { useState, useEffect, useRef, useCallback, type ReactNode } from "react";
-import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
 import { INDUSTRIES } from "@/lib/industries";
 import { WORK_ITEMS } from "@/lib/work";
 import "./home.css";
+import { SERVICES } from "@/lib/service-catalog";
+import { DELIVERY_PROCESS } from "@/lib/delivery";
+import { region, contactHref } from "@/lib/region";
 
 /* ── shared arrow ── */
 function Arrow() {
@@ -57,11 +61,7 @@ const WORK_MEDIA = [
 ];
 
 /* ── static "Design / Deploy / Operate" step copy ── */
-const STEPS = [
-  { n: "01", label: "Design", body: "Define the right solution for your business." },
-  { n: "02", label: "Deploy", body: "Run on your infrastructure. Your rules." },
-  { n: "03", label: "Operate", body: "Monitor, evaluate and continuously improve." },
-];
+const STEPS = DELIVERY_PROCESS.map((s, i) => ({ n: String(i + 1).padStart(2, "0"), label: s.title, body: s.body }));
 
 const LAB_ROWS = [
   { n: "01", title: "Small Language Models", body: "Domain-specific intelligence." },
@@ -80,7 +80,7 @@ const STEP_ICONS = [CUBE_ICON, CUBE_ICON, CLOCK_ICON];
 
 export default function HomeClient() {
   /* current theme mirrored from <html data-theme>, so photos swap on toggle */
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
 
   useEffect(() => {
     const read = () =>
@@ -129,25 +129,35 @@ export default function HomeClient() {
   }, []);
 
   /* featured-work carousel */
+  const [paused, setPaused] = useState(true);
   const [idx, setIdx] = useState(0);
   const [fade, setFade] = useState(false);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const fadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => { if (fadeTimer.current) clearTimeout(fadeTimer.current); }, []);
 
   const go = useCallback((n: number) => {
     const next = (n + WORK_ITEMS.length) % WORK_ITEMS.length;
+    if (fadeTimer.current) clearTimeout(fadeTimer.current);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIdx(next);
+      setFade(false);
+      return;
+    }
     setFade(true);
-    setTimeout(() => {
+    fadeTimer.current = setTimeout(() => {
       setIdx(next);
       setFade(false);
     }, 220);
   }, []);
 
   useEffect(() => {
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     timer.current = setInterval(() => go(idx + 1), 6000);
     return () => {
       if (timer.current) clearInterval(timer.current);
     };
-  }, [idx, go]);
+  }, [idx, go, paused]);
 
   const work = WORK_ITEMS[idx];
   const media = WORK_MEDIA[idx] ?? WORK_MEDIA[0];
@@ -159,28 +169,29 @@ export default function HomeClient() {
 
       {/* ───────────── HERO (01) ───────────── */}
       <section className="hero">
-        <div className="hero-bg" />
+        <div className="hero-bg" aria-hidden="true">
+          <Image src={`/images/hero-${theme}.png`} alt="" fill priority sizes="100vw" quality={80} className="object-cover" />
+        </div>
         <div className="wrap hero-content">
           <div className="hero-inner">
             <div className="snum hero-anim d1" style={{ marginBottom: 0 }}>01</div>
             <div className="crumbs hero-anim d1">
-              PRIVATE LLMS <span>/</span> ON-PREMISE AI <span>/</span> EDGE AI
+              ENTERPRISE AI <span>/</span> ENGINEERING & IMPLEMENTATION <span>/</span> {region.label}
             </div>
             <h1 className="hero-anim d2">
-              Engineering<br />intelligent systems<br />
-              <span className="accent">for the real world.</span>
+              Turn AI potential<br />into systems<br />
+              <span className="accent">built for your business.</span>
             </h1>
             <p className="hero-sub hero-anim d3">
-              Coreframe Technologies designs, deploys and operates private LLMs,
-              on-premise AI and edge AI systems inside enterprise environments.
+              {region.intro}
             </p>
             <div className="hero-cta hero-anim d4">
-              <Link href="/contact" className="btn btn-primary">
-                Discuss a Project
+              <Link href={contactHref("discovery", "homepage")} className="btn btn-primary">
+                {region.cta}
                 <Arrow />
               </Link>
-              <Link href="/work" className="btn btn-ghost">
-                Explore Our Work
+              <Link href={contactHref("assessment", "homepage")} className="btn btn-ghost">
+                Request an AI assessment
               </Link>
             </div>
             <div className="deploy hero-anim d5">
@@ -194,7 +205,7 @@ export default function HomeClient() {
         <div className="hero-txt">
           YOUR DATA.<br />YOUR INFRASTRUCTURE.<br />YOUR INTELLIGENCE.<br />—
         </div>
-        <div className="trusted">TRUSTED BY TEAMS BUILDING WHAT&apos;S NEXT</div>
+        <div className="trusted">BUILT AROUND YOUR WORKFLOWS, DATA & SECURITY</div>
       </section>
 
       <div className="divider" />
@@ -206,14 +217,13 @@ export default function HomeClient() {
           <div className="approach-top reveal">
             <div>
               <div className="eyebrow" style={{ marginBottom: 20 }}>OUR APPROACH</div>
-              <h2>Design.<br />Deploy.<br />Operate.</h2>
+              <h2>Discover.<br />Design.<br />Deploy.<br />Operate.</h2>
             </div>
             <div>
               <p className="approach-copy">
-                From strategy to production, we partner with you across the entire AI
-                engineering lifecycle.
+                Reduce manual handoffs, unlock enterprise knowledge and make AI useful in daily operations. We own the engineering from the first workflow assessment through integration, release and ongoing improvement.
               </p>
-              <Link href="/capabilities" className="link">
+              <Link href="/services" className="link">
                 Learn how we work
                 <Arrow />
               </Link>
@@ -221,7 +231,7 @@ export default function HomeClient() {
                 {STEPS.map((s, i) => (
                   <div className="step" key={s.n}>
                     <div className="n">{s.n}</div>
-                    <div className="ico">{STEP_ICONS[i]}</div>
+                    <div className="ico">{STEP_ICONS[i] ?? CUBE_ICON}</div>
                     <h4>{s.label}</h4>
                     <p>{s.body}</p>
                   </div>
@@ -248,8 +258,8 @@ export default function HomeClient() {
                 <span>Real outcomes.</span>
               </h2>
               <p className="cap-desc">End-to-end AI engineering for high-stakes environments.</p>
-              <Link href="/capabilities" className="link">
-                Explore all capabilities
+              <Link href="/services" className="link">
+                Explore all services
                 <Arrow />
               </Link>
               <div className="cap-foot">
@@ -257,12 +267,12 @@ export default function HomeClient() {
               </div>
             </div>
             <div className="cap-cards stagger">
-              {CAPABILITIES.map((c, i) => (
-                <Link href={capabilityHref(c)} className="capc" key={c.slug}>
+              {SERVICES.map((c, i) => (
+                <Link href={`/services/${c.slug}`} className="capc" key={c.slug}>
                   <div className="capc-n">{String(i + 1).padStart(2, "0")}</div>
-                  <div className="capc-ic">{CAP_ICONS[c.slug]}</div>
+                  <div className="capc-ic">{CAP_ICONS[c.slug] ?? CUBE_ICON}</div>
                   <h4>{c.short}</h4>
-                  <p>{c.oneLiner}</p>
+                  <p>{c.summary}</p>
                   <span className="capc-arr"><Arrow /></span>
                 </Link>
               ))}
@@ -293,7 +303,7 @@ export default function HomeClient() {
               {INDUSTRIES.map((ind, i) => {
                 const meta = INDUSTRY_META[ind.slug];
                 return (
-                  <Link href="/industries" className="ind-card" key={ind.slug}>
+                  <Link href={`/industries/${ind.slug}`} className="ind-card" key={ind.slug}>
                     <div className={`ind-bg ${meta?.ig ?? "ig1"}`} />
                     <span className="ind-num">{String(i + 1).padStart(2, "0")}</span>
                     <div className="ind-body">
@@ -327,7 +337,7 @@ export default function HomeClient() {
               <div className="eyebrow" style={{ marginBottom: 20 }}>FEATURED WORK</div>
               <h2>From complexity<br />to clarity.</h2>
               <p className="cap-desc" style={{ marginTop: 22 }}>
-                Real-world systems.<br />Real impact.
+                Existing engagement summaries.<br />Client attribution and results remain unpublished.
               </p>
               <Link href="/work" className="link">
                 View all work
@@ -341,8 +351,11 @@ export default function HomeClient() {
               <div className="case-media">
                 <div
                   className="case-bg"
-                  style={{ backgroundImage: `url('${caseImg}')`, opacity: fade ? 0 : 1 }}
-                />
+                  style={{ opacity: fade ? 0 : 1 }}
+                  aria-hidden="true"
+                >
+                  <Image src={caseImg} alt="" fill sizes="(max-width: 960px) 100vw, 60vw" quality={80} className="object-cover" />
+                </div>
                 <div className="case-idx">
                   {String(idx + 1).padStart(2, "0")} / {String(WORK_ITEMS.length).padStart(2, "0")}
                 </div>
@@ -355,13 +368,13 @@ export default function HomeClient() {
                     ))}
                   </div>
                   <Link href="/work" className="link" style={{ marginTop: 0 }}>
-                    Read the case study
+                    View engagement summaries
                     <Arrow />
                   </Link>
                 </div>
                 <div className="case-dots">
                   {WORK_ITEMS.map((_, x) => (
-                    <i
+                    <button type="button" aria-label={`Show engagement ${x + 1}`} aria-pressed={x === idx}
                       key={x}
                       className={x === idx ? "on" : ""}
                       onClick={() => go(x)}
@@ -369,12 +382,13 @@ export default function HomeClient() {
                   ))}
                 </div>
                 <div className="case-nav">
-                  <div className="rnd" onClick={() => go(idx - 1)}>
+                  <button type="button" className="rnd" aria-label={paused ? "Play engagement carousel" : "Pause engagement carousel"} aria-pressed={!paused} onClick={() => setPaused(!paused)}>{paused ? "▶" : "Ⅱ"}</button>
+                  <button type="button" aria-label="Previous engagement" className="rnd" onClick={() => go(idx - 1)}>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
-                  </div>
-                  <div className="rnd" onClick={() => go(idx + 1)}>
+                  </button>
+                  <button type="button" aria-label="Next engagement" className="rnd" onClick={() => go(idx + 1)}>
                     <Arrow />
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -393,7 +407,7 @@ export default function HomeClient() {
             <div className="eyebrow" style={{ marginBottom: 20 }}>COREFRAME LABS</div>
             <h2>Applied research<br />that ships.</h2>
             <p className="cap-desc" style={{ marginTop: 22, maxWidth: 340 }}>
-              Exploring what&apos;s next in AI, from SLMs to agent infrastructure.
+              Our applied research initiative explores small language models, evaluation and agent infrastructure. Labs is distinct from our commercial implementation services.
             </p>
             <Link href="/labs" className="btn btn-primary" style={{ marginTop: 34 }}>
               Explore Labs
@@ -441,8 +455,8 @@ export default function HomeClient() {
               Tell us about your data, your constraints and your environment. We&apos;ll tell
               you what&apos;s realistic.
             </p>
-            <Link href="/contact" className="btn btn-primary">
-              Discuss a Project
+            <Link href={contactHref("discovery", "homepage")} className="btn btn-primary">
+              {region.cta}
               <Arrow />
             </Link>
           </div>

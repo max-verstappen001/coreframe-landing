@@ -27,7 +27,7 @@ const TEAM = [
     name: "Amudhan Panneerselvam",
     role: "Co-founder & CTO",
     description:
-      "Amudhan leads CoreFrame's technology vision — pairing full-stack engineering with applied AI, IoT, and hardware. He has shipped production-grade platforms including AI-driven learning systems with advanced RAG and automation workflows, spanning intelligent software through to real-world connected devices. World, Asian, and Indian Book of Records holder for the world's smallest and lightest satellite.",
+      "Amudhan leads CoreFrame's technology vision — pairing full-stack engineering with applied AI and systems architecture. He has shipped production-grade platforms including AI-driven learning systems with advanced RAG and automation workflows, spanning intelligent software through to real-world connected devices. World, Asian, and Indian Book of Records holder for the world's smallest and lightest satellite.",
     email: "aamudhan2000@gmail.com",
     linkedin: "https://www.linkedin.com/in/amudhan-panneerselvam/",
   },

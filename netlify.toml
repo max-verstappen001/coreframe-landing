@@ -15,3 +15,12 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Regional deployments are separate sites, built from the same repository.
+# Set NEXT_PUBLIC_SITE_REGION=global or uae in each site's build environment.
+# Do not attach both regional apex domains to one Netlify site.
+[[redirects]]
+  from = "https://www.coreframe.ae/*"
+  to = "https://coreframe.ae/:splat"
+  status = 301
+  force = true

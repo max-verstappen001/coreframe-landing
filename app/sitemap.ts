@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { SERVICES } from "@/lib/services";
+import { INDUSTRIES } from "@/lib/industries";
 import { siteConfig } from "@/lib/seo";
 
 type Entry = {
@@ -8,7 +10,7 @@ type Entry = {
 };
 
 // Static route inventory. /case-studies, /case-studies/wiral and /showcase
-// are intentionally excluded — the first two 404 by design (superseded by
+// are intentionally excluded — the first two redirect permanently (superseded by
 // /work) and /showcase is an internal component gallery, not public content.
 const ROUTES: Entry[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
@@ -37,7 +39,8 @@ const ROUTES: Entry[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return ROUTES.map((route) => ({
+  const expanded: Entry[] = [...ROUTES, { path: "/services", changeFrequency: "monthly", priority: 0.9 }, ...SERVICES.map(s => ({ path: `/services/${s.slug}`, changeFrequency: "monthly" as const, priority: 0.9 })), ...INDUSTRIES.map(i => ({ path: `/industries/${i.slug}`, changeFrequency: "monthly" as const, priority: 0.8 }))];
+  return expanded.map((route) => ({
     url: `${siteConfig.url}${route.path}`,
     changeFrequency: route.changeFrequency,
     priority: route.priority,

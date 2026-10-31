@@ -6,12 +6,13 @@ import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { NoiseOverlay } from "@/lib/animations";
 import { siteConfig, organizationJsonLd, siteNavigationJsonLd } from "@/lib/seo";
 
+import { LeadAttribution } from "@/components/LeadAttribution";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Coreframe Technologies | Private AI & Edge AI",
+    default: "Coreframe Technologies | Enterprise AI Engineering",
     template: "%s — Coreframe Technologies",
   },
   description: siteConfig.description,
@@ -19,11 +20,14 @@ export const metadata: Metadata = {
     "private AI",
     "on-premise LLM",
     "enterprise AI",
-    "edge AI",
+    "enterprise Claude implementation",
+    "forward deployed engineering",
+    "sovereign AI",
     "LLMOps",
     "AI infrastructure",
     "AI governance",
-    "EU AI Act compliance",
+    "AI readiness assessment",
+    "managed AI operations",
     "AI engineering company",
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
@@ -33,12 +37,12 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: siteConfig.locale,
     url: siteConfig.url,
-    title: "Coreframe Technologies | Private AI & Edge AI",
+    title: "Coreframe Technologies | Enterprise AI Engineering",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Coreframe Technologies | Private AI & Edge AI",
+    title: "Coreframe Technologies | Enterprise AI Engineering",
     description: siteConfig.description,
   },
   icons: {
@@ -93,9 +97,11 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased bg-bg text-foreground">
+        <a href="#main-content" className="skip-link">Skip to content</a>
         <NoiseOverlay />
+        <LeadAttribution />
         <Navbar />
-        <main>{children}</main>
+        <main id="main-content" tabIndex={-1}>{children}</main>
         <Footer />
         <WhatsAppFloat />
       </body>

@@ -6,6 +6,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CoreframeWordmark } from "./CoreframeWordmark";
 import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
+import { SERVICES } from "@/lib/service-catalog";
+import { contactHref } from "@/lib/region";
 import { INDUSTRIES } from "@/lib/industries";
 
 interface NavItem {
@@ -16,6 +18,7 @@ interface NavItem {
 }
 
 const NAV_LINKS: NavItem[] = [
+  { label: "Services", href: "/services", menu: SERVICES.map(s => ({ label: s.short, href: `/services/${s.slug}`, description: s.summary })) },
   {
     label: "Capabilities",
     href: "/capabilities",
@@ -32,7 +35,7 @@ const NAV_LINKS: NavItem[] = [
     menuHref: "/industries",
     menu: INDUSTRIES.map((i) => ({
       label: i.short,
-      href: "/industries",
+      href: `/industries/${i.slug}`,
       description: i.description,
     })),
   },
@@ -43,6 +46,7 @@ const NAV_LINKS: NavItem[] = [
 ];
 
 const MOBILE_LINKS = [
+  { label: "Services", href: "/services" },
   { label: "Capabilities", href: "/capabilities" },
   { label: "Industries", href: "/industries" },
   { label: "Coreframe Labs", href: "/labs" },
@@ -87,6 +91,12 @@ function NavDropdown({
 }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const trigger = useRef<HTMLAnchorElement>(null);
+  const pathname = usePathname();
+  const panelId = `nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`;
+
+  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => () => { if (timeout.current) clearTimeout(timeout.current); }, []);
 
   const show = () => {
     if (timeout.current) clearTimeout(timeout.current);
@@ -110,9 +120,12 @@ function NavDropdown({
   }
 
   return (
-    <div className="relative" onMouseEnter={show} onMouseLeave={hide}>
+    <div className="relative" onMouseEnter={show} onMouseLeave={hide} onFocus={show} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setOpen(false); }} onKeyDown={(event) => { if (event.key === "Escape") { trigger.current?.focus(); setOpen(false); } }}>
       <Link
+        ref={trigger}
         href={item.menuHref ?? item.href}
+        aria-expanded={open}
+        aria-controls={open ? panelId : undefined}
         className={`relative flex items-center gap-1 font-mono text-[12.5px] uppercase tracking-[0.12em] transition-colors duration-300 ${
           isActive ? "text-foreground" : "text-muted hover:text-foreground"
         }`}
@@ -135,11 +148,12 @@ function NavDropdown({
       <AnimatePresence>
         {open && (
           <motion.div
+            id={panelId}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-1/2 top-full -translate-x-1/2 pt-4 w-[320px]"
+            className="absolute left-1/2 top-full -translate-x-1/2 pt-4 w-[360px] max-h-[75vh] overflow-y-auto"
           >
             <div className="rounded-xl border border-border bg-bg-elevated shadow-card p-2">
               {item.menu.map((entry) => (
@@ -176,6 +190,8 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("light");
   const [mounted, setMounted] = useState(false);
+  const mobilePanel = useRef<HTMLDivElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   const isActive = (href: string) => {
     if (href.startsWith("/#")) return pathname === "/";
@@ -208,11 +224,27 @@ export function Navbar() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    mobilePanel.current?.querySelector<HTMLElement>("a")?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setOpen(false); return; }
+      if (event.key !== "Tab") return;
+      const controls = [menuButton.current, ...Array.from(mobilePanel.current?.querySelectorAll<HTMLElement>("a, button") || [])].filter((item): item is HTMLElement => Boolean(item));
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("keydown", onKey); menuButton.current?.focus(); };
+  }, [open]);
+
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("coreframe-theme", next);
+    try { localStorage.setItem("coreframe-theme", next); } catch { /* Theme still works when storage is blocked. */ }
   };
 
   return (
@@ -234,7 +266,7 @@ export function Navbar() {
           <BrandMark />
 
           {/* Center nav */}
-          <ul className="hidden lg:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
+          <ul className="hidden xl:flex items-center gap-4">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <NavDropdown item={link} isActive={isActive(link.href)} />
@@ -243,7 +275,7 @@ export function Navbar() {
           </ul>
 
           {/* Right actions */}
-          <div className="hidden lg:flex items-center gap-2.5">
+          <div className="hidden xl:flex items-center gap-2.5">
             <button
               onClick={toggleTheme}
               className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-border text-muted hover:text-foreground hover:border-border-hover transition-colors duration-300"
@@ -261,17 +293,19 @@ export function Navbar() {
               )}
             </button>
             <Link
-              href="/contact"
+              href={contactHref("discovery", "navigation")}
               className="inline-flex items-center rounded-lg border border-foreground/85 bg-foreground px-4 h-9 font-mono text-[12.5px] uppercase tracking-[0.1em] text-bg hover:bg-accent hover:border-accent hover:text-on-accent transition-colors duration-300"
             >
-              Discuss a Project
+              Book discovery
             </Link>
           </div>
 
           {/* Mobile hamburger */}
           <button
+            ref={menuButton}
+            aria-controls="mobile-navigation"
             onClick={() => setOpen(!open)}
-            className="lg:hidden relative z-50 w-11 h-11 flex items-center justify-center -mr-2.5"
+            className="xl:hidden relative z-50 w-11 h-11 flex items-center justify-center -mr-2.5"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -304,7 +338,9 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-40 bg-bg flex flex-col justify-center px-6 overflow-y-auto py-24"
+            ref={mobilePanel}
+            id="mobile-navigation"
+            className="fixed inset-0 z-40 bg-bg flex flex-col justify-start px-6 overflow-y-auto py-24"
           >
             <nav className="flex flex-col gap-2 max-w-[1400px] mx-auto w-full">
               {MOBILE_LINKS.map((link, i) => (

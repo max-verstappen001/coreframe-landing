@@ -1,7 +1,9 @@
 "use client";
 
+import { region } from "@/lib/region";
+
 const WHATSAPP_NUMBER = "916383831327";
-const WHATSAPP_MESSAGE = "Hi Coreframe, I'd like to chat.";
+const WHATSAPP_MESSAGE = `Hi Coreframe, I'd like to discuss enterprise AI for ${region.label}. Enquiry from ${region.origin}.`;
 
 export function WhatsAppFloat() {
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
