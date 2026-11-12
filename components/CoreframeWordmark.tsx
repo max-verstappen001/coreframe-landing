@@ -1,4 +1,4 @@
-interface CoreframeWordmarkProps {
+interface CoreFrameWordmarkProps {
   /** display height in px; width follows the glyph's native ~9.7:1 aspect ratio */
   height?: number;
   className?: string;
@@ -9,12 +9,12 @@ interface CoreframeWordmarkProps {
  * mask so it renders in the current theme color (var(--color-foreground))
  * instead of a fixed raster color. Source: public/logos/coreframe-wordmark.png
  */
-export function CoreframeWordmark({ height = 14, className = "" }: CoreframeWordmarkProps) {
+export function CoreFrameWordmark({ height = 14, className = "" }: CoreFrameWordmarkProps) {
   const width = Math.round(height * 9.7);
   return (
     <span
       role="img"
-      aria-label="Coreframe"
+      aria-label="CoreFrame"
       className={`inline-block shrink-0 ${className}`}
       style={{
         height,

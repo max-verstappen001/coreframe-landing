@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Privacy Policy",
   description:
-    "How Coreframe Technologies collects, uses and protects information — what we collect, how it's used, and your choices.",
+    "How CoreFrame Technologies collects, uses and protects information — what we collect, how it's used, and your choices.",
   path: "/privacy",
 });
 
@@ -21,10 +21,10 @@ export default function PrivacyPage() {
         </h1>
         <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 font-sans text-body-sm text-muted">
           <span>
-            <span className="text-subtle">Last updated:</span> October 2026
+            <span className="text-subtle">Last updated:</span> November 2026
           </span>
           <span>
-            <span className="text-subtle">Governed by:</span> Coreframe
+            <span className="text-subtle">Governed by:</span> CoreFrame
             Technologies Private Limited
           </span>
         </div>
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
       <article className="prose-legal mt-14 space-y-12">
         <Clause title="Information We Collect">
           <ul>
-            <li>Contact details and enquiry information you provide, including name, work email, company, service interest, timeline and message.</li>
+            <li>Contact details and enquiry information you provide, including name, work email, company and business challenge.</li>
             <li>When you submit an enquiry, its regional site, CTA source, first landing path and campaign parameters. First-touch attribution is held in session storage for the current tab and is sent with the enquiry; it is not sent to a third-party analytics service by this feature.</li>
             <li>Usage data to help us improve performance and reliability.</li>
             <li>Any information you intentionally share with us for support.</li>

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { statSync } from 'node:fs';
 const base = process.argv[2] || 'http://127.0.0.1:3100';
 for (const [path, destination] of [
+  ['/about', '/company'], ['/projects', '/work'],
   ['/case-studies', '/work'], ['/case-studies/wiral', '/work'],
   ['/services/claude', '/services/enterprise-claude'],
   ['/capabilities/enterprise-ai', '/services/enterprise-ai-agents'],
@@ -13,14 +14,16 @@ for (const [path, destination] of [
 }
 for (const path of ['/services/unknown-service', '/industries/unknown-industry']) assert.equal((await fetch(base + path)).status, 404, path);
 const sitemap = await (await fetch(base + '/sitemap.xml')).text();
+let pageCount = 0;
 for (const match of sitemap.matchAll(/<loc>(.*?)<\/loc>/g)) {
   const path = new URL(match[1]).pathname;
   const response = await fetch(base + path);
   assert.equal(response.status, 200, path);
+  pageCount++;
 }
 const invalid = await fetch(base + '/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{' });
 assert.equal(invalid.status, 400);
-console.log('HTTP: 36 sitemap pages return 200; five redirects preserve campaign queries; unknown service/industry return 404; malformed contact request returns 400.');
+console.log(`HTTP: ${pageCount} sitemap pages return 200; seven redirects preserve campaign queries; unknown service/industry return 404; malformed contact request returns 400.`);
 for (const file of ['hero-light.png', 'hero-dark.png', 'section-5-light.png']) {
   const image = await fetch(`${base}/_next/image?url=${encodeURIComponent(`/images/${file}`)}&w=640&q=80`, { headers: { Accept: 'image/webp' } });
   assert.equal(image.status, 200, file);

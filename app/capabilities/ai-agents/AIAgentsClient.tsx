@@ -143,7 +143,7 @@ function Provides() {
     <Section padding="large" background="elevated">
       <Reveal>
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
-          [ What Coreframe provides ]
+          [ What CoreFrame provides ]
         </p>
       </Reveal>
       <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -202,7 +202,7 @@ function HITL() {
           [ Human-in-the-loop systems ]
         </p>
         <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] max-w-2xl">
-          Oversight isn&apos;t a checkbox — it's a level you choose per
+          Oversight isn&apos;t a checkbox — it&apos;s a level you choose per
           task.
         </h2>
         <p className="mt-4 max-w-2xl font-sans text-body text-muted leading-relaxed">

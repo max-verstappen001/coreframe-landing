@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "./Container";
 import { Reveal } from "@/lib/animations";
-import { CoreframeWordmark } from "./CoreframeWordmark";
+import { CoreFrameWordmark } from "./CoreframeWordmark";
 import { SERVICES } from "@/lib/service-catalog";
 import { region, contactHref } from "@/lib/region";
 import { INDUSTRIES } from "@/lib/industries";
@@ -17,8 +18,9 @@ const INDUSTRY_LINKS = INDUSTRIES.map((i) => ({
 
 const COMPANY_LINKS = [
   { label: "Company", href: "/company" },
-  { label: "Coreframe Labs", href: "/labs" },
+  { label: "CoreFrame Labs", href: "/labs" },
   { label: "Work", href: "/work" },
+  { label: "Products & Innovation", href: "/products" },
   { label: "Insights", href: "/insights" },
   { label: "Careers", href: "/company/careers" },
   { label: "Contact", href: "/contact" },
@@ -72,21 +74,22 @@ export function Footer() {
                 className="group inline-flex items-center gap-1.5 font-mono text-xl font-bold tracking-tight text-foreground"
               >
                 <span className="text-subtle transition-colors group-hover:text-accent">[</span>
-                <img
+                <Image unoptimized
                   src="/logos/coreframe-mark.png"
                   alt=""
                   width={18}
                   height={18}
                   className="h-[18px] w-[18px] object-contain"
                 />
-                <CoreframeWordmark height={17} />
+                <CoreFrameWordmark height={17} />
                 <span className="text-subtle transition-colors group-hover:text-accent">]</span>
               </Link>
               <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed max-w-sm">
                 Enterprise AI engineering and implementation. We design, deploy and operate production systems around your workflows, data, security and infrastructure.
               </p>
               <nav aria-label="Regional websites" className="mt-4 flex gap-4 text-sm text-accent"><a href="https://coreframetech.in">India &amp; Global</a><a href="https://coreframe.ae">UAE &amp; GCC</a></nav>
-              <p className="mt-4 text-sm text-muted">{region.delivery}</p>
+              <p className="mt-4 text-sm text-foreground">{region.location}</p>
+              <p className="mt-2 text-sm text-muted">{region.delivery}</p>
               <Link href={contactHref("discovery", "footer")} className="mt-4 inline-block text-accent underline">{region.cta} →</Link>
               <div className="mt-5 flex flex-wrap gap-2">
                 {["Enterprise AI", "Implementation", region.label].map(
@@ -163,7 +166,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <p className="font-sans text-caption text-subtle">
-            &copy; {new Date().getFullYear()} Coreframe Technologies Private
+            &copy; {new Date().getFullYear()} CoreFrame Technologies Private
             Limited. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
@@ -171,7 +174,7 @@ export function Footer() {
               href="https://www.linkedin.com/company/coreframe-technologies"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Coreframe on LinkedIn"
+              aria-label="CoreFrame on LinkedIn"
               className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-border text-subtle hover:border-accent hover:text-accent transition-colors duration-300"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">

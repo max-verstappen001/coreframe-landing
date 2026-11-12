@@ -179,7 +179,7 @@ function Provides() {
     <Section padding="large" background="elevated">
       <Reveal>
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
-          [ What Coreframe provides ]
+          [ What CoreFrame provides ]
         </p>
       </Reveal>
       <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">

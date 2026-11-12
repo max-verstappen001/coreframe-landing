@@ -4,9 +4,9 @@ import IndustriesClient from "./IndustriesClient";
 const PATH = "/industries";
 
 export const metadata = pageMetadata({
-  title: "Industries — Where Coreframe Works",
+  title: "Industries — Where CoreFrame Works",
   description:
-    "Coreframe works across industries — deepest so far in industrial & energy, retail & hospitality, enterprise services, and technology, wherever confidential data or complex workflows make private AI worth doing right.",
+    "CoreFrame works across industries — deepest so far in industrial & energy, retail & hospitality, enterprise services, and technology, wherever confidential data or complex workflows make private AI worth doing right.",
   path: PATH,
 });
 

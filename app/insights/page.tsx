@@ -6,7 +6,7 @@ const PATH = "/insights";
 export const metadata = pageMetadata({
   title: "Insights — Private & Enterprise AI",
   description:
-    "Technical writing on private AI, on-premise LLMs, enterprise RAG, AI infrastructure and governance — from Coreframe's engineers and researchers.",
+    "Practical engineering notes on scoping an AI pilot: operational baselines, retrieval evaluation, agent permissions and ownership before release.",
   path: PATH,
 });
 

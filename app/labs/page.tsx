@@ -4,9 +4,9 @@ import LabsClient from "./LabsClient";
 const PATH = "/labs";
 
 export const metadata = pageMetadata({
-  title: "Coreframe Labs — Applied AI Research",
+  title: "CoreFrame Labs — Applied AI Research",
   description:
-    "Applied research in private AI, small language models and agent infrastructure. Experiments, technical reports and open-source from Coreframe Labs.",
+    "Inspect the public Custos agent-governance project, code and technical documentation, and explore CoreFrame Labs research directions.",
   path: PATH,
 });
 

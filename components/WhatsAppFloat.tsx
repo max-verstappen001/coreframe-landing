@@ -1,11 +1,14 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { region } from "@/lib/region";
 
 const WHATSAPP_NUMBER = "916383831327";
-const WHATSAPP_MESSAGE = `Hi Coreframe, I'd like to discuss enterprise AI for ${region.label}. Enquiry from ${region.origin}.`;
+const WHATSAPP_MESSAGE = `Hi CoreFrame, I'd like to discuss enterprise AI for ${region.label}. Enquiry from ${region.origin}.`;
 
 export function WhatsAppFloat() {
+  const pathname = usePathname();
+  if (pathname === "/contact") return null;
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
   return (

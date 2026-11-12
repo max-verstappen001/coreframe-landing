@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ICON_PATHS, type IconName } from "./Icons";
 
 /**
- * Hero visual: a Coreframe "core" (the hex mark) wired into the six surfaces
+ * Hero visual: a CoreFrame "core" (the hex mark) wired into the six surfaces
  * an enterprise actually runs on — documents, workflows, data systems,
  * infrastructure, agents and human oversight. Edges draw on reveal and
  * carry packets in both directions; the outer ring rotates slowly.
@@ -68,7 +68,7 @@ export function HeroSystemVisual({ className = "" }: { className?: string }) {
     <svg
       viewBox="0 0 480 480"
       role="img"
-      aria-label="Coreframe core connected to documents, workflows, data systems, infrastructure, agents and human oversight."
+      aria-label="CoreFrame core connected to documents, workflows, data systems, infrastructure, agents and human oversight."
       className={`w-full h-auto ${className}`}
     >
       {/* Ambient glow behind the core */}
@@ -173,7 +173,7 @@ export function HeroSystemVisual({ className = "" }: { className?: string }) {
         );
       })}
 
-      {/* Core: the Coreframe hex mark */}
+      {/* Core: the CoreFrame hex mark */}
       <motion.g style={{ originX: `${CX}px`, originY: `${CY}px` }} {...pop(0.1)}>
         <polygon
           points={hexPoints(HEX_R)}

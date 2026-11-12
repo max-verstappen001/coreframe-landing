@@ -10,7 +10,7 @@ const code = ts.transpileModule(readFileSync('app/api/contact/route.ts', 'utf8')
 function handler({ env = {}, send = async () => ({ error: null }), webhook = async () => ({ ok: true }) } = {}) {
   const exports = {};
   vm.runInNewContext(code, {
-    exports, process: { env }, console: { error() {} }, AbortSignal,
+    exports, process: { env }, console: { error() {} }, AbortSignal, URL,
     fetch: webhook,
     require(name) {
       if (name === 'next/server') return { NextResponse: { json: (data, init) => Response.json(data, init) } };
@@ -77,4 +77,25 @@ test('webhook rejection and timeout cannot produce false success', async () => {
   for (const webhook of [async () => ({ ok: false }), async () => { throw new Error('timeout'); }]) {
     assert.equal((await handler({ env: { WEBHOOK_URL: 'https://example.com' }, webhook })(request(valid))).status, 503);
   }
+});
+
+test('rejects filled spam traps before any delivery attempt', async () => {
+  let calls = 0;
+  const post = handler({ env: { WEBHOOK_URL: 'https://example.com/hook' }, webhook: async () => { calls++; return { ok: true }; } });
+  for (const website of ['https://spam.example', 123, {}]) {
+    assert.equal((await post(request({ ...valid, website }))).status, 400);
+  }
+  assert.equal(calls, 0);
+  assert.equal((await post(request({ ...valid, website: '' }))).status, 200);
+  assert.equal(calls, 1);
+});
+
+test('rejects cross-origin browser submissions and accepts same-origin enquiries', async () => {
+  let calls = 0;
+  const post = handler({ env: { WEBHOOK_URL: 'https://example.com/hook' }, webhook: async () => { calls++; return { ok: true }; } });
+  const browserRequest = origin => new Request('https://coreframetech.in/api/contact', { method: 'POST', headers: { Origin: origin }, body: JSON.stringify(valid) });
+  assert.equal((await post(browserRequest('https://unrelated.example'))).status, 403);
+  assert.equal(calls, 0);
+  assert.equal((await post(browserRequest('https://coreframetech.in'))).status, 200);
+  assert.equal(calls, 1);
 });

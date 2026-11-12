@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal } from "@/lib/animations";
 import { Section } from "./Section";
 
@@ -32,7 +33,7 @@ export function PartnerStrip({
       <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 md:gap-x-16">
         {partners.map((p) => {
           const inner = p.logo ? (
-            <img
+            <Image unoptimized width={160} height={32}
               src={p.logo}
               alt={p.name}
               className="h-7 md:h-8 w-auto object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"

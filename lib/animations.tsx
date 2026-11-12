@@ -53,8 +53,8 @@ export function Reveal({
       }}
       viewport={{ once, amount }}
       transition={{
-        duration,
-        delay,
+        duration: reduced ? 0 : duration,
+        delay: reduced ? 0 : delay,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
@@ -296,7 +296,7 @@ export function BlurReveal({
       initial={reduced ? false : { opacity: 0, filter: "blur(10px)", y: 20 }}
       whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: reduced ? 0 : duration, delay: reduced ? 0 : delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>

@@ -12,8 +12,8 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Coreframe Technologies | Enterprise AI Engineering",
-    template: "%s — Coreframe Technologies",
+    default: "CoreFrame Technologies | Enterprise AI Engineering",
+    template: "%s — CoreFrame Technologies",
   },
   description: siteConfig.description,
   keywords: [
@@ -37,12 +37,12 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: siteConfig.locale,
     url: siteConfig.url,
-    title: "Coreframe Technologies | Enterprise AI Engineering",
+    title: "CoreFrame Technologies | Enterprise AI Engineering",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Coreframe Technologies | Enterprise AI Engineering",
+    title: "CoreFrame Technologies | Enterprise AI Engineering",
     description: siteConfig.description,
   },
   icons: {
@@ -85,7 +85,7 @@ export default function RootLayout({
           rel="alternate"
           type="application/json"
           href="/api/agent"
-          title="Coreframe Agent Interface"
+          title="CoreFrame Agent Interface"
         />
         <script
           type="application/ld+json"

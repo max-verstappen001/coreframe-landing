@@ -6,6 +6,11 @@ const escapeHtml = (value: string) => value.replace(/[&<>"']/g, char => ({ "&": 
 const text = (value: unknown, max: number) => typeof value === "string" ? value.trim().slice(0, max) : "";
 
 export async function POST(request: Request) {
+  // Browser enquiries must originate from this site. Non-browser integrations may omit Origin.
+  const origin = request.headers.get("origin");
+  if (origin && origin !== new URL(request.url).origin) {
+    return NextResponse.json({ success: false, error: "Please submit the enquiry from our website." }, { status: 403 });
+  }
   if (Number(request.headers.get("content-length") || 0) > 20000) {
     return NextResponse.json({ success: false, error: "Enquiry is too long." }, { status: 413 });
   }
@@ -18,8 +23,12 @@ export async function POST(request: Request) {
   } catch {
     return NextResponse.json({ success: false, error: "Please send a valid enquiry." }, { status: 400 });
   }
+  // A hidden field catches basic form-filling bots without collecting additional visitor data.
+  if (body.website !== undefined && (typeof body.website !== "string" || body.website.trim())) {
+    return NextResponse.json({ success: false, error: "Unable to submit this enquiry. Please email info@coreframetech.in." }, { status: 400 });
+  }
   // Reject oversized fields instead of silently changing an email or losing a brief.
-  // The client prepends the selected service and timeline to its 10,000-character brief.
+  // Keep the legacy 12,000-character API allowance for existing integrations.
   for (const [key, max] of [["name", 150], ["email", 254], ["company", 200], ["message", 12000]] as const) {
     if (typeof body[key] === "string" && body[key].trim().length > max) {
       return NextResponse.json({ success: false, error: `The ${key} field is too long.` }, { status: 400 });
@@ -45,7 +54,7 @@ export async function POST(request: Request) {
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const { error } = await resend.emails.send({
-        from: process.env.CONTACT_FROM_EMAIL || "Coreframe Website <send@coreframetech.in>",
+        from: process.env.CONTACT_FROM_EMAIL || "CoreFrame Website <send@coreframetech.in>",
         to: process.env.NOTIFICATION_EMAIL,
         replyTo: email,
         subject: `[${region.label}] New AI enquiry: ${name.replace(/[\r\n]/g, " ")}`,

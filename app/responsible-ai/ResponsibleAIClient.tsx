@@ -159,7 +159,7 @@ function HumanInTheLoop() {
           Oversight is a level we choose per task, not a blanket policy.
         </h2>
         <p className="mt-4 max-w-2xl font-sans text-body text-muted leading-relaxed">
-          "Human in the loop" means different things depending on the
+          &ldquo;Human in the loop&rdquo; means different things depending on the
           stakes. We size the level of human involvement to the
           consequence and reversibility of what the system is doing, and
           make that level explicit in the design rather than leaving it
@@ -188,7 +188,7 @@ function HumanInTheLoop() {
           human-in-the-loop. Escalation paths and approval decisions are
           logged, so the record of who approved what is auditable — not
           reconstructed from memory after something goes wrong. See{" "}
-          <Link href="/capabilities/ai-agents" className="text-accent hover:text-foreground transition-colors">
+          <Link href="/capabilities/ai-agents" className="text-accent underline hover:text-foreground transition-colors">
             AI Agents &amp; Autonomous Workflows
           </Link>{" "}
           for how this is implemented architecturally.
@@ -209,7 +209,7 @@ function Limitations() {
           What AI systems can get wrong.
         </h2>
         <p className="mt-4 max-w-xl font-sans text-body-sm text-muted leading-relaxed">
-          Any AI system we build or deploy — ours or a third party's — can:
+          Any AI system we build or deploy — ours or a third party&apos;s — can:
         </p>
       </Reveal>
       <div className="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl">
@@ -275,7 +275,7 @@ function Governance() {
             Our governance practices are informed by established
             approaches to AI risk management, including risk-based
             frameworks such as the NIST AI Risk Management Framework and
-            management-system standards such as ISO/IEC 42001. Coreframe
+            management-system standards such as ISO/IEC 42001. CoreFrame
             is not currently certified against ISO/IEC 42001 or any other
             AI management standard — where we reference a framework, we
             mean our practices draw on it, not that we hold formal
@@ -322,14 +322,14 @@ function ResponsibilitySplit() {
           [ Responsibility ]
         </p>
         <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] max-w-xl">
-          Who's responsible for what.
+          Who&apos;s responsible for what.
         </h2>
       </Reveal>
       <div className="mt-10 grid md:grid-cols-2 gap-4">
         <Reveal delay={0.05}>
           <div className="h-full rounded-2xl border border-border bg-bg-card p-7">
             <h3 className="font-display font-medium text-lg text-foreground mb-4">
-              Coreframe
+              CoreFrame
             </h3>
             <ul className="space-y-3">
               {coreframe.map((item) => (
