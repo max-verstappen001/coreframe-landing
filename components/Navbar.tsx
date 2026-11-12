@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CoreframeWordmark } from "./CoreframeWordmark";
+import { CoreFrameWordmark } from "./CoreframeWordmark";
 import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
 import { SERVICES } from "@/lib/service-catalog";
 import { contactHref } from "@/lib/region";
@@ -18,6 +19,7 @@ interface NavItem {
 }
 
 const NAV_LINKS: NavItem[] = [
+  { label: "Products", href: "/products" },
   { label: "Services", href: "/services", menu: SERVICES.map(s => ({ label: s.short, href: `/services/${s.slug}`, description: s.summary })) },
   {
     label: "Capabilities",
@@ -39,24 +41,23 @@ const NAV_LINKS: NavItem[] = [
       description: i.description,
     })),
   },
-  { label: "Coreframe Labs", href: "/labs" },
+  { label: "CoreFrame Labs", href: "/labs" },
   { label: "Work", href: "/work" },
-  { label: "Insights", href: "/insights" },
   { label: "Company", href: "/company" },
 ];
 
 const MOBILE_LINKS = [
+  { label: "Products", href: "/products" },
   { label: "Services", href: "/services" },
   { label: "Capabilities", href: "/capabilities" },
   { label: "Industries", href: "/industries" },
-  { label: "Coreframe Labs", href: "/labs" },
+  { label: "CoreFrame Labs", href: "/labs" },
   { label: "Work", href: "/work" },
-  { label: "Insights", href: "/insights" },
   { label: "Company", href: "/company" },
   { label: "Contact", href: "/contact" },
 ];
 
-/* Bracketed monospace logo — [ ⬡ Coreframe ] */
+/* Bracketed monospace logo — [ ⬡ CoreFrame ] */
 function BrandMark({ onClick }: { onClick?: () => void }) {
   return (
     <Link
@@ -67,14 +68,14 @@ function BrandMark({ onClick }: { onClick?: () => void }) {
       <span className="text-subtle transition-colors duration-300 group-hover:text-accent">
         [
       </span>
-      <img
+      <Image unoptimized
         src="/logos/coreframe-mark.png"
         alt=""
         width={18}
         height={18}
         className="h-[18px] w-[18px] object-contain transition-transform duration-500 ease-out-expo group-hover:rotate-[30deg]"
       />
-      <CoreframeWordmark height={13} />
+      <CoreFrameWordmark height={13} />
       <span className="text-subtle transition-colors duration-300 group-hover:text-accent">
         ]
       </span>
@@ -110,6 +111,7 @@ function NavDropdown({
     return (
       <Link
         href={item.href}
+        aria-current={isActive ? "page" : undefined}
         className={`relative font-mono text-[12.5px] uppercase tracking-[0.12em] transition-colors duration-300 ${
           isActive ? "text-foreground" : "text-muted hover:text-foreground"
         }`}
@@ -123,6 +125,7 @@ function NavDropdown({
     <div className="relative" onMouseEnter={show} onMouseLeave={hide} onFocus={show} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setOpen(false); }} onKeyDown={(event) => { if (event.key === "Escape") { trigger.current?.focus(); setOpen(false); } }}>
       <Link
         ref={trigger}
+        aria-current={isActive ? "page" : undefined}
         href={item.menuHref ?? item.href}
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
@@ -226,6 +229,7 @@ export function Navbar() {
 
   useEffect(() => {
     if (!open) return;
+    const returnFocus = menuButton.current;
     mobilePanel.current?.querySelector<HTMLElement>("a")?.focus();
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") { setOpen(false); return; }
@@ -237,7 +241,7 @@ export function Navbar() {
       if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
     };
     document.addEventListener("keydown", onKey);
-    return () => { document.removeEventListener("keydown", onKey); menuButton.current?.focus(); };
+    return () => { document.removeEventListener("keydown", onKey); returnFocus?.focus(); };
   }, [open]);
 
   const toggleTheme = () => {
@@ -256,6 +260,7 @@ export function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 px-3 md:px-6 pt-3 md:pt-5"
       >
         <nav
+          aria-label="Main navigation"
           className={`mx-auto flex max-w-[1400px] items-center justify-between gap-4 rounded-2xl border px-4 md:px-6 h-16 transition-all duration-500 ${
             scrolled
               ? "glass border-border shadow-soft"
@@ -296,7 +301,7 @@ export function Navbar() {
               href={contactHref("discovery", "navigation")}
               className="inline-flex items-center rounded-lg border border-foreground/85 bg-foreground px-4 h-9 font-mono text-[12.5px] uppercase tracking-[0.1em] text-bg hover:bg-accent hover:border-accent hover:text-on-accent transition-colors duration-300"
             >
-              Book discovery
+              Discuss AI
             </Link>
           </div>
 

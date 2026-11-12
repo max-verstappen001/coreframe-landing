@@ -48,7 +48,7 @@ const DETAILS: Record<string, Omit<Service, keyof ServiceSummary>> = {
         "Provide release controls, usage guidance, monitoring and an operating runbook."
       ]
     ],
-    "boundary": "Claude access uses supported provider services; model and region availability must be verified during scoping. Customer-hosted applications do not imply locally hosted Claude model weights. For disconnected inference, we assess suitable open-weight models separately. Coreframe offers independent implementation services; no Anthropic partnership or certification is implied."
+    "boundary": "Claude access uses supported provider services; model and region availability must be verified during scoping. Customer-hosted applications do not imply locally hosted Claude model weights. For disconnected inference, we assess suitable open-weight models separately. CoreFrame offers independent implementation services; no Anthropic partnership or certification is implied."
   },
   "forward-deployed-engineering": {
     "buyer": "Your hardest delivery gaps sit between users, data and engineering.",

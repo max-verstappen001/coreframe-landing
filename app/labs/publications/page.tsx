@@ -1,12 +1,13 @@
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
+import { CUSTOS } from "@/lib/labs";
 import LabsSubClient from "../LabsSubClient";
 
 const PATH = "/labs/publications";
 
 export const metadata = pageMetadata({
-  title: "Publications — Coreframe Labs",
+  title: "Publications — CoreFrame Labs",
   description:
-    "Formal write-ups and preprints from Coreframe Labs on private AI, small language models and agent infrastructure, with honest status labels.",
+    "Public technical reading from the Custos project. Design documentation is distinguished from formal research publications.",
   path: PATH,
 });
 
@@ -22,9 +23,10 @@ export default function PublicationsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <LabsSubClient
-        eyebrow="Coreframe Labs / Publications"
-        title="Publications."
-        body="Formal write-ups and preprints, published as results warrant."
+        eyebrow="CoreFrame Labs / Publications"
+        title="Technical reading."
+        body="No formal research papers or preprints are listed. Explore the public project documentation for an inspectable engineering reference."
+        repos={[{ name: "Custos design documentation", description: "Implementation notes, design documents and security considerations in the public project repository.", href: `${CUSTOS.href}/tree/main/docs`, tags: ["Engineering documentation"] }]}
       />
     </>
   );

@@ -6,7 +6,7 @@ const PATH = "/company";
 export const metadata = pageMetadata({
   title: "Company — Enterprise AI Engineering",
   description:
-    "Coreframe Technologies is an enterprise AI engineering and implementation company. Meet our team and explore how we design, deploy and operate production AI.",
+    "CoreFrame Technologies is an enterprise AI engineering and implementation company. Meet founder Sanjay Nanda N J and explore our engineering approach, product development and startup program participation.",
   path: PATH,
 });
 

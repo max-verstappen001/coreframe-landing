@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/lib/seo";
+import { publishedEngagements } from "@/lib/engagements";
+import { PRODUCTS } from "@/lib/products";
 import { SERVICES } from "@/lib/services";
 import { region } from "@/lib/region";
 import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
@@ -28,6 +30,8 @@ export async function GET() {
       sameAs: siteConfig.sameAs,
     },
     region: region.id,
+    location: region.location,
+    products: PRODUCTS.map(p => ({ name: p.name, kind: p.kind, status: p.status, description: p.summary, availability: p.boundary, url: `${region.origin}/products#${p.id}` })),
     services: SERVICES.map(s => ({ name: s.title, description: s.summary, url: `${region.origin}/services/${s.slug}` })),
     capabilities: CAPABILITIES.map((c) => ({
       slug: c.slug,
@@ -37,10 +41,10 @@ export async function GET() {
       url: `${siteConfig.url}${capabilityHref(c)}`,
       pageAvailable: Boolean(c.live),
     })),
+    engagements: publishedEngagements().map(entry => ({ ...entry, url: `${siteConfig.url}/work#engagement-${entry.id}` })),
     engagementModel: {
       steps: ["Discover", "Design", "Deploy", "Operate"],
       canEngagePerCapability: true,
-      typicalResponseTime: "1-2 business days",
     },
     links: {
       home: siteConfig.url,
@@ -49,7 +53,8 @@ export async function GET() {
       industries: `${siteConfig.url}/industries`,
       insights: `${siteConfig.url}/insights`,
       labs: `${siteConfig.url}/labs`,
-      about: `${siteConfig.url}/about`,
+      company: `${siteConfig.url}/company`,
+      products: `${siteConfig.url}/products`,
       contact: `${siteConfig.url}/contact`,
       llmsTxt: `${siteConfig.url}/llms.txt`,
       sitemap: `${siteConfig.url}/sitemap.xml`,

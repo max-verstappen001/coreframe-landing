@@ -6,7 +6,7 @@ const PATH = "/about";
 export const metadata = pageMetadata({
   title: "About Us — Team & Company",
   description:
-    "The team behind Coreframe Technologies — an AI research and engineering company building private AI, enterprise knowledge systems and autonomous workflows.",
+    "The team behind CoreFrame Technologies — an AI research and engineering company building private AI, enterprise knowledge systems and autonomous workflows.",
   path: PATH,
 });
 

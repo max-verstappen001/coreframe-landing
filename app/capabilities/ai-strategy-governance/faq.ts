@@ -9,11 +9,11 @@ export const FAQ_ITEMS = [
   },
   {
     q: "Can you assess our AI systems against the EU AI Act?",
-    a: "Yes. We classify each system under the Act's risk tiers, assess it against the obligations that apply — documentation, human oversight, transparency, data governance, robustness and post-market monitoring — and deliver a gap register, remediation plan and the technical documentation a regulator or auditor will ask for. The assessment is an engineering and governance review, not legal advice; where certification is required we scope it explicitly alongside your counsel.",
+    a: "We can scope an engineering review against requirements identified with your legal and risk teams. The work can cover documentation, evaluation, human oversight and monitoring, with a gap register and remediation plan. It does not determine legal applicability or constitute certification.",
   },
   {
-    q: "We're not in the EU — does the AI Act still matter?",
-    a: "It applies to systems placed on the EU market or whose output is used in the EU, regardless of where the provider sits. Even outside its scope, the same assessment maps well to ISO/IEC 42001, the NIST AI Risk Management Framework and sector regulation in your own jurisdiction, so the work carries over.",
+    q: "How do we decide which requirements apply?",
+    a: "Your legal and risk teams should establish the requirements for your intended use and markets. We can then map technical controls, documentation and evaluation evidence to that agreed scope.",
   },
   {
     q: "How long does a readiness assessment take?",

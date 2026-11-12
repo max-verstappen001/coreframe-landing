@@ -1,5 +1,7 @@
 # Modernization verification
 
+Historical record. See [12 November 2026 enterprise audit and verification](enterprise-website-audit.md) for the current implementation.
+
 Completed against the local implementation on 31 October 2026:
 
 - `npm test`: 9 passing tests covering contact input rejection, total and per-field size limits, preservation of a full brief with service context, HTML escaping, trusted regional attribution, confirmed webhook delivery and failure states. Providers are mocked; no external messages are sent.

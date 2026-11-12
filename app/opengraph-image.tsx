@@ -31,7 +31,7 @@ export default function Image() {
             color: "#f5f5f7",
           }}
         >
-          Coreframe
+          CoreFrame
         </div>
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 920 }}>
           <div

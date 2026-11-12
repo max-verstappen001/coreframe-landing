@@ -6,7 +6,7 @@ const PATH = "/company/careers";
 export const metadata = pageMetadata({
   title: "Careers — Open Roles",
   description:
-    "Coreframe is growing. See open roles across engineering, AI and strategy, or introduce yourself if there isn't a listed fit yet.",
+    "CoreFrame is growing. See open roles across engineering, AI and strategy, or introduce yourself if there isn't a listed fit yet.",
   path: PATH,
 });
 

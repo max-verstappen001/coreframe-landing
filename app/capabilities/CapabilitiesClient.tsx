@@ -48,7 +48,7 @@ function Hero() {
           <BlurReveal delay={0.16}>
             <p className="mt-6 mx-auto max-w-xl font-sans text-body-lg text-muted leading-relaxed">
               From strategy and architecture through private deployment and
-              long-term operation — Coreframe covers the full path from AI
+              long-term operation — CoreFrame covers the full path from AI
               opportunity to production system. Engage us for a single
               capability or an end-to-end program.
             </p>

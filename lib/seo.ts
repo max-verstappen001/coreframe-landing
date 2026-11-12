@@ -7,9 +7,9 @@ import { isUAE, region } from "./region";
  * four stay in sync with one edit.
  */
 export const siteConfig = {
-  name: "Coreframe Technologies",
-  legalName: "Coreframe Technologies Private Limited",
-  shortName: "Coreframe",
+  name: "CoreFrame Technologies",
+  legalName: "CoreFrame Technologies Private Limited",
+  shortName: "CoreFrame",
   url: region.origin,
   description:
     region.intro,
@@ -140,9 +140,9 @@ export function siteNavigationJsonLd() {
     { name: "Services", path: "/services" },
     { name: "Capabilities", path: "/capabilities" },
     { name: "Industries", path: "/industries" },
-    { name: "Coreframe Labs", path: "/labs" },
+    { name: "CoreFrame Labs", path: "/labs" },
     { name: "Work", path: "/work" },
-    { name: "Insights", path: "/insights" },
+    { name: "Products", path: "/products" },
     { name: "Company", path: "/company" },
     { name: "Careers", path: "/company/careers" },
     { name: "Contact", path: "/contact" },

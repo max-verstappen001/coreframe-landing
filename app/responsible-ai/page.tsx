@@ -7,7 +7,7 @@ const PATH = "/responsible-ai";
 export const metadata = pageMetadata({
   title: "Responsible AI — Our Approach",
   description:
-    "How Coreframe handles AI limitations — governance, human oversight, evidence-backed outputs and clear responsibility allocation, stated honestly.",
+    "How CoreFrame handles AI limitations — governance, human oversight, evidence-backed outputs and clear responsibility allocation, stated honestly.",
   path: PATH,
 });
 

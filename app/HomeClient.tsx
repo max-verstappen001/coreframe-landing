@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef, useCallback, type ReactNode } from "react";
 import { INDUSTRIES } from "@/lib/industries";
+import { PRODUCTS } from "@/lib/products";
+import { StartupProgram } from "@/components/StartupProgram";
 import { WORK_ITEMS } from "@/lib/work";
 import "./home.css";
 import { SERVICES } from "@/lib/service-catalog";
@@ -64,10 +66,8 @@ const WORK_MEDIA = [
 const STEPS = DELIVERY_PROCESS.map((s, i) => ({ n: String(i + 1).padStart(2, "0"), label: s.title, body: s.body }));
 
 const LAB_ROWS = [
-  { n: "01", title: "Small Language Models", body: "Domain-specific intelligence." },
-  { n: "02", title: "Agent Infrastructure", body: "Systems that work together." },
-  { n: "03", title: "Enterprise AI Research", body: "From research to real-world use." },
-  { n: "04", title: "Open Innovation", body: "Collaborate. Build. Ship." },
+  { n: "01", title: "Custos", body: "Public MCP tool-call governance project.", href: "/labs#custos" },
+  { n: "02", title: "Code & documentation", body: "Inspect the public implementation.", href: "/labs/open-source" },
 ];
 
 const CUBE_ICON = (
@@ -78,7 +78,7 @@ const CLOCK_ICON = (
 );
 const STEP_ICONS = [CUBE_ICON, CUBE_ICON, CLOCK_ICON];
 
-export default function HomeClient() {
+export default function HomeClient({ clientShowcase }: { clientShowcase?: ReactNode }) {
   /* current theme mirrored from <html data-theme>, so photos swap on toggle */
   const [theme, setTheme] = useState<"dark" | "light">("light");
 
@@ -179,8 +179,7 @@ export default function HomeClient() {
               ENTERPRISE AI <span>/</span> ENGINEERING & IMPLEMENTATION <span>/</span> {region.label}
             </div>
             <h1 className="hero-anim d2">
-              Turn AI potential<br />into systems<br />
-              <span className="accent">built for your business.</span>
+              Enterprise AI built<br />for <span className="accent">real operations.</span>
             </h1>
             <p className="hero-sub hero-anim d3">
               {region.intro}
@@ -190,8 +189,8 @@ export default function HomeClient() {
                 {region.cta}
                 <Arrow />
               </Link>
-              <Link href={contactHref("assessment", "homepage")} className="btn btn-ghost">
-                Request an AI assessment
+              <Link href="/work" className="btn btn-ghost">
+                Explore Our Work
               </Link>
             </div>
             <div className="deploy hero-anim d5">
@@ -210,45 +209,11 @@ export default function HomeClient() {
 
       <div className="divider" />
 
-      {/* ───────────── APPROACH (02) ───────────── */}
-      <section id="company" className="sec-bg2">
-        <div className="wrap">
-          <div className="snum">02</div>
-          <div className="approach-top reveal">
-            <div>
-              <div className="eyebrow" style={{ marginBottom: 20 }}>OUR APPROACH</div>
-              <h2>Discover.<br />Design.<br />Deploy.<br />Operate.</h2>
-            </div>
-            <div>
-              <p className="approach-copy">
-                Reduce manual handoffs, unlock enterprise knowledge and make AI useful in daily operations. We own the engineering from the first workflow assessment through integration, release and ongoing improvement.
-              </p>
-              <Link href="/services" className="link">
-                Learn how we work
-                <Arrow />
-              </Link>
-              <div className="steps stagger">
-                {STEPS.map((s, i) => (
-                  <div className="step" key={s.n}>
-                    <div className="n">{s.n}</div>
-                    <div className="ico">{STEP_ICONS[i] ?? CUBE_ICON}</div>
-                    <h4>{s.label}</h4>
-                    <p>{s.body}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="divider" />
-
       {/* ───────────── CAPABILITIES (03) ───────────── */}
       <section id="capabilities" className="sec-bg3">
         <div className="cap-side">SYSTEMS&nbsp;FOR&nbsp;A&nbsp;MORE&nbsp;CAPABLE&nbsp;TOMORROW</div>
         <div className="wrap">
-          <div className="snum">03</div>
+          <div className="snum">02</div>
           <div className="cap-layout">
             <div className="cap-info reveal">
               <div className="eyebrow" style={{ marginBottom: 20 }}>CAPABILITIES</div>
@@ -271,7 +236,7 @@ export default function HomeClient() {
                 <Link href={`/services/${c.slug}`} className="capc" key={c.slug}>
                   <div className="capc-n">{String(i + 1).padStart(2, "0")}</div>
                   <div className="capc-ic">{CAP_ICONS[c.slug] ?? CUBE_ICON}</div>
-                  <h4>{c.short}</h4>
+                  <h3>{c.short}</h3>
                   <p>{c.summary}</p>
                   <span className="capc-arr"><Arrow /></span>
                 </Link>
@@ -281,6 +246,29 @@ export default function HomeClient() {
         </div>
       </section>
 
+      <div className="divider" />
+
+      {clientShowcase}
+
+      <section id="products" className="products-overview">
+        <div className="wrap">
+          <div className="snum">03</div>
+          <div className="reveal">
+            <div className="eyebrow">PRODUCTS &amp; INNOVATION</div>
+            <h2 className="mt-5">From applied engineering<br />to product development.</h2>
+            <p className="cap-desc mt-6 max-w-2xl">Our call-intelligence product is under development. Knowledge intelligence and governed agents are available as scoped engineering offerings.</p>
+          </div>
+          <div className="product-grid stagger">
+            {PRODUCTS.map((p, i) => <article key={p.id} className="product-summary">
+              <span className="eyebrow">0{i + 1} / {p.kind}</span>
+              <h3>{p.name}</h3>
+              <p>{p.summary}</p>
+              <span className="product-status">{p.status}</span>
+              <Link href={`/products#${p.id}`} className="link">Explore {p.id === "call-intelligence" ? "the initiative" : "the offering"}<Arrow /></Link>
+            </article>)}
+          </div>
+        </div>
+      </section>
       <div className="divider" />
 
       {/* ───────────── INDUSTRIES (04) ───────────── */}
@@ -307,7 +295,7 @@ export default function HomeClient() {
                     <div className={`ind-bg ${meta?.ig ?? "ig1"}`} />
                     <span className="ind-num">{String(i + 1).padStart(2, "0")}</span>
                     <div className="ind-body">
-                      <h4>{ind.short}</h4>
+                      <h3>{ind.short}</h3>
                       <p>{meta?.tagline}</p>
                       <span className="arr"><Arrow /></span>
                     </div>
@@ -327,20 +315,20 @@ export default function HomeClient() {
 
       <div className="divider" />
 
-      {/* ───────────── FEATURED WORK (05) ───────────── */}
+      {/* ───────────── ENGINEERING IN PRACTICE (05) ───────────── */}
       <section id="work" className="sec-bg5">
         <div className="work-side">REAL&nbsp;SOLUTIONS&nbsp;FOR&nbsp;A&nbsp;MORE&nbsp;CAPABLE&nbsp;TOMORROW</div>
         <div className="wrap">
           <div className="snum">05</div>
           <div className="work reveal">
             <div>
-              <div className="eyebrow" style={{ marginBottom: 20 }}>FEATURED WORK</div>
+              <div className="eyebrow" style={{ marginBottom: 20 }}>ENGINEERING IN PRACTICE</div>
               <h2>From complexity<br />to clarity.</h2>
               <p className="cap-desc" style={{ marginTop: 22 }}>
-                Existing engagement summaries.<br />Client attribution and results remain unpublished.
+                Illustrative use cases.<br />Clear approaches and expected business value.
               </p>
               <Link href="/work" className="link">
-                View all work
+                Explore use cases
                 <Arrow />
               </Link>
               <div className="cap-foot" style={{ marginTop: 44 }}>
@@ -360,6 +348,7 @@ export default function HomeClient() {
                   {String(idx + 1).padStart(2, "0")} / {String(WORK_ITEMS.length).padStart(2, "0")}
                 </div>
                 <div className="case-copy" style={{ opacity: fade ? 0.15 : 1 }}>
+                  <p className="case-label">Illustrative use case</p>
                   <h3>{work.category}</h3>
                   <p>{work.challenge}</p>
                   <div className="chips">
@@ -367,14 +356,14 @@ export default function HomeClient() {
                       <span className="chip" key={t}>{t.toUpperCase()}</span>
                     ))}
                   </div>
-                  <Link href="/work" className="link" style={{ marginTop: 0 }}>
-                    View engagement summaries
+                  <Link href={`/work#${work.slug}`} className="link" style={{ marginTop: 0 }}>
+                    Explore this use case
                     <Arrow />
                   </Link>
                 </div>
                 <div className="case-dots">
                   {WORK_ITEMS.map((_, x) => (
-                    <button type="button" aria-label={`Show engagement ${x + 1}`} aria-pressed={x === idx}
+                    <button type="button" aria-label={`Show use case ${x + 1}`} aria-pressed={x === idx}
                       key={x}
                       className={x === idx ? "on" : ""}
                       onClick={() => go(x)}
@@ -382,14 +371,48 @@ export default function HomeClient() {
                   ))}
                 </div>
                 <div className="case-nav">
-                  <button type="button" className="rnd" aria-label={paused ? "Play engagement carousel" : "Pause engagement carousel"} aria-pressed={!paused} onClick={() => setPaused(!paused)}>{paused ? "▶" : "Ⅱ"}</button>
-                  <button type="button" aria-label="Previous engagement" className="rnd" onClick={() => go(idx - 1)}>
+                  <button type="button" className="rnd" aria-label={paused ? "Play use case carousel" : "Pause use case carousel"} aria-pressed={!paused} onClick={() => setPaused(!paused)}>{paused ? "▶" : "Ⅱ"}</button>
+                  <button type="button" aria-label="Previous use case" className="rnd" onClick={() => go(idx - 1)}>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
                   </button>
-                  <button type="button" aria-label="Next engagement" className="rnd" onClick={() => go(idx + 1)}>
+                  <button type="button" aria-label="Next use case" className="rnd" onClick={() => go(idx + 1)}>
                     <Arrow />
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="divider" />
+
+      {/* ───────────── APPROACH (02) ───────────── */}
+      <section id="company" className="sec-bg2">
+        <div className="wrap">
+          <div className="snum">06</div>
+          <div className="approach-top reveal">
+            <div>
+              <div className="eyebrow" style={{ marginBottom: 20 }}>OUR APPROACH</div>
+              <h2>Discover.<br />Design.<br />Deploy.<br />Operate.</h2>
+            </div>
+            <div>
+              <p className="approach-copy">
+                Reduce manual handoffs, unlock enterprise knowledge and make AI useful in daily operations. We own the engineering from the first workflow assessment through integration, release and ongoing improvement.
+              </p>
+              <Link href="/services" className="link">
+                Learn how we work
+                <Arrow />
+              </Link>
+              <div className="steps stagger">
+                {STEPS.map((s, i) => (
+                  <div className="step" key={s.n}>
+                    <div className="n">{s.n}</div>
+                    <div className="ico">{STEP_ICONS[i] ?? CUBE_ICON}</div>
+                    <h3>{s.label}</h3>
+                    <p>{s.body}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -403,11 +426,11 @@ export default function HomeClient() {
         <div className="labs-bg" />
         <div className="wrap labs-inner reveal">
           <div className="labs-lead">
-            <div className="snum">06</div>
-            <div className="eyebrow" style={{ marginBottom: 20 }}>COREFRAME LABS</div>
-            <h2>Applied research<br />that ships.</h2>
+            <div className="snum">07</div>
+            <div className="eyebrow" style={{ marginBottom: 20 }}>CoreFrame Labs</div>
+            <h2>Agent governance.<br />Code you can inspect.</h2>
             <p className="cap-desc" style={{ marginTop: 22, maxWidth: 340 }}>
-              Our applied research initiative explores small language models, evaluation and agent infrastructure. Labs is distinct from our commercial implementation services.
+              Explore Custos, a public project for policy checks and signed decision records around MCP tool calls. Review the code and documentation in Labs.
             </p>
             <Link href="/labs" className="btn btn-primary" style={{ marginTop: 34 }}>
               Explore Labs
@@ -420,10 +443,10 @@ export default function HomeClient() {
           </div>
           <div className="labs-list stagger">
             {LAB_ROWS.map((r) => (
-              <Link href="/labs" className="labs-row" key={r.n}>
+              <Link href={r.href} className="labs-row" key={r.n}>
                 <span className="lr-n">{r.n}</span>
                 <div className="lr-body">
-                  <h4>{r.title}</h4>
+                  <h3>{r.title}</h3>
                   <p>{r.body}</p>
                 </div>
                 <span className="lr-arr"><Arrow /></span>
@@ -439,12 +462,34 @@ export default function HomeClient() {
         </div>
       </section>
 
+      <section className="trust-overview">
+        <div className="wrap">
+          <div className="snum">08</div>
+          <div className="trust-grid reveal">
+            <div>
+              <div className="eyebrow">SECURITY &amp; RESPONSIBLE AI</div>
+              <h2 className="mt-5">Control belongs<br />in the architecture.</h2>
+              <p className="cap-desc mt-6">We scope data boundaries, access permissions, evaluation and human oversight around each deployment. Review our approach before starting an engagement.</p>
+              <Link href="/security" className="link">Security practices<Arrow /></Link>
+              <Link href="/responsible-ai" className="link">Responsible AI<Arrow /></Link>
+            </div>
+            <div>
+              <div className="eyebrow">COMPANY</div>
+              <h3 className="company-title">{region.location}.<br />Working internationally.</h3>
+              <p className="cap-desc mt-5">Founded by Sanjay Nanda N J, a VIT Vellore graduate and former BlackRock engineer, with experience across enterprise software, AI and cloud infrastructure.</p>
+              <Link href="/company" className="link">Meet CoreFrame<Arrow /></Link>
+              <div className="mt-8"><StartupProgram /></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ───────────── CTA (07) ───────────── */}
       <section id="contact" className="cta">
         <div className="cta-bg" />
         <div className="wrap cta-inner reveal">
           <div>
-            <div className="snum" style={{ marginBottom: 22 }}>07</div>
+            <div className="snum" style={{ marginBottom: 22 }}>09</div>
             <div className="eyebrow" style={{ marginBottom: 20, color: "var(--muted)" }}>
               LET&apos;S BUILD TOGETHER
             </div>

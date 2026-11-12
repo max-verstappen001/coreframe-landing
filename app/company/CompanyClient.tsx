@@ -2,6 +2,10 @@
 
 import Link from "next/link";
 import { Section } from "@/components/Section";
+import { FounderProfile } from "@/components/FounderProfile";
+import { StartupProgram } from "@/components/StartupProgram";
+import { region } from "@/lib/region";
+import { siteConfig } from "@/lib/seo";
 import { Container } from "@/components/Container";
 import { Reveal, BlurReveal } from "@/lib/animations";
 
@@ -42,7 +46,7 @@ function Hero() {
           </BlurReveal>
           <BlurReveal delay={0.16}>
             <p className="mt-6 mx-auto max-w-xl font-sans text-body-lg text-muted leading-relaxed">
-              Coreframe Technologies designs, deploys and operates production AI systems for organizations with complex workflows, data, security and infrastructure requirements. Coreframe Labs is our distinct applied research initiative.
+              CoreFrame Technologies designs, deploys and operates production AI systems for organizations with complex workflows, data, security and infrastructure requirements. We also develop applied AI products, including a multilingual call-intelligence platform under development.
             </p>
           </BlurReveal>
         </div>
@@ -53,12 +57,13 @@ function Hero() {
 
 function OperatingModel() {
   const steps = [
-    { title: "Research", body: "Generates technical capability." },
-    { title: "Engineering", body: "Turns capability into production systems." },
-    { title: "Transformation", body: "Integrates systems into how the business operates." },
+    { title: "Research", body: "Investigates model behavior, evaluation and agent controls." },
+    { title: "Engineering", body: "Builds integrations and production systems around business requirements." },
+    { title: "Product development", body: "Develops reusable approaches and applied AI product initiatives." },
   ];
   return (
     <Section padding="large">
+      <h2 className="font-display text-display-md mb-10">Research, engineering and product development.</h2>
       <div className="grid md:grid-cols-3 gap-4">
         {steps.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.06}>
@@ -110,6 +115,7 @@ function WhatWeBelieve() {
 function Philosophy() {
   return (
     <Section padding="large">
+      <h2 className="font-display text-display-md mb-10">How we approach engineering.</h2>
       <div className="grid md:grid-cols-2 gap-4">
         <Reveal>
           <div className="h-full rounded-2xl border border-border bg-bg-card p-8">
@@ -130,7 +136,7 @@ function Philosophy() {
               Research philosophy
             </h3>
             <p className="mt-3 font-sans text-body-sm text-muted leading-relaxed">
-              Applied, not theoretical. Coreframe Labs investigates problems
+              Applied, not theoretical. CoreFrame Labs investigates problems
               we encounter in real engagements, and what we learn feeds
               back into how we build.
             </p>
@@ -154,7 +160,7 @@ function CompanyInfo() {
               Legal entity
             </p>
             <p className="font-sans text-body-sm text-foreground">
-              Coreframe Technologies Private Limited
+              {siteConfig.legalName}
             </p>
           </div>
           <div>
@@ -162,11 +168,14 @@ function CompanyInfo() {
               Based in
             </p>
             <p className="font-sans text-body-sm text-foreground">
-              India — serving customers internationally
+              {region.location} — serving customers internationally
             </p>
           </div>
+          <div><p className="font-mono text-[11px] uppercase tracking-[0.1em] text-subtle mb-1">Business contact</p><a href={`mailto:${siteConfig.email}`} className="text-sm text-accent underline">{siteConfig.email}</a></div>
+          <div><p className="font-mono text-[11px] uppercase tracking-[0.1em] text-subtle mb-1">Telephone</p><a href="tel:+916383831327" className="text-sm text-foreground">{siteConfig.telephone}</a></div>
         </div>
       </Reveal>
+      <div className="mt-10"><StartupProgram /></div>
     </Section>
   );
 }
@@ -178,15 +187,8 @@ function Leadership() {
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
           [ Leadership ]
         </p>
-        <div className="rounded-2xl border border-border bg-bg-card p-8 max-w-2xl">
-          <p className="font-sans text-body-sm text-muted leading-relaxed">
-            Meet our co-founders and commercial leadership on our <Link href="/about" className="text-accent underline">team page</Link>. For an engagement, ask to meet the engineers responsible for architecture and delivery. You can also {" "}
-            <Link href="/contact" className="text-accent hover:text-foreground transition-colors">
-              get in touch
-            </Link>{" "}
-            and we&apos;ll connect you with the right person directly.
-          </p>
-        </div>
+        <h2 className="font-display text-display-md mb-8">Engineering experience. Founder-led direction.</h2>
+        <FounderProfile />
       </Reveal>
     </Section>
   );
@@ -222,7 +224,7 @@ function CareersCTA() {
 
 const FAQ_ITEMS = [
   {
-    q: "How is Coreframe different from a typical AI agency or IT consultancy?",
+    q: "How is CoreFrame different from a typical AI agency or IT consultancy?",
     a: "Our engagements connect workflow discovery, system design, integration, evaluation and operational ownership. We scope the work around your business outcome and infrastructure constraints, with clear delivery responsibilities.",
   },
   {
@@ -255,7 +257,7 @@ function FAQ() {
           [ FAQs ]
         </p>
         <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05] max-w-xl">
-          Working with Coreframe.
+          Working with CoreFrame.
         </h2>
       </Reveal>
       <div className="mt-10 max-w-2xl space-y-8">
@@ -278,11 +280,11 @@ export default function CompanyClient() {
   return (
     <>
       <Hero />
+      <Leadership />
       <OperatingModel />
       <WhatWeBelieve />
       <Philosophy />
       <CompanyInfo />
-      <Leadership />
       <FAQ />
       <CareersCTA />
     </>

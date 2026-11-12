@@ -7,7 +7,7 @@ const PATH = "/security";
 export const metadata = pageMetadata({
   title: "Security Practices & Architecture",
   description:
-    "Coreframe's security practices — encryption, access control, environment isolation, customer-controlled deployments and incident response matched to each engagement.",
+    "CoreFrame's security practices — encryption, access control, environment isolation, customer-controlled deployments and incident response matched to each engagement.",
   path: PATH,
 });
 

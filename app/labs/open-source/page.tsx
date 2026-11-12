@@ -1,12 +1,13 @@
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
+import { CUSTOS } from "@/lib/labs";
 import LabsSubClient from "../LabsSubClient";
 
 const PATH = "/labs/open-source";
 
 export const metadata = pageMetadata({
-  title: "Open Source — Coreframe Labs",
+  title: "Open Source — CoreFrame Labs",
   description:
-    "Reusable tooling and libraries released publicly by Coreframe Labs, as they're ready for others to use.",
+    "Explore the public Custos repository: MCP tool-call policy enforcement, Python and Node implementations, and engineering documentation.",
   path: PATH,
 });
 
@@ -22,18 +23,10 @@ export default function OpenSourcePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <LabsSubClient
-        eyebrow="Coreframe Labs / Open Source"
+        eyebrow="CoreFrame Labs / Open Source"
         title="Open source."
-        body="Reusable tooling and libraries we release publicly, as they're ready."
-        repos={[
-          {
-            name: "Custos",
-            description:
-              "Runtime governance and policy enforcement for AI agent tool calls in MCP systems. Intercepts every tool invocation, evaluates it against a deny-by-default YAML policy, and records the decision in a tamper-evident, Ed25519-signed audit ledger — with identical wire format across Python and Node.",
-            href: "https://github.com/sanjaynandanj/custos",
-            tags: ["Policy Engine", "MCP", "Ed25519 Audit Ledger", "Python & Node"],
-          },
-        ]}
+        body="A public engineering reference for tool-call governance. Review the repository, documentation and limitations before evaluating it for your environment."
+        repos={[{ ...CUSTOS }]}
       />
     </>
   );

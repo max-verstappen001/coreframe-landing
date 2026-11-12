@@ -1,3 +1,4 @@
+import { publishedEngagements } from "@/lib/engagements";
 import { NextResponse } from "next/server";
 import { SERVICES } from "@/lib/services";
 import { region } from "@/lib/region";
@@ -15,12 +16,15 @@ import { region } from "@/lib/region";
 const SYSTEM_PROMPT = `You are the CoreFrame AI Assistant — representing CoreFrame Technologies. You speak on behalf of CoreFrame as part of the team. Your PRIMARY GOAL is to qualify leads and guide them toward scheduling a consultation.
 
 IDENTITY:
-- Identify yourself honestly as Coreframe's AI assistant.
-- Coreframe is an enterprise AI engineering and implementation company that designs, deploys and operates production AI systems for complex workflows, data, security and infrastructure requirements.
+- Identify yourself honestly as CoreFrame's AI assistant.
+- CoreFrame is an enterprise AI engineering and implementation company that designs, deploys and operates production AI systems for complex workflows, data, security and infrastructure requirements.
 - Region: ${region.label}. ${region.delivery}
 - Services: ${SERVICES.map(s => s.title).join("; ")}
 - Delivery: Discover → Design → Deploy → Operate.
-- Coreframe Labs is a distinct applied research initiative.
+- CoreFrame Labs features the public Custos project. Products are at /products: AI Call Intelligence is under development; knowledge intelligence and governed agents are engineering offerings.
+- /work lists confirmed CoreFrame clients: ${publishedEngagements().map(entry => entry.name).join(", ")}. These client entries are separate from the illustrative use cases below them.
+- Refer to the anonymized restaurant software client only as AI-Native Restaurant OS. Do not infer or disclose an identity or website beyond the published client entries. Do not invent detailed deliverables or results.
+- The founder is Sanjay Nanda N J. Use Founder only; do not assert a CEO or statutory director title.
 - Never invent clients, results, metrics, partnerships, certifications, offices, incorporation or tax status. No Anthropic partnership is implied.
 - Describe supported provider access for Claude. Do not promise self-hosted Claude model weights or regional model availability without verification.
 - Contact: info@coreframetech.in or ${region.origin}/contact.
@@ -192,6 +196,13 @@ interface FallbackResult {
 }
 
 function getFallbackResponse(message: string): FallbackResult {
+  const portfolio: FallbackResult = {
+    reply: `Our Work page lists confirmed CoreFrame client engagements with ${publishedEngagements().map(entry => entry.name).join(", ")}. It also includes separate, clearly labeled illustrative engineering use cases. Visit /work for the published descriptions.`,
+    suggestions: ["Explain a use case", "I have a similar challenge", "Let's assess the fit"],
+  };
+  // Client questions must precede broad greeting/about substring matches.
+  if (/\bclients?\b/.test(message)) return portfolio;
+
   // Pricing / cost
   if (message.includes("price") || message.includes("cost") || message.includes("budget") || message.includes("how much")) {
     return {
@@ -223,23 +234,20 @@ function getFallbackResponse(message: string): FallbackResult {
   // Greetings
   if (message.includes("hello") || message.includes("hi") || message.includes("hey") || message.includes("sup") || message.includes("yo")) {
     return {
-      reply: "Welcome to CoreFrame. We design, deploy and operate enterprise AI systems. I can help you understand how we work, share examples of past engagements, or explore whether there's a fit. What brings you here?",
+      reply: "Welcome to CoreFrame. We design, deploy and operate enterprise AI systems. I can help you understand how we work, explain illustrative enterprise use cases, or explore whether there's a fit. What brings you here?",
       suggestions: ["What does CoreFrame do?", "I have a business challenge", "Show me project examples"],
     };
   }
   // About / team
   if (message.includes("who") || message.includes("about") || message.includes("team") || message.includes("coreframe")) {
     return {
-      reply: "Coreframe Technologies is an enterprise AI engineering and implementation company. We build around complex workflows, data, security and infrastructure requirements. Meet our team at /about.",
+      reply: "CoreFrame Technologies is an enterprise AI engineering and implementation company. We build around complex workflows, data, security and infrastructure requirements. Meet our founder at /company.",
       suggestions: ["What industries do you serve?", "Show me project examples", "How do engagements work?"],
     };
   }
   // Projects / portfolio / case studies
   if (message.includes("project") || message.includes("portfolio") || message.includes("work") || message.includes("case stud")) {
-    return {
-      reply: "Our published work includes anonymized enterprise knowledge, restaurant operations and workflow automation engagement summaries. Visit /work to review them and discuss what supporting delivery evidence can be shared.",
-      suggestions: ["Tell me about that engagement", "I have a similar challenge", "Let's assess the fit"],
-    };
+    return portfolio;
   }
   // Timeline
   if (message.includes("timeline") || message.includes("how long") || message.includes("time") || message.includes("duration")) {
@@ -272,7 +280,7 @@ function getFallbackResponse(message: string): FallbackResult {
   // How are you / casual
   if (message.includes("how are") || message.includes("what's up") || message.includes("how's it going")) {
     return {
-      reply: "Doing well — and ready to help. Coreframe designs, deploys and operates enterprise AI systems. What are you looking to solve?",
+      reply: "Doing well — and ready to help. CoreFrame designs, deploys and operates enterprise AI systems. What are you looking to solve?",
       suggestions: ["What does CoreFrame do?", "I have a business challenge", "Tell me about your services"],
     };
   }
@@ -299,7 +307,7 @@ function getFallbackResponse(message: string): FallbackResult {
   }
   // Default fallback — much more conversational
   return {
-    reply: "Good question. I can help you understand how CoreFrame partners with businesses, share examples of past engagements, or explore whether there might be a fit. What would you like to know?",
+    reply: "Good question. I can help you understand how CoreFrame partners with businesses, explain illustrative enterprise use cases, or explore whether there might be a fit. What would you like to know?",
     suggestions: ["What does CoreFrame do?", "Show me project examples", "I have a business challenge"],
   };
 }

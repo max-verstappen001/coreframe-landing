@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Terms & Conditions",
   description:
-    "Terms and conditions governing use of the Coreframe Technologies website and services.",
+    "Terms and conditions governing use of the CoreFrame Technologies website and services.",
   path: "/terms",
 });
 
@@ -24,7 +24,7 @@ export default function TermsPage() {
             <span className="text-subtle">Last updated:</span> May 2026
           </span>
           <span>
-            <span className="text-subtle">Governed by:</span> Coreframe
+            <span className="text-subtle">Governed by:</span> CoreFrame
             Technologies Private Limited
           </span>
         </div>
@@ -42,7 +42,7 @@ export default function TermsPage() {
         <Clause title="2. Intellectual Property">
           <p>
             All content, trademarks, and intellectual property are owned by
-            Coreframe Technologies Private Limited or its licensors.
+            CoreFrame Technologies Private Limited or its licensors.
             Reproduction or derivative works require our prior written
             permission.
           </p>

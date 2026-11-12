@@ -192,7 +192,7 @@ function Provides() {
     <Section padding="large" background="elevated">
       <Reveal>
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
-          [ What Coreframe provides ]
+          [ What CoreFrame provides ]
         </p>
       </Reveal>
       <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -252,17 +252,15 @@ function ComplianceAssessment() {
             [ AI Act compliance assessment ]
           </p>
           <h2 className="font-display font-medium text-display-md text-foreground leading-[1.05]">
-            Prove your AI systems are safe, compliant and trustworthy.
+            Build evidence for an AI governance review.
           </h2>
           <p className="mt-5 font-sans text-body text-muted leading-relaxed">
-            The EU AI Act (Regulation 2024/1689) puts concrete obligations
-            on anyone who builds or deploys AI in or for the EU — risk
-            classification, technical documentation, human oversight,
-            transparency and post-market monitoring. We run a
-            human-supervised assessment of each system against those
-            obligations and against the requirements for trustworthy AI,
-            and hand back a gap register, a remediation plan and the
-            documentation a regulator or auditor will ask for.
+            We scope technical assessments around your system, intended use
+            and the requirements identified with your legal and risk teams.
+            Reviews can cover technical documentation, human oversight,
+            transparency, evaluation and operational monitoring. The output
+            is a gap register, remediation priorities and an evidence plan;
+            it does not certify compliance or guarantee system safety.
           </p>
         </div>
       </Reveal>
@@ -288,10 +286,10 @@ function ComplianceAssessment() {
           </p>
           <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
             {[
-              "Risk classification per system under the AI Act",
-              "Gap register mapped to specific obligations",
+              "System inventory and risk review with your stakeholders",
+              "Gap register mapped to agreed requirements",
               "Prioritised remediation plan with owners",
-              "Technical documentation and conformity evidence",
+              "Technical documentation and evaluation evidence",
               "Human-in-the-loop review protocols for high-stakes decisions",
               "Responsible AI workshops for the teams who operate the systems",
             ].map((item) => (

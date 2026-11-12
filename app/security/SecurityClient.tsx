@@ -9,27 +9,27 @@ import { FAQ_ITEMS } from "./faq";
 const PRINCIPLES = [
   {
     title: "Encryption",
-    body: "Data is encrypted in transit by default. Encryption at rest is configured to match the sensitivity of the data and the deployment environment.",
+    body: "We scope encryption in transit and at rest to match the sensitivity of the data and the deployment environment.",
   },
   {
     title: "Access controls",
-    body: "Access to systems and data is role-based and scoped to what a given engagement requires, not granted by default.",
+    body: "We define role-based access and least-privilege permissions around the systems and responsibilities in scope.",
   },
   {
     title: "Environment isolation",
-    body: "Client environments and data are kept separated from one another, with isolation enforced at the network and infrastructure level.",
+    body: "We define environment and data separation, including network and infrastructure boundaries, for the selected deployment model.",
   },
   {
     title: "Secrets management",
-    body: "Credentials, API keys and connection strings are stored in dedicated secrets management tooling, not in source code or configuration files.",
+    body: "We scope dedicated secrets management for credentials, API keys and connection strings.",
   },
   {
     title: "Secure development practices",
-    body: "Code review, dependency tracking and staged environments are standard practice across engagements.",
+    body: "The delivery plan should define code review, dependency tracking and staged release environments.",
   },
   {
     title: "Vulnerability management",
-    body: "Dependencies and infrastructure are monitored for known vulnerabilities, with remediation prioritized by severity and exposure.",
+    body: "We agree dependency and infrastructure monitoring responsibilities, with remediation priorities based on severity and exposure.",
   },
   {
     title: "Logging & monitoring",
@@ -49,7 +49,7 @@ const PRINCIPLES = [
   },
   {
     title: "Incident response",
-    body: "We maintain a process for identifying, containing and communicating security incidents, with severity and notification terms defined per engagement.",
+    body: "We agree responsibilities for identifying, containing and communicating security incidents, with severity and notification terms defined per engagement.",
   },
   {
     title: "Third-party infrastructure",
@@ -81,8 +81,7 @@ function Hero() {
             <p className="mt-6 mx-auto max-w-xl font-sans text-body-lg text-muted leading-relaxed">
               Security architecture is determined by the requirements,
               deployment environment and threat model of each engagement.
-              This page describes the practices and principles we work
-              from — not a one-size guarantee.
+              This page describes design principles to agree during scoping. Implemented controls and supporting evidence must be reviewed for the specific deployment.
             </p>
           </BlurReveal>
           <BlurReveal delay={0.24}>
@@ -104,6 +103,7 @@ function Hero() {
 function Principles() {
   return (
     <Section padding="large">
+      <h2 className="font-display text-display-md mb-10">Controls to establish during scoping.</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {PRINCIPLES.map((p, i) => (
           <Reveal key={p.title} delay={(i % 6) * 0.04}>

@@ -6,7 +6,7 @@ const PATH = "/contact";
 export const metadata = pageMetadata({
   title: "Contact — Start a Project",
   description:
-    "Start a project with Coreframe. Tell us what you're building — private AI, agents or a full engineering engagement — we'll respond within 1–2 business days.",
+    "Discuss your AI initiative with CoreFrame. Share your business challenge to scope private AI, knowledge systems, workflow agents or a future product pilot.",
   path: PATH,
 });
 

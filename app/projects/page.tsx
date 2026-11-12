@@ -6,7 +6,7 @@ const PATH = "/projects";
 export const metadata = pageMetadata({
   title: "Projects — Selected Work",
   description:
-    "A portfolio of systems Coreframe has designed and built — private AI, enterprise knowledge systems and production software engineering.",
+    "A portfolio of systems CoreFrame has designed and built — private AI, enterprise knowledge systems and production software engineering.",
   path: PATH,
 });
 

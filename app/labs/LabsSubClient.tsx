@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Section } from "@/components/Section";
 import { Container } from "@/components/Container";
@@ -64,11 +62,11 @@ export default function LabsSubClient({ eyebrow, title, body, repos }: LabsSubCl
                   className="group block h-full rounded-2xl border border-border bg-bg-card p-7 transition-all duration-500 hover:border-border-hover hover:shadow-card"
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <h3 className="font-display font-medium text-xl text-foreground transition-colors duration-300 group-hover:text-accent">
+                    <h2 className="font-display font-medium text-xl text-foreground transition-colors duration-300 group-hover:text-accent">
                       {repo.name}
-                    </h3>
+                    </h2>
                     <span className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-subtle transition-all duration-300 group-hover:gap-3 group-hover:text-accent whitespace-nowrap">
-                      GitHub
+                      View source
                       <ArrowIcon />
                     </span>
                   </div>
@@ -92,13 +90,13 @@ export default function LabsSubClient({ eyebrow, title, body, repos }: LabsSubCl
           <Reveal>
             <div className="rounded-2xl border border-border bg-bg-card p-10 text-center max-w-2xl mx-auto">
               <p className="font-sans text-body text-muted">
-                Early work is underway; nothing is published here yet.
+                No formal reports or preprints are listed. Public implementation notes and design documents are available through the Custos reference on the Labs page.
               </p>
               <Link
                 href="/labs"
                 className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-accent hover:text-foreground transition-colors"
               >
-                Back to Coreframe Labs
+                Back to CoreFrame Labs
                 <ArrowIcon />
               </Link>
             </div>
