@@ -25,14 +25,21 @@ try {
         const selector = path === '/' ? '#selected-clients' : '#selected-engagements';
         const section = page.locator(selector);
         assert.equal(await section.count(), 1);
-        const labels = await section.locator(path === '/' ? '.client-wordmark > span:first-child' : 'h3').allTextContents();
+        const labels = path === '/' ? await section.locator('.client-wordmark').evaluateAll(cards => cards.map(card => card.dataset.clientName)) : await section.locator('h3').allTextContents();
         assert.deepEqual(labels, names);
-        assert.equal(await section.locator('img').count(), 0, 'Wordmarks should use typography');
+        assert.equal(await section.locator('img').count(), 3, 'Three authorized official logos are expected');
+        for (const logo of await section.locator("img").all()) await logo.scrollIntoViewIfNeeded();
         await section.scrollIntoViewIfNeeded();
+        await page.waitForFunction(selector => [...document.querySelectorAll(`${selector} img`)].every(image => image.complete && image.naturalWidth > 0), selector);
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
         if (path === '/work') {
           const restaurant = page.locator('#engagement-restaurant-os');
           assert.equal(await restaurant.locator('a[href^="http"]').count(), 0);
+          assert.equal(await restaurant.locator('img').count(), 0);
+          assert.equal(await section.getByRole('heading', { name: "CoreFrame's contribution", exact: true }).count(), 4);
+          assert.ok((await section.innerText()).includes('STAAD'));
+          assert.ok((await section.innerText()).includes('Retrieval-augmented generation'));
+          assert.ok((await restaurant.innerText()).includes('Hardware and IoT'));
           assert.equal(await section.getByText('Direct CoreFrame engagement', { exact: true }).count(), 4);
           assert.equal(await section.locator('a[href^="http"]').count(), 3);
         }
@@ -61,7 +68,7 @@ try {
   await writeFile(`${output}/results.json`, JSON.stringify({ results, failures }, null, 2));
   assert.deepEqual(results.filter(r => r.violations.length), [], 'Accessibility findings');
   assert.deepEqual(failures, [], 'Browser console/runtime errors');
-  console.log('Portfolio: 12 responsive/theme/page checks passed, including wordmarks, capability links, client relationships, accessibility, navigation and anonymous identity protection in pages/discovery endpoints.');
+  console.log('Portfolio: 12 responsive/theme/page checks passed, including official logo loading, contribution details, website/capability links, accessibility, navigation and anonymous identity protection.');
 } finally {
   await browser.close();
 }

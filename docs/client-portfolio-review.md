@@ -1,43 +1,50 @@
 # Selected clients and engagements
 
-13 November 2026. Local implementation; no deployment or external message was sent.
+13 November 2026. No production deployment or DNS change is included.
 
-The founder confirmed that all four organizations are CoreFrame clients and authorized proceeding. The restaurant software client must be anonymized as **AI-Native Restaurant OS**. This supersedes the earlier pending-publication state.
+The founder confirmed all four organizations as CoreFrame clients, explicitly approved use of the three named clients’ official logos and supplied the delivery scopes below. The restaurant software client remains anonymized as **AI-Native Restaurant OS**.
 
-## Public presentation
+## Confirmed delivery scope
 
-- The homepage displays Sultanahmet, Wiral, AI-Native Restaurant OS and SETCCO in a static typography row below Services. The row uses four columns on desktop and two on tablet/mobile. Each wordmark links to its Work entry.
-- Work entries identify the direct CoreFrame relationship, industry, a broad engagement description and related CoreFrame service links. Sultanahmet retains its verified Ontario, Canada context; SETCCO retains Saudi Arabia. No market is inferred for the other entries.
-- Named client links are [Sultanahmet](https://sultanahmet.ca/), [Wiral](https://wiral.ai/) and [SETCCO](https://www.setcco.com/en). These were inspected during the preceding phase; the founder's go-ahead followed the question identifying the SETCCO site.
-- AI-Native Restaurant OS has a generic name and `restaurant-os` identifier, without a website, identifying URL, original brand label or unverified geography. The legacy unused portfolio entry is also anonymized to avoid reintroducing the identity later.
-- `/api/agent`, `/llms.txt` and the assistant's portfolio copy match the confirmed client list and anonymity instruction. Only the public label AI-Native Restaurant OS is available to the assistant.
-- Descriptions stay at client relationship / industry / technology-delivery level. Related service links are capabilities for exploration, not a claim that a specific stack or deliverable was provided. No new precise deliverables, customer metrics, results, proprietary details or testimonials are asserted.
-- Official client logos are not used. No trademark-use permission, endorsement, partnership or customer testimonial is implied. Illustrative use cases remain a separate section below confirmed client entries.
+| Client | Founder-confirmed CoreFrame work | Public presentation |
+| --- | --- | --- |
+| Sultanahmet | Its website. Existing portfolio records describe the multi-location web presence. | Website design and engineering, brand/location information, and a multi-location digital presence. |
+| Wiral | Entire website design, AI agents, RAG and HITL. | Website design and engineering, agent development, retrieval-augmented generation and human-in-the-loop workflows. |
+| AI-Native Restaurant OS | Hardware, IoT, website, web apps, AI agents and AI governance. | Those high-level delivery categories, with operations and margin optimization context. No name, identifying logo, website or inferred geography. |
+| SETCCO | Engineering work including STAAD, reverse engineering and AI. | STAAD engineering work, reverse engineering and applied AI. No unverified structural specifications, certifications or project outcomes. |
+
+## Business context and official assets
+
+Client business context is separate from CoreFrame’s contribution. It is grounded in the [Sultanahmet website](https://sultanahmet.ca/) and its [official location information](https://ajax.sultanahmet.ca/contact-us/), [Wiral’s public product website](https://wiral.ai/), and [SETCCO’s public business website](https://www.setcco.com/en). Sultanahmet serves Ontario, Wiral’s site describes the GCC market, and SETCCO is a Saudi industrial engineering/manufacturing business serving oil and gas. No quantitative customer claims are reused.
+
+Official logos were identified from those sites, downloaded and visually inspected. Unmodified original PNGs are in `public/logos/clients`; [the asset source manifest](../public/logos/clients/README.md) records exact URLs, dimensions, checksums and the founder’s usage confirmation. Neutral white/dark backing plates preserve each logo’s actual colors without recoloring or redrawing it. Next.js optimizes the locally hosted images; loading the portfolio does not request assets from client websites.
+
+These logos identify client engagements. They do not state endorsement, certification, partnership or investment.
+
+## Public experience
+
+- The homepage displays a restrained four-column client row on desktop and two columns on mobile/tablet. Three authorized logos sit alongside the anonymous restaurant OS text treatment. Each entry links to its Work anchor; the three named clients also have direct website links.
+- Work uses detailed cards with the client identity, industry/verified market, business context, CoreFrame’s contribution, concrete scope bullets, related capabilities and a clear website CTA. Confirmed engagements remain separate from illustrative use cases.
+- `/api/agent`, `/llms.txt` and the assistant use the same approved content. Editorial authorization flags are excluded from public data. The anonymous entry has no logo or external URL.
+- No testimonials, metrics, financial outcomes, private architecture, datasets, commercial terms or customer security controls were added.
 
 ## Main files
 
-- `lib/engagements.ts`: confirmed client catalog, anonymous restaurant entry and public projection.
-- `components/SelectedClients.tsx`, `components/ClientEngagements.tsx`: homepage strip and Work entries.
-- `app/page.tsx`, `app/work/page.tsx`: approved entries render in normal production output; the development preview and pending notices were removed.
-- `app/HomeClient.tsx`, `app/home.css`, `app/work/WorkClient.tsx`: integration with the existing layouts and separate illustrative examples.
-- `app/api/agent/route.ts`, `app/llms.txt/route.ts`, `app/api/chat/route.ts`: aligned public discovery and assistant content.
-- `lib/projects.ts`: the legacy restaurant software record is anonymized and no longer carries identifying links or old metrics.
-- `tests/engagements.test.mjs`, `scripts/check-build.mjs`, `scripts/check-client-portfolio.mjs`: publication and anonymity checks.
-
-The editorial filter still excludes incomplete or unauthorized future records. The earlier development-only preview flag is no longer needed or supported.
+- `lib/engagements.ts`: public context, confirmed scope, approved logos and public field projection.
+- `components/ClientIdentity.tsx`: shared logo/text treatment with accessible names and intact artwork.
+- `components/SelectedClients.tsx`, `components/ClientEngagements.tsx`: homepage and Work presentation.
+- `app/home.css`, `app/globals.css`: responsive client row and shared logo styles.
+- `app/api/chat/route.ts`: approved delivery context for assistant replies.
+- `public/logos/clients/`: official assets and provenance manifest.
+- `tests/engagements.test.mjs`, `scripts/check-client-portfolio.mjs`: authorization, anonymity, logo loading, accessibility and responsive checks.
 
 ## Verification
 
-- `npm run lint`, `npm run typecheck` and all 14 unit tests passed after enabling the records.
-- UAE and India/global production builds passed; each regional build check passed across all 35 indexed pages. Generated pages and discovery endpoints contain the confirmed labels and exclude the anonymous client's original identity.
-- Local HTTP checks passed: 35 indexed pages return 200, seven redirects preserve campaign queries, unknown service/industry routes return 404 and optimized image requests succeed.
-- Focused Chromium QA passed for 12 page/viewport/theme combinations (homepage and Work; 1440, 768 and 390 px; light and dark). Scoped WCAG 2/2.1 A/AA scans identified no violations. No horizontal overflow or browser console/runtime errors were detected.
-- Browser checks confirm four typography wordmarks, four direct CoreFrame relationships, three named-client website links, the anonymous entry without an external website, working homepage-to-Work navigation and no identity leakage through `/llms.txt` or `/api/agent`.
-- Screenshots were visually reviewed in `/private/tmp/coreframe-clients-approved-qa`. The final local build is India/global; the owned preview server was stopped after testing.
-- `git diff --check` passed. Existing Google Fonts build-time network access and the stale Browserslist / optional local `sharp` warnings remain.
+- Lint, TypeScript and all 15 unit tests passed, including a new test that withholds logos unless their use is authorized.
+- UAE and India/global production builds and 35-page build checks passed. Metadata, redirects, internal links and anonymous identity checks remain valid.
+- Local HTTP checks passed for all 35 indexed pages, seven redirects, unknown slugs and optimized images.
+- Focused Chromium QA passed 12 combinations of homepage/Work, desktop/tablet/mobile and light/dark themes. All three official logos loaded; contribution headings, scope details and website links were verified. Scoped WCAG 2/2.1 A/AA scans identified no violations; no runtime/console errors or horizontal overflow were detected.
+- Screenshots were visually inspected in `/private/tmp/coreframe-client-details-qa`.
+- Source asset checksums match the downloaded official files; `git diff --check` passed.
 
-Browser QA uses local Chromium because the in-app browser execution tool is unavailable. No production deployment or DNS change is included.
-
-## Pre-commit review
-
-The review identified a fallback-chat routing issue: client questions could match broad greeting/about rules before the portfolio reply. Client intent now takes priority, with regression coverage for common phrasings and anonymous labels. Runtime package versions remain unchanged; the lockfile additions are lint tooling and its development dependencies. Fresh UAE/global builds, 35-page route checks, 14 unit tests and the 12-case responsive/accessibility portfolio check passed before committing.
+The in-app browser runner is unavailable, so QA used local Chromium. Google Fonts build-time network access and existing Browserslist/optional local `sharp` warnings remain. The final local build is India/global.

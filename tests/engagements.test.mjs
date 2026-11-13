@@ -34,6 +34,7 @@ test('publishes the confirmed clients while keeping the restaurant client anonym
   assert.ok(entries.every(entry => entry.relationship === 'Direct CoreFrame engagement'));
   const restaurant = entries.find(entry => entry.id === 'restaurant-os');
   assert.equal(restaurant.website, undefined);
+  assert.equal(restaurant.logo, undefined);
   assert.equal(restaurant.market, undefined);
   assert.ok(!/marginx/i.test(JSON.stringify(entries)));
   assert.equal(entries.find(entry => entry.id === 'setcco').website, 'https://www.setcco.com/en');
@@ -64,4 +65,15 @@ test('fallback chat answers client questions with public labels before greeting/
     for (const name of ['Sultanahmet', 'Wiral', 'AI-Native Restaurant OS', 'SETCCO']) assert.ok(reply.includes(name), question);
     assert.ok(!/marginx/i.test(reply));
   }
+});
+
+
+test('only projects official logos when their usage is authorized', () => {
+  const { publishedEngagements } = catalog();
+  const logo = { src: '/logos/clients/example.png', width: 120, height: 40, backing: 'light' };
+  const [withoutPermission] = publishedEngagements([{ ...approved, logo, logoUseAuthorized: false }]);
+  assert.equal(withoutPermission.logo, undefined);
+  const [withPermission] = publishedEngagements([{ ...approved, logo, logoUseAuthorized: true }]);
+  assert.equal(withPermission.logo.src, logo.src);
+  assert.ok(!Object.hasOwn(withPermission, 'logoUseAuthorized'));
 });
