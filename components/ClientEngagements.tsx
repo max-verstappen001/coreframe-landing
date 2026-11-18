@@ -11,6 +11,7 @@ export function ClientEngagements({ entries }: { entries: PublicEngagement[] }) 
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">Selected clients &amp; engagements</p>
         <h2 className="mt-5 font-display text-display-md leading-tight">The businesses.<br />The work behind them.</h2>
         <p className="mt-6 text-muted leading-relaxed">Website and product engineering, AI systems and industrial engineering. Explore the client context and CoreFrame&apos;s contribution to each engagement.</p>
+        <p className="mt-4 text-sm text-muted leading-relaxed">These are client engagements, separate from CoreFrame-owned product initiatives. Summaries describe approved public scope; client software and intellectual property are not presented as CoreFrame products. No quantified outcomes are published here.</p>
       </div>
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
         {entries.map((entry, i) => (
@@ -24,6 +25,7 @@ export function ClientEngagements({ entries }: { entries: PublicEngagement[] }) 
               {entry.market && <div><dt className="font-mono text-[10px] uppercase tracking-widest text-muted">Market</dt><dd className="mt-2 text-sm">{entry.market}</dd></div>}
             </dl>
             {entry.context && <div className="mt-6"><h4 className="font-display text-lg">The business</h4><p className="mt-3 text-sm leading-relaxed text-muted">{entry.context}</p></div>}
+            {entry.challenge && <div className="mt-6"><h4 className="font-display text-lg">Business challenge</h4><p className="mt-3 text-sm leading-relaxed text-muted">{entry.challenge}</p></div>}
             <div className="mt-6"><h4 className="font-display text-lg">CoreFrame&apos;s contribution</h4><p className="mt-3 text-sm leading-relaxed text-muted">{entry.description}</p></div>
             {!!entry.focus?.length && <ul aria-label={`${entry.name} delivery scope`} className="mt-5 grid gap-2 text-sm text-muted">{entry.focus.map(item => <li key={item} className="flex gap-3 leading-relaxed"><span aria-hidden="true" className="text-accent">—</span><span>{item}</span></li>)}</ul>}
             <div className="mt-auto pt-7">

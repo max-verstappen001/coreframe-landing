@@ -7,7 +7,7 @@ const PATH = "/capabilities";
 export const metadata = pageMetadata({
   title: "Capabilities — AI Engineering Lifecycle",
   description:
-    "Private AI, enterprise knowledge systems, AI agents, infrastructure, software engineering and governance — capabilities across the full AI engineering lifecycle.",
+    "Private AI, enterprise knowledge, workflow agents, voice AI, governance and cloud, application and IoT engineering, scoped around operational outcomes.",
   path: PATH,
 });
 

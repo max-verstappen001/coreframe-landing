@@ -41,12 +41,12 @@ function Hero() {
           </BlurReveal>
           <BlurReveal delay={0.08}>
             <h1 className="font-display font-medium text-[clamp(2.25rem,5.5vw,4rem)] leading-[1.05] tracking-[-0.02em] text-foreground">
-              Enterprise AI engineering, from implementation to operations.
+              AI product development.<br />Enterprise engineering delivery.
             </h1>
           </BlurReveal>
           <BlurReveal delay={0.16}>
             <p className="mt-6 mx-auto max-w-xl font-sans text-body-lg text-muted leading-relaxed">
-              CoreFrame Technologies designs, deploys and operates production AI systems for organizations with complex workflows, data, security and infrastructure requirements. We also develop applied AI products, including a multilingual call-intelligence platform under development.
+              Founded in 2026, CoreFrame Technologies Private Limited is an Indian AI engineering and product-development company. We develop CoreFrame AI Call Intelligence and open-source Custos tooling while delivering customer-specific software, AI systems, consulting and implementation services.
             </p>
           </BlurReveal>
         </div>
@@ -64,6 +64,8 @@ function OperatingModel() {
   return (
     <Section padding="large">
       <h2 className="font-display text-display-md mb-10">Research, engineering and product development.</h2>
+      <p className="mb-8 max-w-3xl text-muted leading-relaxed">Reusable product development and client engineering are complementary activities. Call Intelligence is under development; Custos has public code and packages. Software built for clients remains distinct from CoreFrame product initiatives.</p>
+      <Link href="/products" className="mb-8 inline-block text-accent underline">Explore product maturity and public evidence →</Link>
       <div className="grid md:grid-cols-3 gap-4">
         {steps.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.06}>

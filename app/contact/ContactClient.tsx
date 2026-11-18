@@ -6,10 +6,17 @@ import { region } from "@/lib/region";
 import { Container } from "@/components/Container";
 
 const INTENTS: Record<string, string> = {
+  discovery: "Discuss an Enterprise AI Project",
   assessment: "Request an AI readiness assessment",
   "call-intelligence": "Discuss a future call-intelligence pilot",
+  "call-intelligence-demo": "Request a Product Demo",
   "knowledge-intelligence": "Scope an enterprise knowledge system",
   "governed-agents": "Discuss a governed agent workflow",
+  "private-ai": "Discuss a private AI deployment",
+  "voice-ai": "Discuss a voice AI project",
+  "ai-governance": "Discuss governance requirements",
+  engineering: "Discuss an engineering project",
+  partnership: "Explore Partnerships",
 };
 
 export default function ContactClient() {
@@ -30,9 +37,9 @@ export default function ContactClient() {
     if (sending.current) return;
     const form = event.currentTarget;
     const data = new FormData(form);
-    const values = Object.fromEntries(["name", "email", "company", "message", "website"].map(key => [key, String(data.get(key) || "").trim()]));
-    if (!values.name || !values.email || !values.company || !values.message) {
-      setError("Please complete all four fields.");
+    const values = Object.fromEntries(["name", "email", "company", "interest", "message", "website"].map(key => [key, String(data.get(key) || "").trim()]));
+    if (!values.name || !values.email || !values.company || !values.interest || !values.message) {
+      setError("Please complete all five fields.");
       setStatus("error");
       return;
     }
@@ -75,6 +82,7 @@ export default function ContactClient() {
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Contact CoreFrame</p>
             <h1 className="mt-6 font-display text-display-md leading-[1.08]">{INTENTS[intent] || region.cta}</h1>
             <p className="mt-6 text-body-lg text-muted leading-relaxed">Share the business challenge. We’ll follow up to understand your requirements and arrange a conversation.</p>
+            {(intent === "call-intelligence" || intent === "call-intelligence-demo") && <p className="mt-5 text-sm text-muted leading-relaxed">AI Call Intelligence is under development. Demo requests cover the concept and current development scope; pilot availability will be discussed with you.</p>}
             <p className="mt-5 text-sm text-muted lg:hidden">Prefer email? <a href="mailto:info@coreframetech.in" className="text-accent underline">info@coreframetech.in</a></p>
             <div className="hidden lg:block">
               <p className="mt-6 text-sm text-muted leading-relaxed">{region.delivery}</p>
@@ -96,12 +104,13 @@ export default function ContactClient() {
             ) : (
               <form method="post" onSubmit={submit} aria-label="AI initiative enquiry" aria-busy={status === "sending"}>
                 <h2 className="font-display text-2xl">Tell us what you’re working on.</h2>
-                <p className="mt-3 text-sm text-muted">All four fields are required.</p>
+                <p className="mt-3 text-sm text-muted">All five fields are required.</p>
                 <fieldset disabled={status === "sending"} className="mt-7 space-y-6">
                   <legend className="sr-only">Your details and business challenge</legend>
                   <div><label htmlFor="name" className="text-sm font-medium">Name</label><input id="name" name="name" autoComplete="name" required maxLength={150} pattern=".*\S.*" className={inputClass} /></div>
                   <div><label htmlFor="email" className="text-sm font-medium">Work email</label><input id="email" name="email" type="email" autoComplete="email" required maxLength={254} placeholder="you@company.com" className={inputClass} /></div>
                   <div><label htmlFor="company" className="text-sm font-medium">Company</label><input id="company" name="company" autoComplete="organization" required maxLength={200} pattern=".*\S.*" className={inputClass} /></div>
+                  <div><label htmlFor="interest" className="text-sm font-medium">Area of interest</label><select id="interest" name="interest" required value={intent} onChange={event => setIntent(event.target.value)} className={inputClass}>{Object.entries(INTENTS).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></div>
                   <div><label htmlFor="message" className="text-sm font-medium">Business challenge</label><textarea id="message" name="message" required maxLength={10000} rows={5} aria-describedby="challenge-help" className={`${inputClass} resize-y`} /><p id="challenge-help" className="mt-2 text-sm text-muted">What needs to improve, and what would a useful outcome look like?</p></div>
                   <div className="contact-trap" aria-hidden="true"><label htmlFor="website">Leave this field empty</label><input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" maxLength={200} /></div>
                 </fieldset>

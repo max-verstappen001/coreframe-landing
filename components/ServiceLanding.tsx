@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { contactHref, region } from "@/lib/region";
 import { Container } from "@/components/Container";
 import { Section } from "@/components/Section";
@@ -21,7 +22,7 @@ export interface ServiceLandingContent {
   related: { label: string; href: string }[];
 }
 
-export function ServiceLanding({ content, source = "service" }: { content: ServiceLandingContent; source?: string }) {
+export function ServiceLanding({ content, source = "service", afterOverview }: { content: ServiceLandingContent; source?: string; afterOverview?: ReactNode }) {
   return (
     <>
       <section className="relative overflow-hidden bg-radial-fade pb-16 pt-32 md:pb-20 md:pt-40">
@@ -51,6 +52,7 @@ export function ServiceLanding({ content, source = "service" }: { content: Servi
         </div>
       </Section>
 
+      {afterOverview}
       <Section padding="large" background="elevated">
         <Reveal><SectionHeading eyebrow="Scope & deliverables" title="What an engagement can include." /></Reveal>
         <div className="mt-10 grid gap-4 md:grid-cols-3">

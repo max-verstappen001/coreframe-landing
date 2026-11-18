@@ -4,9 +4,9 @@ import ContactClient from "./ContactClient";
 const PATH = "/contact";
 
 export const metadata = pageMetadata({
-  title: "Contact — Start a Project",
+  title: "Contact — Product Demos, Pilots & Enterprise Projects",
   description:
-    "Discuss your AI initiative with CoreFrame. Share your business challenge to scope private AI, knowledge systems, workflow agents or a future product pilot.",
+    "Request a product demo, discuss a future Call Intelligence pilot, scope an enterprise AI project or explore a partnership with CoreFrame.",
   path: PATH,
 });
 

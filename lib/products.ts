@@ -2,6 +2,7 @@
 export const PRODUCTS = [
   {
     id: "call-intelligence",
+    href: "/products/ai-call-intelligence",
     name: "CoreFrame AI Call Intelligence",
     kind: "Product initiative",
     status: "Under development",
@@ -19,6 +20,7 @@ export const PRODUCTS = [
   },
   {
     id: "knowledge-intelligence",
+    href: "/products#knowledge-intelligence",
     name: "Enterprise Knowledge Intelligence",
     kind: "Engineering offering",
     status: "Scoped per engagement",
@@ -36,6 +38,7 @@ export const PRODUCTS = [
   },
   {
     id: "governed-agents",
+    href: "/products#governed-agents",
     name: "Governed AI Agents",
     kind: "Engineering offering",
     status: "Scoped per engagement",
@@ -50,5 +53,20 @@ export const PRODUCTS = [
     value: "Reduce routine handoffs while keeping consequential actions reviewable and giving operators a basis for investigation and improvement.",
     cta: "Discuss an agent workflow",
     intent: "governed-agents",
+  },
+] as const;
+
+/** Separate client-specific services from reusable product initiatives. */
+export const ENGINEERING_OFFERINGS = PRODUCTS.filter(p => p.kind === "Engineering offering");
+export const OWNED_PRODUCTS = [
+  PRODUCTS[0],
+  {
+    id: "custos",
+    href: "/products/custos",
+    name: "Custos",
+    kind: "Open-source tooling",
+    status: "Public implementation · pre-1.0",
+    summary: "Agent tool permissions and reviewable policy decisions, with open-source code you can inspect before adoption.",
+    boundary: "Public code and packages are available. Evaluate the documented limits and your integration before production use.",
   },
 ] as const;

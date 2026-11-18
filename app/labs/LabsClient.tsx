@@ -18,6 +18,8 @@ export default function LabsClient() {
             <h2 className="mt-5 font-display text-display-md">{CUSTOS.name}</h2>
             <p className="mt-6 text-muted leading-relaxed">{CUSTOS.description}</p>
             <a href={CUSTOS.href} target="_blank" rel="noopener noreferrer" className="mt-7 inline-block text-accent underline">Inspect Custos on GitHub ↗</a>
+            <p className="mt-5 text-sm text-muted">{CUSTOS.maturity} · Apache-2.0</p>
+            <Link href="/products/custos" className="mt-5 inline-block text-sm text-accent underline">Installation, packages and deployment limits →</Link>
           </div>
           <div className="space-y-7">
             {LAB_REFERENCES.map(item => <article key={item.title} className="border-t border-border pt-6"><h3 className="font-display text-xl">{item.title}</h3><p className="mt-3 text-sm text-muted leading-relaxed">{item.body}</p><a href={item.href} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm text-accent underline">View public source ↗</a></article>)}

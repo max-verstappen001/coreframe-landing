@@ -39,7 +39,7 @@ export default function PrivacyPage() {
       <article className="prose-legal mt-14 space-y-12">
         <Clause title="Information We Collect">
           <ul>
-            <li>Contact details and enquiry information you provide, including name, work email, company and business challenge.</li>
+            <li>Contact details and enquiry information you provide, including name, work email, company, area of interest and business challenge.</li>
             <li>When you submit an enquiry, its regional site, CTA source, first landing path and campaign parameters. First-touch attribution is held in session storage for the current tab and is sent with the enquiry; it is not sent to a third-party analytics service by this feature.</li>
             <li>Usage data to help us improve performance and reliability.</li>
             <li>Any information you intentionally share with us for support.</li>

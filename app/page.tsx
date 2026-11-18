@@ -5,7 +5,7 @@ import { SelectedClients } from "@/components/SelectedClients";
 import HomeClient from "./HomeClient";
 
 export const metadata = pageMetadata({
-  title: "CoreFrame Technologies | Enterprise AI Engineering",
+  title: "CoreFrame Technologies | AI Products & Enterprise Engineering",
   description:
     region.intro,
   path: "/",

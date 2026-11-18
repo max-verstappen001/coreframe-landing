@@ -12,8 +12,8 @@ export const region = {
   locale: isUAE ? "en_AE" : "en_IN",
   cta: "Discuss Your AI Initiative",
   intro: isUAE
-    ? "Enterprise AI engineering for UAE and GCC organizations. Connect fragmented knowledge, automate complex workflows and deploy with explicit data residency, access and operational controls."
-    : "CoreFrame engineers private AI systems, intelligent workflows, and applied AI products that help organizations turn complex operations into reliable, production-ready systems.",
+    ? "CoreFrame develops AI products and engineers secure enterprise systems for UAE and GCC organizations, built around operational workflows, data and infrastructure requirements."
+    : "CoreFrame develops AI products and engineers secure enterprise systems that connect operational workflows, business data and existing infrastructure.",
   delivery: isUAE
     ? "For UAE and GCC engagements, we establish data location, approved providers, cross-border access and operational ownership during discovery. Regional deployment depends on the selected service and your requirements."
     : "Work with an engineering team based in India, serving organizations internationally. We scope deployment, access, delivery responsibilities and support around your operating environment.",

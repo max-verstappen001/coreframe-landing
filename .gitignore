@@ -32,3 +32,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .gstack/
+
+# Internal business records must stay out of this public repository.
+/docs/internal/

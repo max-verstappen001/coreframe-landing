@@ -1,6 +1,6 @@
 # CoreFrame Technologies website
 
-Enterprise AI engineering and implementation website built on the existing Next.js 14 App Router, TypeScript, Tailwind CSS and Framer Motion stack. The shared codebase retains the established typography, artwork, light/dark themes, portfolio and contact integrations.
+AI products and enterprise engineering website built on the existing Next.js 14 App Router, TypeScript, Tailwind CSS and Framer Motion stack. The shared codebase retains the established typography, artwork, light/dark themes, portfolio and contact integrations.
 
 ## Local development
 
@@ -53,7 +53,10 @@ node scripts/check-http.mjs http://127.0.0.1:3100
 | `lib/industries.ts`, `app/industries/[slug]/page.tsx` | Industrial/energy, retail/hospitality, enterprise/professional services and technology landing pages |
 | `lib/delivery.ts` | Discover → Design → Deploy → Operate |
 | `/capabilities/*` | Supporting technical capability pages |
-| `/products` | Call-intelligence product initiative and scoped knowledge/agent offerings |
+| `/products` | Call Intelligence and Custos product initiatives, followed by separate scoped knowledge/agent engineering offerings |
+| `/products/ai-call-intelligence` | Product in development; planned scope, proposed technical direction and a synthetic interactive concept (no live inference or uploads) |
+| `/products/custos` | Public source, verified npm package, Apache-2.0 license, installation and deployment limits |
+| `lib/enterprise-areas.ts`, `components/EnterpriseCapabilities.tsx` | Six buyer-oriented engineering areas, including voice AI and cloud/application/IoT engineering; all eight existing commercial services remain |
 | `/work` | Confirmed clients and engagements, including an anonymized AI-Native Restaurant OS client, followed by clearly labeled illustrative use cases; `/projects` redirects here |
 | `/company` | Founder background, delivery principles, approved regional city and Sarvam program participation; `/about` redirects here |
 | `/labs/*` | Applied research, distinct from commercial services |
@@ -61,11 +64,11 @@ node scripts/check-http.mjs http://127.0.0.1:3100
 | `lib/region.ts`, `lib/seo.ts` | Regional identity, metadata and structured data |
 | `app/sitemap.ts`, `app/robots.ts`, `/llms.txt`, `/api/agent` | Search and machine-readable discovery |
 
-Keep claims traceable to approved evidence. Do not add client identities, measured results, partnerships, certifications or UAE office/legal claims without verification. Historical IoT projects remain in the portfolio; IoT is excluded from primary service positioning. Legacy case-study and portfolio routes redirect to `/work`; see `next.config.js` for the full redirect map.
+Keep claims traceable to approved evidence. Do not add client identities, measured results, partnerships, certifications or UAE office/legal claims without verification. Cloud, application and IoT engineering are scoped enterprise capabilities; historical IoT projects remain in the portfolio. Legacy case-study and portfolio routes redirect to `/work`; see `next.config.js` for the full redirect map.
 
 ## Enquiry delivery and attribution
 
-The contact API validates required fields and size limits, escapes email HTML, and derives region/domain from server configuration. Success requires the configured email provider or webhook to accept the request. Actual inbox receipt must be verified separately before launch. The four-field form retains the visitor's answers on failure. A hidden spam trap and same-origin browser check reject basic unwanted submissions before delivery. Company remains optional in the API for compatibility with existing integrations.
+The contact API validates required fields and size limits, escapes email HTML, and derives region/domain from server configuration. Success requires the configured email provider or webhook to accept the request. Actual inbox receipt must be verified separately before launch. The five-field form (name, work email, company, area of interest and business challenge) retains the visitor's answers on failure. Product-demo, future-pilot, engineering and partnership CTAs preselect an editable area of interest. A hidden spam trap and same-origin browser check reject basic unwanted submissions before delivery. Company and interest remain optional in the API for compatibility with existing integrations.
 
 First-touch landing path and UTM values stay in session storage for the current tab and accompany an enquiry. Intent and originating CTA are included. WhatsApp links include the regional website in their prefilled message; they do not record whether a message is sent.
 
@@ -87,10 +90,14 @@ First-touch landing path and UTM values stay in session storage for the current 
 
 Production deployment and DNS changes require explicit approval. No deployment or DNS mutation is part of the local implementation.
 
-- [Enterprise website audit and current verification](docs/enterprise-website-audit.md)
+- [Earlier enterprise website audit](docs/enterprise-website-audit.md)
+- [Product positioning before-and-after audit](docs/product-positioning-audit.md)
+- [Product positioning validation](docs/product-positioning-validation.md)
 - [Client portfolio layout and publication review](docs/client-portfolio-review.md)
 - [Implementation plan](docs/modernization-plan.md)
 - [Verification record](docs/modernization-verification.md)
 - [UAE launch and deployment checklist](docs/uae-launch-checklist.md)
 
 The existing Google Fonts build integration requires network access on a cold cache. Hero and engagement artwork use Next.js responsive image optimization; other section backgrounds remain original assets. Browser QA can be run with `node scripts/check-browser.mjs http://127.0.0.1:3100` when Playwright is available. Set `COREFRAME_PLAYWRIGHT_MODULE` to an absolute Playwright module path if installed outside this checkout, and optionally `COREFRAME_AXE_PATH` to a local axe-core bundle for accessibility scans. The script mocks enquiry deliveries and writes results/screenshots to `/private/tmp/coreframe-qa` by default (`COREFRAME_QA_OUTPUT` overrides it). Field performance and real inbox delivery remain separate launch checks.
+
+The `/api/agent` interface is version 2.0: `products` contains the two reusable product initiatives; `engineeringOfferings` contains customer-specific knowledge and agent offerings. No product availability is implied by inclusion. Internal readiness documents are maintained locally in the ignored `docs/internal/` directory, outside this public repository, the website, sitemap and discovery endpoints.

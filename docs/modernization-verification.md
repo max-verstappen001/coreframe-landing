@@ -1,6 +1,6 @@
 # Modernization verification
 
-Historical record. See [12 November 2026 enterprise audit and verification](enterprise-website-audit.md) for the current implementation.
+Historical record. See the [12 November 2026 enterprise audit](enterprise-website-audit.md) and [18 November product-positioning validation](product-positioning-validation.md) for subsequent implementation and checks.
 
 Completed against the local implementation on 31 October 2026:
 

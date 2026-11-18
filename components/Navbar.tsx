@@ -19,7 +19,10 @@ interface NavItem {
 }
 
 const NAV_LINKS: NavItem[] = [
-  { label: "Products", href: "/products" },
+  { label: "Products", href: "/products", menu: [
+    { label: "AI Call Intelligence", href: "/products/ai-call-intelligence", description: "Product in development · multilingual conversation review." },
+    { label: "Custos", href: "/products/custos", description: "Open-source agent governance · public code and packages." },
+  ] },
   { label: "Services", href: "/services", menu: SERVICES.map(s => ({ label: s.short, href: `/services/${s.slug}`, description: s.summary })) },
   {
     label: "Capabilities",
