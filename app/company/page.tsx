@@ -4,9 +4,9 @@ import CompanyClient from "./CompanyClient";
 const PATH = "/company";
 
 export const metadata = pageMetadata({
-  title: "Company — Enterprise AI Engineering",
+  title: "Company — AI Products & Enterprise Engineering",
   description:
-    "CoreFrame Technologies is an enterprise AI engineering and implementation company. Meet founder Sanjay Nanda N J and explore our engineering approach, product development and startup program participation.",
+    "Founded in 2026, CoreFrame develops AI products and delivers enterprise engineering. Meet founder Sanjay Nanda N J and explore our product and delivery approach.",
   path: PATH,
 });
 

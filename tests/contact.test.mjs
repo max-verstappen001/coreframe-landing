@@ -33,9 +33,24 @@ test('rejects oversized enquiries before delivery', async () => {
   assert.equal((await handler()(request('x'.repeat(21000)))).status, 413);
 });
 test('rejects oversized fields without silently truncating contact details', async () => {
-  for (const [key, length] of [['name', 151], ['email', 255], ['company', 201], ['message', 12001]]) {
+  for (const [key, length] of [['name', 151], ['email', 255], ['company', 201], ['interest', 101], ['message', 12001]]) {
     assert.equal((await handler()(request({ ...valid, [key]: 'x'.repeat(length) }))).status, 400, key);
   }
+});
+
+test('delivers the selected area of interest to both providers and escapes email content', async () => {
+  let email, webhook;
+  const post = handler({
+    env: { RESEND_API_KEY: 'test', NOTIFICATION_EMAIL: 'owner@example.com', WEBHOOK_URL: 'https://example.com/hook' },
+    send: async payload => { email = payload; return { error: null }; },
+    webhook: async (_url, init) => { webhook = JSON.parse(init.body); return { ok: true }; },
+  });
+  const interest = '<b>call-intelligence-demo</b>';
+  assert.equal((await post(request({ ...valid, interest }))).status, 200);
+  assert.equal(webhook.data.interest, interest);
+  assert.ok(email.html.includes('&lt;b&gt;call-intelligence-demo&lt;/b&gt;'));
+  assert.ok(!email.html.includes(interest));
+  assert.equal((await post(request({ ...valid, interest: { invalid: true } }))).status, 400);
 });
 test('preserves a complete brief with service and timeline context', async () => {
   const message = `Project: Enterprise Claude implementation\nTimeline: 1–3 months\n\n${'x'.repeat(10000)}`;

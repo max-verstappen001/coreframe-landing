@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Section } from "@/components/Section";
+import { EnterpriseCapabilities } from "@/components/EnterpriseCapabilities";
 import { Container } from "@/components/Container";
 import { Reveal, BlurReveal } from "@/lib/animations";
 import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
@@ -78,6 +79,7 @@ function Hero() {
 function CapabilitiesList() {
   return (
     <Section id="capabilities-list" padding="large">
+      <h2 className="mb-5 font-display text-display-md">Technical capabilities.</h2>
       <p className="mb-8 text-muted">Explore implementation engagements in our <Link href="/services" className="text-accent underline">enterprise AI services</Link>, or review the technical capabilities below.</p>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {CAPABILITIES.map((c, i) => (
@@ -221,6 +223,7 @@ export default function CapabilitiesClient() {
   return (
     <>
       <Hero />
+      <EnterpriseCapabilities source="/capabilities" />
       <CapabilitiesList />
       <HowWeEngage />
       <DeploymentModels />

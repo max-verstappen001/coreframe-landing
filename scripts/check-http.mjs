@@ -12,7 +12,7 @@ for (const [path, destination] of [
   assert.equal(response.status, 308, path);
   assert.equal(response.headers.get('location'), `${destination}?utm_source=check`, path);
 }
-for (const path of ['/services/unknown-service', '/industries/unknown-industry']) assert.equal((await fetch(base + path)).status, 404, path);
+for (const path of ['/services/unknown-service', '/industries/unknown-industry', '/docs/internal/nvidia-inception-readiness.md']) assert.equal((await fetch(base + path)).status, 404, path);
 const sitemap = await (await fetch(base + '/sitemap.xml')).text();
 let pageCount = 0;
 for (const match of sitemap.matchAll(/<loc>(.*?)<\/loc>/g)) {

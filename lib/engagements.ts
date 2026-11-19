@@ -23,6 +23,7 @@ export interface PublicEngagement {
   relationship: EngagementRelationship;
   description: string;
   context?: string;
+  challenge?: string;
   focus?: string[];
   logo?: ClientLogo;
   capabilities: { label: string; href: string }[];
@@ -47,6 +48,7 @@ export const ENGAGEMENT_RECORDS: EngagementRecord[] = [
     publicNameUseAuthorized: true, relationship: "Direct CoreFrame engagement",
     description: "Website design and engineering for Sultanahmet’s multi-location restaurant brand, bringing its locations and customer-facing information into a cohesive digital presence.",
     context: "Sultanahmet is a Turkish restaurant brand with locations across Ontario. Its website helps customers explore the brand, find a restaurant and access location-specific information.",
+    challenge: "Present brand and location-specific information coherently across a multi-location restaurant website.",
     focus: ["Restaurant website design and development", "Multi-location web presence", "Customer-facing brand and location information"],
     logoUseAuthorized: true,
     logo: { src: "/logos/clients/sultanahmet.png", width: 500, height: 150, backing: "light" },
@@ -58,6 +60,7 @@ export const ENGAGEMENT_RECORDS: EngagementRecord[] = [
     publicNameUseAuthorized: true, relationship: "Direct CoreFrame engagement",
     description: "Designed and engineered Wiral’s website, with delivery across AI agents, retrieval-augmented generation (RAG) and human-in-the-loop workflows.",
     context: "Wiral is an AI-powered customer engagement platform for inbound conversations, lead qualification, follow-ups and appointment booking across messaging and web channels.",
+    challenge: "Support a customer-engagement platform through its digital presence, AI workflows and human review.",
     focus: ["End-to-end website design and development", "AI agent development", "Retrieval-augmented generation (RAG)", "Human-in-the-loop review workflows"],
     logoUseAuthorized: true,
     logo: { src: "/logos/clients/wiral.png", width: 188, height: 78, backing: "dark" },
@@ -69,6 +72,7 @@ export const ENGAGEMENT_RECORDS: EngagementRecord[] = [
     publicNameUseAuthorized: true, relationship: "Direct CoreFrame engagement",
     description: "Engineering across hardware, IoT, websites and web applications, alongside AI agents and AI governance for an AI-native restaurant operating system and margin optimization platform.",
     context: "An anonymized restaurant technology engagement focused on operations and margin optimization. The scope connects physical devices, business applications and governed AI capabilities.",
+    challenge: "Connect hardware, applications and governed AI within a restaurant operations platform.",
     focus: ["Hardware and IoT engineering", "Website and web application development", "AI agents", "AI governance"],
     capabilities: [{ label: "Software engineering", href: "/services/forward-deployed-engineering" }, { label: "AI agents & automation", href: "/services/enterprise-ai-agents" }, { label: "AI governance", href: "/services/ai-governance-security" }],
   },
@@ -78,6 +82,7 @@ export const ENGAGEMENT_RECORDS: EngagementRecord[] = [
     publicNameUseAuthorized: true, relationship: "Direct CoreFrame engagement",
     description: "Engineering delivery spanning STAAD work, reverse engineering and applied AI for SETCCO’s industrial business.",
     context: "SETCCO is a Saudi engineering and manufacturing business serving the oil and gas sector, with work across industrial equipment, fabrication and maintenance.",
+    challenge: "Support industrial engineering requirements through structural analysis, reverse engineering and applied AI disciplines.",
     focus: ["STAAD engineering work", "Reverse engineering", "Applied AI"],
     logoUseAuthorized: true,
     logo: { src: "/logos/clients/setcco.png", width: 1750, height: 450, backing: "light" },
@@ -98,6 +103,7 @@ export function publishedEngagements(records: readonly EngagementRecord[] = ENGA
       relationship: record.relationship,
       description: record.description,
       context: record.context,
+      challenge: record.challenge,
       focus: record.focus,
       logo: record.logoUseAuthorized ? record.logo : undefined,
       capabilities: record.capabilities,

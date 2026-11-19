@@ -2,6 +2,8 @@
 
 12 November 2026. Local implementation only; no deployment, DNS change or external enquiry was sent.
 
+The [18 November product-positioning audit](product-positioning-audit.md) and [validation report](product-positioning-validation.md) describe the subsequent product pages, conversion changes and internal program-readiness work.
+
 Follow-up: [13 November client portfolio confirmation and anonymity changes](client-portfolio-review.md) supersede the earlier publication hold for the four requested clients.
 
 ## Audit findings and decisions

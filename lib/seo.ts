@@ -13,7 +13,7 @@ export const siteConfig = {
   url: region.origin,
   description:
     region.intro,
-  tagline: "Enterprise AI Engineering & Implementation",
+  tagline: "AI Products & Enterprise Engineering",
   email: "info@coreframetech.in",
   telephone: "+91 63838 31327",
   logo: "/logos/coreframe-mark.png",
@@ -105,6 +105,7 @@ export function organizationJsonLd() {
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     legalName: siteConfig.legalName,
+    foundingDate: "2026",
     url: siteConfig.url,
     logo: `${siteConfig.url}${siteConfig.logo}`,
     description: siteConfig.description,

@@ -21,6 +21,8 @@ const COMPANY_LINKS = [
   { label: "CoreFrame Labs", href: "/labs" },
   { label: "Work", href: "/work" },
   { label: "Products & Innovation", href: "/products" },
+  { label: "AI Call Intelligence", href: "/products/ai-call-intelligence" },
+  { label: "Custos", href: "/products/custos" },
   { label: "Insights", href: "/insights" },
   { label: "Careers", href: "/company/careers" },
   { label: "Contact", href: "/contact" },
@@ -85,14 +87,14 @@ export function Footer() {
                 <span className="text-subtle transition-colors group-hover:text-accent">]</span>
               </Link>
               <p className="mt-4 font-sans text-body-sm text-muted leading-relaxed max-w-sm">
-                Enterprise AI engineering and implementation. We design, deploy and operate production systems around your workflows, data, security and infrastructure.
+                AI product development and enterprise engineering. We build reusable technology alongside customer-specific systems, consulting and implementation.
               </p>
               <nav aria-label="Regional websites" className="mt-4 flex gap-4 text-sm text-accent"><a href="https://coreframetech.in">India &amp; Global</a><a href="https://coreframe.ae">UAE &amp; GCC</a></nav>
               <p className="mt-4 text-sm text-foreground">{region.location}</p>
               <p className="mt-2 text-sm text-muted">{region.delivery}</p>
               <Link href={contactHref("discovery", "footer")} className="mt-4 inline-block text-accent underline">{region.cta} →</Link>
               <div className="mt-5 flex flex-wrap gap-2">
-                {["Enterprise AI", "Implementation", region.label].map(
+                {["AI Products", "Enterprise Engineering", region.label].map(
                   (tag) => (
                     <span
                       key={tag}

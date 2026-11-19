@@ -17,11 +17,12 @@ const SYSTEM_PROMPT = `You are the CoreFrame AI Assistant — representing CoreF
 
 IDENTITY:
 - Identify yourself honestly as CoreFrame's AI assistant.
-- CoreFrame is an enterprise AI engineering and implementation company that designs, deploys and operates production AI systems for complex workflows, data, security and infrastructure requirements.
+- CoreFrame develops AI products and delivers customer-specific enterprise AI engineering, consulting and implementation for operational workflows, data, security and infrastructure requirements.
 - Region: ${region.label}. ${region.delivery}
 - Services: ${SERVICES.map(s => s.title).join("; ")}
 - Delivery: Discover → Design → Deploy → Operate.
-- CoreFrame Labs features the public Custos project. Products are at /products: AI Call Intelligence is under development; knowledge intelligence and governed agents are engineering offerings.
+- Products: AI Call Intelligence is under development at /products/ai-call-intelligence, with an authored synthetic concept preview, not a working speech or inference backend. Custos at /products/custos is public pre-1.0 open-source governance tooling. Knowledge intelligence and governed agents are separate engineering offerings.
+- NVIDIA technologies on the product page are proposed evaluation candidates, not verified integrations. Never claim NVIDIA Inception membership, endorsement, certification, GPU infrastructure or benchmark results.
 - /work lists confirmed CoreFrame clients: ${publishedEngagements().map(entry => entry.name).join(", ")}. These client entries are separate from the illustrative use cases below them.
 - Approved engagement scope: ${publishedEngagements().map(entry => `${entry.name}: ${entry.description}`).join("; ")}
 - Refer to the anonymized restaurant software client only as AI-Native Restaurant OS. Do not infer or disclose an identity or website beyond the published client entries. Do not invent detailed deliverables or results.
@@ -204,6 +205,14 @@ function getFallbackResponse(message: string): FallbackResult {
   // Client questions must precede broad greeting/about substring matches.
   if (/\bclients?\b/.test(message)) return portfolio;
 
+  // Product questions precede broad greeting, agent and contact substring matches.
+  if (/\b(custos|products?)\b|call intelligence|call-intelligence/.test(message)) {
+    return {
+      reply: "CoreFrame AI Call Intelligence is under development; /products/ai-call-intelligence includes a synthetic concept preview, not live AI analysis. Custos is public pre-1.0 open-source governance tooling at /products/custos. Knowledge systems and customer-specific agents are scoped engineering offerings.",
+      suggestions: ["Request a product demo", "Discuss a future pilot", "Explore enterprise engineering"],
+    };
+  }
+
   // Pricing / cost
   if (message.includes("price") || message.includes("cost") || message.includes("budget") || message.includes("how much")) {
     return {
@@ -221,28 +230,28 @@ function getFallbackResponse(message: string): FallbackResult {
   // Agents / chatbot / automation
   if (message.includes("agent") || message.includes("chatbot") || message.includes("automation") || message.includes("automate")) {
     return {
-      reply: "AI agents and automation are a core part of what we build. We design agents that handle customer support, internal ops, and complex workflows \u2014 giving small teams the leverage of a much larger operation. The businesses winning right now are the ones automating the repetitive work and redeploying that capacity. What process are you looking to fix?",
+      reply: "We engineer agents around scoped tools, human approvals and observable execution. Start with a workflow such as request triage or document review, then agree how to test useful behavior and failure paths. Which handoff takes the most manual effort today?",
       suggestions: ["AI agents for support", "Internal workflow automation", "Let's assess the fit"],
     };
   }
   // AI explanation
   if (message.includes("what is ai") || message.includes("explain ai") || message.includes("artificial intelligence")) {
     return {
-      reply: "AI is now core infrastructure for competitive businesses \u2014 reducing headcount costs, automating workflows, and enabling small teams to operate at scale. At CoreFrame, we build AI agents and automation systems that slot into real business operations and deliver measurable ROI. Every business should be asking how to use AI, not whether to.",
+      reply: "AI systems use models to recognize patterns, generate content or support decisions. Useful enterprise applications include retrieving internal knowledge, reviewing conversations and preparing workflow actions. Quality, privacy and human oversight need to be evaluated for the specific task.",
       suggestions: ["What can AI agents do?", "Show me an example", "I have a project idea"],
     };
   }
   // Greetings
   if (message.includes("hello") || message.includes("hi") || message.includes("hey") || message.includes("sup") || message.includes("yo")) {
     return {
-      reply: "Welcome to CoreFrame. We design, deploy and operate enterprise AI systems. I can help you understand how we work, explain illustrative enterprise use cases, or explore whether there's a fit. What brings you here?",
+      reply: "Welcome to CoreFrame. We develop AI products and engineer enterprise systems. Explore our products at /products, or tell us about an operational workflow you want to improve.",
       suggestions: ["What does CoreFrame do?", "I have a business challenge", "Show me project examples"],
     };
   }
   // About / team
   if (message.includes("who") || message.includes("about") || message.includes("team") || message.includes("coreframe")) {
     return {
-      reply: "CoreFrame Technologies is an enterprise AI engineering and implementation company. We build around complex workflows, data, security and infrastructure requirements. Meet our founder at /company.",
+      reply: "CoreFrame develops AI products alongside enterprise engineering, consulting and implementation services. AI Call Intelligence is under development, while Custos has public open-source code and packages. Explore /products or meet our founder at /company.",
       suggestions: ["What industries do you serve?", "Show me project examples", "How do engagements work?"],
     };
   }

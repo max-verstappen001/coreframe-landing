@@ -44,7 +44,7 @@ export default function Image() {
               color: "#f5f5f7",
             }}
           >
-            Enterprise AI Engineering
+            AI Products &amp; Enterprise Engineering
           </div>
           <div
             style={{
@@ -55,7 +55,7 @@ export default function Image() {
               color: "#a3a3ad",
             }}
           >
-            {region.label} · Design, deploy and operate production AI.
+            {region.label} · Products in development. Engineering for your operations.
           </div>
         </div>
       </div>

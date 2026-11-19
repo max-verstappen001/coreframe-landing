@@ -14,7 +14,7 @@ try {
   const page = await context.newPage();
   page.on('pageerror', error => failures.push(error.message));
   page.on('console', message => { if (message.type() === 'error' && !message.text().includes('503') && !message.text().includes('400')) failures.push(message.text()); });
-  const paths = ['/', '/products', '/company', '/work', '/labs', '/labs/open-source', '/labs/research', '/labs/publications', '/contact', '/insights', '/security', '/responsible-ai'];
+  const paths = ['/', '/products', '/products/ai-call-intelligence', '/products/custos', '/services', '/capabilities', '/company', '/work', '/labs', '/labs/open-source', '/labs/research', '/labs/publications', '/contact', '/insights', '/security', '/responsible-ai'];
   for (const width of [1440, 768, 390]) {
     await page.setViewportSize({ width, height: width === 390 ? 844 : 1000 });
     for (const theme of ['light', 'dark']) {
@@ -42,8 +42,8 @@ try {
         results.push({ path, width, theme, status: response.status(), overflow: false });
         await page.waitForFunction(() => [...document.querySelectorAll('[style*="opacity"]')].filter(el => el.getBoundingClientRect().top >= 0 && el.getBoundingClientRect().bottom <= innerHeight).every(el => !el.style.opacity || Number(el.style.opacity) >= 0.99));
         await page.evaluate(async () => { window.scrollTo(0, 0); await new Promise(resolve => requestAnimationFrame(resolve)); });
-        if (['/', '/products', '/company', '/contact'].includes(path) && width !== 768) {
-          await page.screenshot({ path: `${output}/${path === '/' ? 'home' : path.slice(1)}-${width}-${theme}.png`, fullPage: width !== 390 });
+        if (['/', '/products', '/products/ai-call-intelligence', '/products/custos', '/company', '/contact'].includes(path) && width !== 768) {
+          await page.screenshot({ path: `${output}/${path === '/' ? 'home' : path.slice(1).replaceAll('/', '-')}-${width}-${theme}.png`, fullPage: width !== 390 });
         }
       }
     }
@@ -92,14 +92,47 @@ try {
   assert.equal(await page.getByLabel('Business challenge', { exact: true }).inputValue(), 'Evaluate a representative operational workflow.');
   assert.equal(payload.attribution.intent, 'call-intelligence');
   assert.equal(payload.attribution.source, 'browser-qa');
+  assert.equal(payload.interest, 'call-intelligence');
   assert.equal(payload.website, '');
   await page.unroute('**/api/contact');
   await page.route('**/api/contact', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true }) }));
   await form.getByRole('button', { name: 'Send enquiry' }).click();
   await page.getByRole('heading', { name: 'Thanks, QA.' }).waitFor();
   assert.equal(await page.getByRole('heading', { name: 'Thanks, QA.' }).evaluate(el => el === document.activeElement), true);
+  // Demo and partnership CTAs preselect their own enquiry intent; visitors can change it.
+  for (const [intent, heading] of [['call-intelligence-demo', 'Request a Product Demo'], ['partnership', 'Explore Partnerships']]) {
+    await page.goto(`${base}/contact?intent=${intent}&source=browser-qa`, { waitUntil: 'networkidle' });
+    assert.equal(await page.locator('h1').innerText(), heading);
+    assert.equal(await page.getByLabel('Area of interest', { exact: true }).inputValue(), intent);
+  }
+  await page.getByLabel('Area of interest', { exact: true }).selectOption('private-ai');
+  assert.equal(await page.locator('h1').innerText(), 'Discuss a private AI deployment');
+  // Concept behavior: sample selection, view switching, review/reopen and reload reset.
+  await page.goto(base + '/products/ai-call-intelligence', { waitUntil: 'networkidle' });
+  const preview = page.getByRole('region', { name: 'Call intelligence concept', exact: true });
+  const beforePreviewRequests = [];
+  const onRequest = request => { if (['xhr', 'fetch'].includes(request.resourceType())) beforePreviewRequests.push(request.url()); };
+  page.on('request', onRequest);
+  assert.equal(await preview.getByRole('radio').count(), 2);
+  await preview.getByRole('button', { name: 'Quality review', exact: true }).click();
+  assert.equal(await preview.getByRole('heading', { name: 'Example scorecard', exact: true }).count(), 1);
+  assert.match(await preview.innerText(), /3\/4 criteria met/);
+  await preview.getByRole('radio', { name: 'Billing clarification', exact: false }).check();
+  assert.match(await preview.innerText(), /2\/4 criteria met/);
+  await preview.getByRole('button', { name: 'Follow-up', exact: true }).click();
+  assert.match(await preview.innerText(), /Duplicate-charge investigation/);
+  await preview.getByRole('button', { name: 'Mark sample reviewed', exact: true }).click();
+  assert.match(await preview.getByRole('status').innerText(), /marked reviewed/);
+  await preview.getByRole('button', { name: 'Reopen sample review', exact: true }).click();
+  assert.match(await preview.getByRole('status').innerText(), /awaiting review/);
+  await preview.getByRole('button', { name: 'Mark sample reviewed', exact: true }).click();
+  assert.deepEqual(beforePreviewRequests, [], 'Concept interaction must not send data or call AI services');
+  page.off('request', onRequest);
+  await page.reload({ waitUntil: 'networkidle' });
+  assert.equal(await preview.getByRole('button', { name: 'Reopen sample review', exact: true }).count(), 0);
+  assert.match(await preview.innerText(), /Authored text and translations/);
   // Fragment links on products and work resolve to real content.
-  for (const path of ['/products', '/work']) {
+  for (const path of ['/products', '/work', '/capabilities', '/products/ai-call-intelligence']) {
     await page.goto(base + path, { waitUntil: 'networkidle' });
     const missing = await page.locator('a[href^="#"]').evaluateAll(links => links.map(a => a.getAttribute('href')).filter(href => href.length > 1 && !document.getElementById(decodeURIComponent(href.slice(1)))));
     assert.deepEqual(missing, [], path);
@@ -115,8 +148,8 @@ try {
   await writeFile(`${output}/accessibility.json`, JSON.stringify(accessibility, null, 2));
   assert.deepEqual(accessibility.filter(result => result.violations.length), [], 'Accessibility violations');
   assert.deepEqual([...new Set(failures)], [], 'Browser console or runtime errors');
-  await writeFile(`${output}/results.json`, JSON.stringify({ results, checks: ['navigation', 'theme toggle', 'native validation', 'failure retention', 'mocked success', 'CTA attribution', 'fragment links', 'console errors'], failures }, null, 2));
-  console.log(`Browser QA: ${results.length} route/viewport/theme checks passed; navigation, form states, attribution, fragments and console passed. Screenshots: ${output}`);
+  await writeFile(`${output}/results.json`, JSON.stringify({ results, checks: ['navigation', 'theme toggle', 'native validation', 'failure retention', 'mocked success', 'CTA attribution', 'interest selection', 'concept sample/view/review/reset controls', 'no concept API calls', 'fragment links', 'console errors'], failures }, null, 2));
+  console.log(`Browser QA: ${results.length} route/viewport/theme checks passed; navigation, forms, interest selection, concept controls, attribution, fragments and console passed. Screenshots: ${output}`);
 } finally {
   await browser.close();
 }

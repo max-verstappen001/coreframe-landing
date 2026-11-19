@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/lib/seo";
 import { publishedEngagements } from "@/lib/engagements";
-import { PRODUCTS } from "@/lib/products";
+import { ENGINEERING_OFFERINGS, OWNED_PRODUCTS } from "@/lib/products";
+import { CUSTOS } from "@/lib/labs";
 import { SERVICES } from "@/lib/services";
 import { region } from "@/lib/region";
 import { CAPABILITIES, capabilityHref } from "@/lib/capabilities";
@@ -19,7 +20,7 @@ export const revalidate = 3600;
 export async function GET() {
   const body = {
     $schema: `${siteConfig.url}/api/agent`,
-    version: "1.0",
+    version: "2.0",
     type: "organization-interface",
     organization: {
       name: siteConfig.name,
@@ -31,7 +32,9 @@ export async function GET() {
     },
     region: region.id,
     location: region.location,
-    products: PRODUCTS.map(p => ({ name: p.name, kind: p.kind, status: p.status, description: p.summary, availability: p.boundary, url: `${region.origin}/products#${p.id}` })),
+    products: OWNED_PRODUCTS.map(p => ({ name: p.name, kind: p.kind, status: p.status, description: p.summary, availability: p.boundary, url: `${region.origin}${p.href}` })),
+    engineeringOfferings: ENGINEERING_OFFERINGS.map(p => ({ name: p.name, kind: p.kind, status: p.status, description: p.summary, url: `${region.origin}${p.href}` })),
+    openSource: { name: CUSTOS.name, repository: CUSTOS.href, package: CUSTOS.npm, documentation: CUSTOS.docs, changelog: CUSTOS.history, license: "Apache-2.0", maturity: CUSTOS.maturity },
     services: SERVICES.map(s => ({ name: s.title, description: s.summary, url: `${region.origin}/services/${s.slug}` })),
     capabilities: CAPABILITIES.map((c) => ({
       slug: c.slug,
@@ -65,7 +68,7 @@ export async function GET() {
       contactApi: {
         method: "POST",
         url: `${siteConfig.url}/api/contact`,
-        body: { name: "string", email: "string", message: "string", company: "string (optional)" },
+        body: { name: "string", email: "string", message: "string", company: "string (optional)", interest: "string (optional, max 100 characters)" },
       },
     },
   };

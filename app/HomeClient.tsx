@@ -5,11 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef, useCallback, type ReactNode } from "react";
 import { INDUSTRIES } from "@/lib/industries";
-import { PRODUCTS } from "@/lib/products";
+import { OWNED_PRODUCTS } from "@/lib/products";
 import { StartupProgram } from "@/components/StartupProgram";
 import { WORK_ITEMS } from "@/lib/work";
 import "./home.css";
-import { SERVICES } from "@/lib/service-catalog";
+import { ENTERPRISE_AREAS } from "@/lib/enterprise-areas";
 import { DELIVERY_PROCESS } from "@/lib/delivery";
 import { region, contactHref } from "@/lib/region";
 
@@ -66,7 +66,7 @@ const WORK_MEDIA = [
 const STEPS = DELIVERY_PROCESS.map((s, i) => ({ n: String(i + 1).padStart(2, "0"), label: s.title, body: s.body }));
 
 const LAB_ROWS = [
-  { n: "01", title: "Custos", body: "Public MCP tool-call governance project.", href: "/labs#custos" },
+  { n: "01", title: "Custos", body: "Open-source policy enforcement and audit records.", href: "/products/custos" },
   { n: "02", title: "Code & documentation", body: "Inspect the public implementation.", href: "/labs/open-source" },
 ];
 
@@ -176,21 +176,21 @@ export default function HomeClient({ clientShowcase }: { clientShowcase?: ReactN
           <div className="hero-inner">
             <div className="snum hero-anim d1" style={{ marginBottom: 0 }}>01</div>
             <div className="crumbs hero-anim d1">
-              ENTERPRISE AI <span>/</span> ENGINEERING & IMPLEMENTATION <span>/</span> {region.label}
+              AI PRODUCTS <span>/</span> ENTERPRISE ENGINEERING <span>/</span> {region.label}
             </div>
             <h1 className="hero-anim d2">
-              Enterprise AI built<br />for <span className="accent">real operations.</span>
+              AI products built for<br /><span className="accent">real-world operations.</span>
             </h1>
             <p className="hero-sub hero-anim d3">
               {region.intro}
             </p>
             <div className="hero-cta hero-anim d4">
-              <Link href={contactHref("discovery", "homepage")} className="btn btn-primary">
-                {region.cta}
+              <Link href="/products" className="btn btn-primary">
+                Explore Our AI Products
                 <Arrow />
               </Link>
-              <Link href="/work" className="btn btn-ghost">
-                Explore Our Work
+              <Link href={contactHref("discovery", "homepage-hero")} className="btn btn-ghost">
+                Discuss an Enterprise AI Project
               </Link>
             </div>
             <div className="deploy hero-anim d5">
@@ -209,11 +209,33 @@ export default function HomeClient({ clientShowcase }: { clientShowcase?: ReactN
 
       <div className="divider" />
 
+      <section id="products" className="products-overview">
+        <div className="wrap">
+          <div className="snum">02</div>
+          <div className="reveal">
+            <div className="eyebrow">PRODUCTS &amp; INNOVATION</div>
+            <h2 className="mt-5">Conversation intelligence.<br />Agent governance.</h2>
+            <p className="cap-desc mt-6 max-w-2xl">CoreFrame AI Call Intelligence is under development. Custos is public open-source tooling. Each has its own scope, maturity and technical evidence.</p>
+          </div>
+          <div className="product-grid stagger">
+            {OWNED_PRODUCTS.map((p, i) => <article key={p.id} className="product-summary">
+              <span className="eyebrow">0{i + 1} / {p.kind}</span>
+              <h3>{p.name}</h3>
+              <p>{p.summary}</p>
+              <span className="product-status">{p.status}</span>
+              <Link href={p.href} className="link">Explore {p.id === "call-intelligence" ? "the product concept" : "the open-source project"}<Arrow /></Link>
+            </article>)}
+          </div>
+        </div>
+      </section>
+      <div className="divider" />
+
+
       {/* ───────────── CAPABILITIES (03) ───────────── */}
       <section id="capabilities" className="sec-bg3">
         <div className="cap-side">SYSTEMS&nbsp;FOR&nbsp;A&nbsp;MORE&nbsp;CAPABLE&nbsp;TOMORROW</div>
         <div className="wrap">
-          <div className="snum">02</div>
+          <div className="snum">03</div>
           <div className="cap-layout">
             <div className="cap-info reveal">
               <div className="eyebrow" style={{ marginBottom: 20 }}>CAPABILITIES</div>
@@ -222,7 +244,7 @@ export default function HomeClient({ clientShowcase }: { clientShowcase?: ReactN
                 <span>Real systems.</span>
                 <span>Real outcomes.</span>
               </h2>
-              <p className="cap-desc">End-to-end AI engineering for high-stakes environments.</p>
+              <p className="cap-desc">Customer-specific AI engineering, consulting and delivery, from knowledge retrieval and workflow agents to private infrastructure and operations.</p>
               <Link href="/services" className="link">
                 Explore all services
                 <Arrow />
@@ -232,11 +254,11 @@ export default function HomeClient({ clientShowcase }: { clientShowcase?: ReactN
               </div>
             </div>
             <div className="cap-cards stagger">
-              {SERVICES.map((c, i) => (
-                <Link href={`/services/${c.slug}`} className="capc" key={c.slug}>
+              {ENTERPRISE_AREAS.map((c, i) => (
+                <Link href={`/capabilities#area-${c.id}`} className="capc" key={c.id}>
                   <div className="capc-n">{String(i + 1).padStart(2, "0")}</div>
-                  <div className="capc-ic">{CAP_ICONS[c.slug] ?? CUBE_ICON}</div>
-                  <h3>{c.short}</h3>
+                  <div className="capc-ic">{CAP_ICONS[c.id] ?? CUBE_ICON}</div>
+                  <h3>{c.title}</h3>
                   <p>{c.summary}</p>
                   <span className="capc-arr"><Arrow /></span>
                 </Link>
@@ -249,27 +271,6 @@ export default function HomeClient({ clientShowcase }: { clientShowcase?: ReactN
       <div className="divider" />
 
       {clientShowcase}
-
-      <section id="products" className="products-overview">
-        <div className="wrap">
-          <div className="snum">03</div>
-          <div className="reveal">
-            <div className="eyebrow">PRODUCTS &amp; INNOVATION</div>
-            <h2 className="mt-5">From applied engineering<br />to product development.</h2>
-            <p className="cap-desc mt-6 max-w-2xl">Our call-intelligence product is under development. Knowledge intelligence and governed agents are available as scoped engineering offerings.</p>
-          </div>
-          <div className="product-grid stagger">
-            {PRODUCTS.map((p, i) => <article key={p.id} className="product-summary">
-              <span className="eyebrow">0{i + 1} / {p.kind}</span>
-              <h3>{p.name}</h3>
-              <p>{p.summary}</p>
-              <span className="product-status">{p.status}</span>
-              <Link href={`/products#${p.id}`} className="link">Explore {p.id === "call-intelligence" ? "the initiative" : "the offering"}<Arrow /></Link>
-            </article>)}
-          </div>
-        </div>
-      </section>
-      <div className="divider" />
 
       {/* ───────────── INDUSTRIES (04) ───────────── */}
       <section id="industries" className="sec-bg4">

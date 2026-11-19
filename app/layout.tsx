@@ -12,7 +12,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "CoreFrame Technologies | Enterprise AI Engineering",
+    default: "CoreFrame Technologies | AI Products & Enterprise Engineering",
     template: "%s — CoreFrame Technologies",
   },
   description: siteConfig.description,
@@ -37,12 +37,12 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: siteConfig.locale,
     url: siteConfig.url,
-    title: "CoreFrame Technologies | Enterprise AI Engineering",
+    title: "CoreFrame Technologies | AI Products & Enterprise Engineering",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "CoreFrame Technologies | Enterprise AI Engineering",
+    title: "CoreFrame Technologies | AI Products & Enterprise Engineering",
     description: siteConfig.description,
   },
   icons: {

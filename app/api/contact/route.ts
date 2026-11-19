@@ -29,7 +29,7 @@ export async function POST(request: Request) {
   }
   // Reject oversized fields instead of silently changing an email or losing a brief.
   // Keep the legacy 12,000-character API allowance for existing integrations.
-  for (const [key, max] of [["name", 150], ["email", 254], ["company", 200], ["message", 12000]] as const) {
+  for (const [key, max] of [["name", 150], ["email", 254], ["company", 200], ["interest", 100], ["message", 12000]] as const) {
     if (typeof body[key] === "string" && body[key].trim().length > max) {
       return NextResponse.json({ success: false, error: `The ${key} field is too long.` }, { status: 400 });
     }
@@ -37,6 +37,11 @@ export async function POST(request: Request) {
   const name = text(body.name, 150);
   const email = text(body.email, 254);
   const company = text(body.company, 200);
+  // Optional for older integrations; required by the current website form.
+  if (body.interest !== undefined && typeof body.interest !== "string") {
+    return NextResponse.json({ success: false, error: "Please choose a valid area of interest." }, { status: 400 });
+  }
+  const interest = text(body.interest, 100);
   const message = text(body.message, 12000);
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !message) {
     return NextResponse.json({ success: false, error: "Name, valid email and message are required." }, { status: 400 });
@@ -58,7 +63,7 @@ export async function POST(request: Request) {
         to: process.env.NOTIFICATION_EMAIL,
         replyTo: email,
         subject: `[${region.label}] New AI enquiry: ${name.replace(/[\r\n]/g, " ")}`,
-        html: `<h2>Enterprise AI enquiry</h2><p>Name: ${escapeHtml(name)}</p><p>Email: ${escapeHtml(email)}</p><p>Company: ${escapeHtml(company)}</p><pre>${escapeHtml(message)}</pre><h3>Attribution</h3><pre>${escapeHtml(JSON.stringify(attribution, null, 2))}</pre>`,
+        html: `<h2>CoreFrame enquiry</h2><p>Name: ${escapeHtml(name)}</p><p>Email: ${escapeHtml(email)}</p><p>Company: ${escapeHtml(company)}</p><p>Area of interest: ${escapeHtml(interest)}</p><pre>${escapeHtml(message)}</pre><h3>Attribution</h3><pre>${escapeHtml(JSON.stringify(attribution, null, 2))}</pre>`,
       });
       emailSent = !error;
       if (error) console.error("[Contact] Email delivery failed");
@@ -68,7 +73,7 @@ export async function POST(request: Request) {
     try {
       const response = await fetch(process.env.WEBHOOK_URL, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "contact_form", data: { name, email, company, message, attribution }, timestamp: new Date().toISOString(), source: "coreframe-landing" }),
+        body: JSON.stringify({ type: "contact_form", data: { name, email, company, interest, message, attribution }, timestamp: new Date().toISOString(), source: "coreframe-landing" }),
         signal: AbortSignal.timeout(8000),
       });
       webhookSent = response.ok;
